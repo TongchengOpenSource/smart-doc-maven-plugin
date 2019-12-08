@@ -3,7 +3,7 @@
 ##### 基于smart-doc项目开发的maven插件
 
 --------------------------------------------------------------------------------------------------------------
-##使用说明
+## 使用说明
 ### 在pom.xml 添加该插件 指定configFile位置和projectName项目名称
 ```
  <plugin>
@@ -143,7 +143,7 @@
   ]
 }
 ```
-##注意事项
+## 注意事项
 * ### 1.当设置ErrorCodeDictionary 和 ApiDataDictionary时 保证项目target文件里包含所需的枚举类型字节码文件，否则会抛出classNotFoundException。
 * ### 2.goal不是必须项，当你使用Idea时，可以通过maven Helper插件选择生成何种文档，如下图：
 ![image.png](https://upload-images.jianshu.io/upload_images/5118042-9cefab064ee3ea93.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
