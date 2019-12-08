@@ -6,7 +6,7 @@
 ## 使用说明
 ### 在pom.xml 添加该插件 指定configFile位置和projectName项目名称
 ```
- <plugin>
+        <plugin>
             <groupId>com.smartdoc.plugin</groupId>
             <artifactId>smartdoc-maven-plugin</artifactId>
             <version>1.0</version>
