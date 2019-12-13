@@ -6,29 +6,27 @@
 ## 使用说明
 ### 在pom.xml 添加该插件 指定configFile位置和projectName项目名称
 ```
-        <plugin>
-            <groupId>com.smartdoc.plugin</groupId>
-            <artifactId>smartdoc-maven-plugin</artifactId>
-            <version>1.0</version>
-            <configuration>
-               <configFile>./src/main/resources/smart-doc.json</configFile>
-                <projectName>测试</projectName>
-            </configuration>
-           <executions>
-               <execution>
-      <!--goal参数表示默认构建 html 类型文档 支持的goal参数有：
-      <goal>html</goal>
-      <goal>markDown</goal> 注意D大写
-      <goal>postman</goal>
-      不是必须项 详情看注意事项 2-->
-                   <goals>
-                       <goal>html</goal>
-                   </goals>
-               </execution>
-           </executions>
-        </plugin>
+<plugin>
+    <groupId>com.github.shalousun</groupId>
+    <artifactId>smart-doc-maven-plugin</artifactId>
+    <version>1.0.0</version>
+    <configuration>
+        <!--指定生成文档的使用的配置文件-->
+        <configFile>./src/main/resources/smart-doc.json</configFile>
+        <!--指定项目名称-->
+        <projectName>测试</projectName>
+    </configuration>
+    <executions>
+        <execution>
+            <phase>compile</phase>
+            <goals>
+                <goal>html</goal>
+            </goals>
+        </execution>
+    </executions>
+</plugin>
 ```
-
+smart-doc-maven-plugin提供的goal包括：html、markDown、postman。
 ------------------------------------------------------------------------------------------------------------------
 ## ApiConfig配置项
 ##### 采用json格式配置<br> json文件位置为pom中configFile中配置的路径

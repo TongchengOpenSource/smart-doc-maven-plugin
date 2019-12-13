@@ -16,8 +16,7 @@ import java.util.List;
 import static com.smartdoc.util.MojoUtils.buildConfig;
 
 /**
- * @author xingzi
- * @date 2019 12 07  17:38
+ * @author xingzi 2019/12/06 17:38
  */
 @Mojo(name = "markDown")
 public class MarkDownMojo extends AbstractMojo {
@@ -27,8 +26,6 @@ public class MarkDownMojo extends AbstractMojo {
     private String projectName;
     @Parameter(defaultValue = "${project}", readonly = true)
     private MavenProject project;
-
-
 
     @Override
     public void execute() {

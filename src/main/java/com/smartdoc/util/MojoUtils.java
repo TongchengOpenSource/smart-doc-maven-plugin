@@ -21,17 +21,16 @@ import java.net.URLClassLoader;
 import java.util.List;
 
 /**
- * @author xingzi
- * @date 2019 12 07  21:19
+ * @author xingzi 2019/12/07  21:19
  */
 public class MojoUtils {
+
     /**
-     * Gson 对象
+     * Gson Object
      */
     public final static Gson GSON = new GsonBuilder().addDeserializationExclusionStrategy(new ExclusionStrategy() {
         @Override
         public boolean shouldSkipField(FieldAttributes fieldAttributes) {
-
             return false;
         }
 
@@ -41,8 +40,14 @@ public class MojoUtils {
         }
     }).create();
 
+    /**
+     * Build ApiConfig
+     * @param configFile config file
+     * @param projectName project name
+     * @param project Maven project object
+     * @return com.power.doc.model.ApiConfig
+     */
     public static ApiConfig buildConfig(File configFile, String projectName, MavenProject project) {
-
         try {
             URL[] runtimeUrls;
             List runtimeClasspathElements = project.getRuntimeClasspathElements();
@@ -56,28 +61,26 @@ public class MojoUtils {
 
             List<ApiDataDictionary> apiDataDictionaries = apiConfig.getDataDictionaries();
             List<ApiErrorCodeDictionary> apiErrorCodes = apiConfig.getErrorCodeDictionaries();
-            if(apiErrorCodes!=null){
+            if (apiErrorCodes != null) {
                 apiErrorCodes.forEach(
                         apiErrorCode -> {
                             String className = apiErrorCode.getEnumClassName();
-                            apiErrorCode.setEnumClass(getClassByClassName(className,runtimeUrls));
+                            apiErrorCode.setEnumClass(getClassByClassName(className, runtimeUrls));
                         }
                 );
             }
-           if(apiDataDictionaries!=null) {
-               apiDataDictionaries.forEach(
-                       apiDataDictionary -> {
-                           String className = apiDataDictionary.getEnumClassName();
-                           apiDataDictionary.setEnumClass(getClassByClassName(className, runtimeUrls));
-                       }
-               );
-           }
+            if (apiDataDictionaries != null) {
+                apiDataDictionaries.forEach(
+                        apiDataDictionary -> {
+                            String className = apiDataDictionary.getEnumClassName();
+                            apiDataDictionary.setEnumClass(getClassByClassName(className, runtimeUrls));
+                        }
+                );
+            }
             if (!StringUtils.isBlank(apiConfig.getProjectName())) {
                 apiConfig.setProjectName(projectName);
             }
-
             return apiConfig;
-
         } catch (FileNotFoundException | MalformedURLException | DependencyResolutionRequiredException e) {
             e.printStackTrace();
             return null;
@@ -86,15 +89,17 @@ public class MojoUtils {
 
     /**
      * 根据 com.xxx.AClass获取类Class
+     *
      * @param className 类名
+     * @param runtimeUrls urls
      * @return 类类型
      */
-    public static   Class getClassByClassName(String className, URL[] runtimeUrls){
+    public static Class getClassByClassName(String className, URL[] runtimeUrls) {
         try {
             URLClassLoader newLoader = new URLClassLoader(runtimeUrls,
                     Thread.currentThread().getContextClassLoader());
             return newLoader.loadClass(className);
-        } catch (  ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
             return null;
         }

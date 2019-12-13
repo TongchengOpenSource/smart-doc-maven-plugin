@@ -12,8 +12,7 @@ import java.io.File;
 import static com.smartdoc.util.MojoUtils.buildConfig;
 
 /**
- * @author xingzi
- * @date 2019 12 07  17:35
+ * @author xingzi 2019/12/07  17:35
  */
 @Mojo(name = "postman")
 public class PostManMojo extends AbstractMojo {
