@@ -4,6 +4,8 @@ package com.smartdoc.mojo;
 import com.power.doc.builder.HtmlApiDocBuilder;
 import com.power.doc.model.ApiConfig;
 import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugins.annotations.Execute;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
@@ -15,6 +17,7 @@ import static com.smartdoc.util.MojoUtils.buildConfig;
 /**
  * @author xingzi 2019/12/06 14:50
  */
+@Execute(phase = LifecyclePhase.COMPILE)
 @Mojo(name = "html")
 public class HtmlMojo extends AbstractMojo {
 
