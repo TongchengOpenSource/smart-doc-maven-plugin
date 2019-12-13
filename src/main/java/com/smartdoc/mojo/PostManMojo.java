@@ -21,7 +21,7 @@ import static com.smartdoc.util.MojoUtils.buildConfig;
 @Mojo(name = "postman")
 public class PostManMojo extends AbstractMojo {
 
-    @Parameter(property = "configFile",defaultValue = GlobalConstants.DEFAULT_CONFIG)
+    @Parameter(property = "configFile", defaultValue = GlobalConstants.DEFAULT_CONFIG)
     private File configFile;
 
     @Parameter(property = "projectName")
@@ -32,8 +32,8 @@ public class PostManMojo extends AbstractMojo {
 
     @Override
     public void execute() {
-        ApiConfig apiConfig =  buildConfig(configFile,projectName,project);
-        if(apiConfig ==null){
+        ApiConfig apiConfig = buildConfig(configFile, projectName, project);
+        if (apiConfig == null) {
             System.out.println(GlobalConstants.ERROR_MSG);
             return;
         }

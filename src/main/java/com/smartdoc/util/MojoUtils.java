@@ -42,9 +42,10 @@ public class MojoUtils {
 
     /**
      * Build ApiConfig
-     * @param configFile config file
+     *
+     * @param configFile  config file
      * @param projectName project name
-     * @param project Maven project object
+     * @param project     Maven project object
      * @return com.power.doc.model.ApiConfig
      */
     public static ApiConfig buildConfig(File configFile, String projectName, MavenProject project) {
@@ -90,7 +91,7 @@ public class MojoUtils {
     /**
      * 根据 com.xxx.AClass获取类Class
      *
-     * @param className 类名
+     * @param className   类名
      * @param runtimeUrls urls
      * @return 类类型
      */

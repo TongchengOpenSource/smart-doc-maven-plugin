@@ -3,7 +3,6 @@ package com.smartdoc.mojo;
 import com.power.doc.builder.ApiDocBuilder;
 import com.power.doc.model.ApiConfig;
 import com.smartdoc.constant.GlobalConstants;
-import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.Execute;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -12,9 +11,6 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 
 import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.List;
 
 import static com.smartdoc.util.MojoUtils.buildConfig;
 
@@ -36,12 +32,11 @@ public class MarkDownMojo extends AbstractMojo {
 
     @Override
     public void execute() {
-
-        ApiConfig apiConfig =  buildConfig(configFile,projectName,project);
-       if(apiConfig ==null){
-           System.out.println(GlobalConstants.ERROR_MSG);
-           return;
-       }
-       ApiDocBuilder.builderControllersApi(apiConfig);
+        ApiConfig apiConfig = buildConfig(configFile, projectName, project);
+        if (apiConfig == null) {
+            System.out.println(GlobalConstants.ERROR_MSG);
+            return;
+        }
+        ApiDocBuilder.builderControllersApi(apiConfig);
     }
 }
