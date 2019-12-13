@@ -21,7 +21,7 @@ import java.net.URLClassLoader;
 import java.util.List;
 
 /**
- * @author xingzi 2019/12/07  21:19
+ * @author xingzi 2019/12/07 21:19
  */
 public class MojoUtils {
 

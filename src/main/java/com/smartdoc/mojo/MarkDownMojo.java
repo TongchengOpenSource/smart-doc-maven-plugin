@@ -18,7 +18,7 @@ import static com.smartdoc.util.MojoUtils.buildConfig;
  * @author xingzi 2019/12/06 17:38
  */
 @Execute(phase = LifecyclePhase.COMPILE)
-@Mojo(name = "markDown")
+@Mojo(name = "markdown")
 public class MarkDownMojo extends AbstractMojo {
 
     @Parameter(property = "configFile", defaultValue = GlobalConstants.DEFAULT_CONFIG)

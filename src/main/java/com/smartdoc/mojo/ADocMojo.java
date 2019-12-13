@@ -19,7 +19,7 @@ import static com.smartdoc.util.MojoUtils.buildConfig;
  * @author xingzi  2019/12/13  16:23
  */
 @Execute(phase = LifecyclePhase.COMPILE)
-@Mojo(name = "aDoc")
+@Mojo(name = "adoc")
 public class ADocMojo extends AbstractMojo {
     @Parameter(property = "configFile", defaultValue = GlobalConstants.DEFAULT_CONFIG)
     private File configFile;

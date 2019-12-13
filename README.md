@@ -144,16 +144,16 @@ smart-doc-maven-plugin提供的goal包括：html、markDown、postman。
 ## 注意事项
 * ### 1.当设置ErrorCodeDictionary 和 ApiDataDictionary时 保证项目target文件里包含所需的枚举类型字节码文件，否则会抛出classNotFoundException。
   ### 您可以在插件中添加以下配置解决此问题
-    ```
-    <executions>
-        <execution>
-            <phase>compile</phase>
-            <goals>
-                <goal>html</goal>
-            </goals>
-        </execution>
-    </executions>
-    ```
+```
+<executions>
+    <execution>
+        <phase>compile</phase>
+        <goals>
+            <goal>html</goal>
+        </goals>
+    </execution>
+</executions>
+```
 * ### 2.goal不是必须项，当你使用Idea时，可以通过maven Helper插件选择生成何种文档，如下图：
 ![image.png](https://upload-images.jianshu.io/upload_images/5118042-9cefab064ee3ea93.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 * ### 3.对于配置文件不理解的地方可以参照[smart-doc](https://gitee.com/sunyurepository/smart-doc) 项目的配置文档。
