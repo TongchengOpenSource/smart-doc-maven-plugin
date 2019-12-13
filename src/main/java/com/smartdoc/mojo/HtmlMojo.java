@@ -3,6 +3,7 @@ package com.smartdoc.mojo;
 
 import com.power.doc.builder.HtmlApiDocBuilder;
 import com.power.doc.model.ApiConfig;
+import com.smartdoc.constant.GlobalConstants;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.Execute;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -21,20 +22,20 @@ import static com.smartdoc.util.MojoUtils.buildConfig;
 @Mojo(name = "html")
 public class HtmlMojo extends AbstractMojo {
 
-
-    @Parameter(property = "configFile", defaultValue = "./src/main/resources/smart-doc.json")
+    @Parameter(property = "configFile", defaultValue = GlobalConstants.DEFAULT_CONFIG)
     private File configFile;
+
     @Parameter(property = "projectName")
     private String projectName;
+
     @Parameter(defaultValue = "${project}", readonly = true)
     private MavenProject project;
 
     @Override
     public void execute() {
-
         ApiConfig apiConfig = buildConfig(configFile, projectName, project);
         if (apiConfig == null) {
-            System.out.println("构建config文件失败 检查配置文件是否正确");
+            System.out.println(GlobalConstants.ERROR_MSG);
             return;
         }
         HtmlApiDocBuilder.builderControllersApi(apiConfig);

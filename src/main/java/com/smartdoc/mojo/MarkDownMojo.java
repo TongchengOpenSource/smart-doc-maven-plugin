@@ -2,6 +2,7 @@ package com.smartdoc.mojo;
 
 import com.power.doc.builder.ApiDocBuilder;
 import com.power.doc.model.ApiConfig;
+import com.smartdoc.constant.GlobalConstants;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.Execute;
@@ -23,10 +24,13 @@ import static com.smartdoc.util.MojoUtils.buildConfig;
 @Execute(phase = LifecyclePhase.COMPILE)
 @Mojo(name = "markDown")
 public class MarkDownMojo extends AbstractMojo {
-    @Parameter(property = "configFile", defaultValue = "./src/main/resources/smart-doc.json")
+
+    @Parameter(property = "configFile", defaultValue = GlobalConstants.DEFAULT_CONFIG)
     private File configFile;
+
     @Parameter(property = "projectName")
     private String projectName;
+
     @Parameter(defaultValue = "${project}", readonly = true)
     private MavenProject project;
 
@@ -35,11 +39,9 @@ public class MarkDownMojo extends AbstractMojo {
 
         ApiConfig apiConfig =  buildConfig(configFile,projectName,project);
        if(apiConfig ==null){
-           System.out.println("构建config文件失败 检查配置文件是否正确");
+           System.out.println(GlobalConstants.ERROR_MSG);
            return;
        }
        ApiDocBuilder.builderControllersApi(apiConfig);
     }
-
-
 }

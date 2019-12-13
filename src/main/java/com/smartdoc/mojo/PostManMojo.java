@@ -2,6 +2,7 @@ package com.smartdoc.mojo;
 
 import com.power.doc.builder.PostmanJsonBuilder;
 import com.power.doc.model.ApiConfig;
+import com.smartdoc.constant.GlobalConstants;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.Execute;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -14,30 +15,28 @@ import java.io.File;
 import static com.smartdoc.util.MojoUtils.buildConfig;
 
 /**
- * @author xingzi 2019/12/07  17:35
+ * @author xingzi 2019/12/07 17:35
  */
 @Execute(phase = LifecyclePhase.COMPILE)
 @Mojo(name = "postman")
 public class PostManMojo extends AbstractMojo {
 
-
-    @Parameter(property = "configFile",defaultValue = "./src/main/resources/default.json")
+    @Parameter(property = "configFile",defaultValue = GlobalConstants.DEFAULT_CONFIG)
     private File configFile;
+
     @Parameter(property = "projectName")
     private String projectName;
+
     @Parameter(defaultValue = "${project}", readonly = true)
     private MavenProject project;
 
-
     @Override
     public void execute() {
-
         ApiConfig apiConfig =  buildConfig(configFile,projectName,project);
         if(apiConfig ==null){
-            System.out.println("构建config文件失败 检查配置文件是否正确");
+            System.out.println(GlobalConstants.ERROR_MSG);
             return;
         }
         PostmanJsonBuilder.buildPostmanApi(apiConfig);
     }
-
 }
