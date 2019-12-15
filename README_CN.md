@@ -6,7 +6,7 @@
 启动`smart-doc`扫描代码分析生成接口文档。可以直接运行`maven`命令
 或者是`IDE`中点击`smart-doc-maven-plugin`预设好的`goal`即可生成接口文档。
 
-[关于smart-doc](ttps://gitee.com/sunyurepository/smart-doc)
+[关于smart-doc](https://gitee.com/sunyurepository/smart-doc)
 
 ## Getting started
 ### Add plugin
@@ -133,7 +133,7 @@ OS name: "windows 10", version: "10.0", arch: "amd64", family: "dos"
 mvn clean install -Dmaven.test.skip=true
 ```
 ## Releases
-[发布记录](https://gitee.com/sunyurepository/smart-doc/blob/master/CHANGELOG.md)
+[发布记录](https://gitee.com/sunyurepository/smart-doc-maven-plugin/blob/master/CHANGELOG.md)
 ## Other reference
 - [smart-doc功能使用介绍](https://my.oschina.net/u/1760791/blog/2250962)
 - [smart-doc官方wiki](https://gitee.com/sunyurepository/smart-doc/wikis/Home?sort_id=1652800)
