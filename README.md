@@ -1,10 +1,10 @@
 <h1 align="center"><a href="https://github.com/shalousun/smart-doc-maven-plugin" target="_blank">Smart-Doc Maven Plugin</a></h1>
 
 ## Introduce
-`smart-doc-maven-plugin`是`smart-doc`官方团队开发的`maven`插件，该插件从`smart-doc 1.7.9`版本开始提供，
-使用`smart-doc-maven-plugin`更方便用户集成到自己的项目中，集成也更加轻量，你不再需要在项目中编写单元测试来
-启动`smart-doc`扫描代码分析生成接口文档。可以直接运行`maven`命令
-或者是`IDE`中点击`smart-doc-maven-plugin`预设好的`goal`即可生成接口文档。
+smart-doc-maven-plugin是smart-doc官方团队开发的`maven`插件，该插件从smart-doc 1.7.9版本开始提供，
+使用smart-doc-maven-plugin更方便用户集成到自己的项目中，集成也更加轻量，你不再需要在项目中编写单元测试来
+启动smart-doc扫描代码分析生成接口文档。可以直接运行`maven`命令
+或者是IDE中点击smart-doc-maven-plugin预设好的`goal`即可生成接口文档。
 
 [关于smart-doc](https://gitee.com/sunyurepository/smart-doc)
 
@@ -32,7 +32,7 @@
 </plugin>
 ```
 ### Create a json config 
-在自己的项目中创建一个`json`配置文件，`smart-doc-maven-plugin`插件会根据这个配置生成项目的接口文档。
+在自己的项目中创建一个json配置文件，smart-doc-maven-plugin插件会根据这个配置生成项目的接口文档。
 例如在项目中创建`/src/main/resources/smart-doc.json`。配置内容参考如下。
 ```
 {
@@ -94,7 +94,7 @@
   ]
 }
 ```
-**注意：** 上面的json配置完全使用`smart-doc`的`ApiConfig`转化成json而来。因此项目配置也可以参考`smart-doc`的介绍。
+**注意：** 上面的json配置完全使用smart-doc的`ApiConfig`转化成json而来。因此项目配置也可以参考smart-doc的介绍。
 ### Generated document
 #### Use Maven command
 ```
