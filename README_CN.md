@@ -34,6 +34,14 @@ smart-doc-maven-plugin是smart-doc官方团队开发的`maven`插件，该插件
 ### Create a json config 
 在自己的项目中创建一个json配置文件，smart-doc-maven-plugin插件会根据这个配置生成项目的接口文档。
 例如在项目中创建`/src/main/resources/smart-doc.json`。配置内容参考如下。
+
+**最小配置单元:**
+```
+{
+   "outPath": "D://md2" //指定文档的输出路径
+}
+```
+**详细配置说明:**
 ```
 {
   "serverUrl": "http://127.0.0.1", //设置服务器地址,非必须
