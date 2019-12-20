@@ -33,9 +33,9 @@ public class HtmlMojo extends AbstractMojo {
 
     @Override
     public void execute() {
-        ApiConfig apiConfig = buildConfig(configFile, projectName, project);
+        ApiConfig apiConfig = buildConfig(configFile, projectName, project, getLog());
         if (apiConfig == null) {
-            System.out.println(GlobalConstants.ERROR_MSG);
+            getLog().info(GlobalConstants.ERROR_MSG);
             return;
         }
         HtmlApiDocBuilder.builderControllersApi(apiConfig);

@@ -1,7 +1,6 @@
 package com.smartdoc.mojo;
 
 import com.power.doc.builder.AdocDocBuilder;
-import com.power.doc.builder.HtmlApiDocBuilder;
 import com.power.doc.model.ApiConfig;
 import com.smartdoc.constant.GlobalConstants;
 import org.apache.maven.plugin.AbstractMojo;
@@ -32,9 +31,9 @@ public class ADocMojo extends AbstractMojo {
 
     @Override
     public void execute() {
-        ApiConfig apiConfig = buildConfig(configFile, projectName, project);
+        ApiConfig apiConfig = buildConfig(configFile, projectName, project, getLog());
         if (apiConfig == null) {
-            System.out.println(GlobalConstants.ERROR_MSG);
+            getLog().info(GlobalConstants.ERROR_MSG);
             return;
         }
         AdocDocBuilder.builderControllersApi(apiConfig);
