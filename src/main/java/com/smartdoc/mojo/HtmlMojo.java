@@ -1,6 +1,7 @@
 package com.smartdoc.mojo;
 
 
+import com.google.gson.Gson;
 import com.power.doc.builder.HtmlApiDocBuilder;
 import com.power.doc.model.ApiConfig;
 import com.smartdoc.constant.GlobalConstants;
@@ -38,6 +39,8 @@ public class HtmlMojo extends AbstractMojo {
             System.out.println(GlobalConstants.ERROR_MSG);
             return;
         }
+
+
         HtmlApiDocBuilder.builderControllersApi(apiConfig);
     }
 }

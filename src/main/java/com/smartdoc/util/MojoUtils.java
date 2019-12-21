@@ -78,7 +78,7 @@ public class MojoUtils {
                         }
                 );
             }
-            if (!StringUtils.isBlank(apiConfig.getProjectName())) {
+            if (StringUtils.isBlank(apiConfig.getProjectName())) {
                 apiConfig.setProjectName(projectName);
             }
             return apiConfig;

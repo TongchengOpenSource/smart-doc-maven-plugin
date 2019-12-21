@@ -18,7 +18,7 @@ smart-doc-maven-plugin是smart-doc官方团队开发的`maven`插件，该插件
     <configuration>
         <!--指定生成文档的使用的配置文件-->
         <configFile>./src/main/resources/smart-doc.json</configFile>
-        <!--指定项目名称-->
+        <!--指定项目名称 以配置文件project为主-->
         <projectName>测试</projectName>
     </configuration>
     <executions>
@@ -76,7 +76,7 @@ smart-doc-maven-plugin是smart-doc官方团队开发的`maven`插件，该插件
       "value": "00000"//设置响应码的值
     }
   ],
-  "requestHeaders": [ //设置请求头，没有需求可以不设置
+  "requestHeaders": [ //设置全局请求头，没有需求可以不设置
     {
       "name": "token",
       "type": "string",
