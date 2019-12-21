@@ -8,8 +8,10 @@ import com.power.common.util.FileUtil;
 import com.power.doc.model.ApiConfig;
 import com.power.doc.model.ApiDataDictionary;
 import com.power.doc.model.ApiErrorCodeDictionary;
+import com.power.doc.model.SourceCodePath;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
+import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
 
 import java.io.File;
@@ -19,6 +21,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author xingzi 2019/12/07 21:19
@@ -48,7 +51,7 @@ public class MojoUtils {
      * @param project     Maven project object
      * @return com.power.doc.model.ApiConfig
      */
-    public static ApiConfig buildConfig(File configFile, String projectName, MavenProject project) {
+    public static ApiConfig buildConfig(File configFile, String projectName, MavenProject project, Log log) {
         try {
             URL[] runtimeUrls;
             List runtimeClasspathElements = project.getRuntimeClasspathElements();
@@ -81,6 +84,7 @@ public class MojoUtils {
             if (StringUtils.isBlank(apiConfig.getProjectName())) {
                 apiConfig.setProjectName(projectName);
             }
+            addSourcePaths(project, apiConfig, log);
             return apiConfig;
         } catch (FileNotFoundException | MalformedURLException | DependencyResolutionRequiredException e) {
             e.printStackTrace();
@@ -103,6 +107,27 @@ public class MojoUtils {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    private static void addSourcePaths(MavenProject project, ApiConfig apiConfig, Log log) {
+        List<String> sourceRoots = project.getCompileSourceRoots();
+        sourceRoots.forEach(s -> apiConfig.setSourceCodePaths(SourceCodePath.path().setPath(s)));
+        if (project.hasParent()) {
+            MavenProject mavenProject = project.getParent();
+            if (null != mavenProject) {
+                log.info("--- parent project name is [" + mavenProject.getName() + "]");
+                File file = mavenProject.getBasedir();
+                if (!Objects.isNull(file)) {
+                    log.info("--- parent project basedir is " + file.getPath());
+                    apiConfig.setSourceCodePaths(SourceCodePath.path().setPath(file.getPath()));
+                    log.info("--- smart-doc-maven-plugin loaded resource from " + file.getPath());
+                } else {
+                    log.info("WARN: smart-doc-maven-plugin checked you have a parent project, but not found basedir.");
+                }
+            }
+        } else {
+            log.info("--- This is a single module project.");
         }
     }
 }
