@@ -14,7 +14,7 @@ smart-doc-maven-plugin是smart-doc官方团队开发的`maven`插件，该插件
 <plugin>
     <groupId>com.github.shalousun</groupId>
     <artifactId>smart-doc-maven-plugin</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <configuration>
         <!--指定生成文档的使用的配置文件-->
         <configFile>./src/main/resources/smart-doc.json</configFile>
