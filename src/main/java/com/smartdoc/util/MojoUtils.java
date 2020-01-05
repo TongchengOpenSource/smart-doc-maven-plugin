@@ -9,8 +9,12 @@ import com.power.doc.model.ApiConfig;
 import com.power.doc.model.ApiDataDictionary;
 import com.power.doc.model.ApiErrorCodeDictionary;
 import com.power.doc.model.SourceCodePath;
+import com.smartdoc.loader.SmartDocPluginClassLoader;
+import com.thoughtworks.qdox.JavaProjectBuilder;
+import com.thoughtworks.qdox.model.JavaClass;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
+import org.apache.maven.model.Dependency;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
 
@@ -53,23 +57,16 @@ public class MojoUtils {
      */
     public static ApiConfig buildConfig(File configFile, String projectName, MavenProject project, Log log) {
         try {
-            URL[] runtimeUrls;
-            List runtimeClasspathElements = project.getRuntimeClasspathElements();
-            runtimeUrls = new URL[runtimeClasspathElements.size()];
-            for (int i = 0; i < runtimeClasspathElements.size(); i++) {
-                String element = (String) runtimeClasspathElements.get(i);
-                runtimeUrls[i] = new File(element).toURI().toURL();
-            }
+            ClassLoader classLoader = new SmartDocPluginClassLoader().getClassLoader(project,log);
             String data = FileUtil.getFileContent(new FileInputStream(configFile));
             ApiConfig apiConfig = GSON.fromJson(data, ApiConfig.class);
-
             List<ApiDataDictionary> apiDataDictionaries = apiConfig.getDataDictionaries();
             List<ApiErrorCodeDictionary> apiErrorCodes = apiConfig.getErrorCodeDictionaries();
             if (apiErrorCodes != null) {
                 apiErrorCodes.forEach(
                         apiErrorCode -> {
                             String className = apiErrorCode.getEnumClassName();
-                            apiErrorCode.setEnumClass(getClassByClassName(className, runtimeUrls));
+                            apiErrorCode.setEnumClass(getClassByClassName(className, classLoader));
                         }
                 );
             }
@@ -77,19 +74,21 @@ public class MojoUtils {
                 apiDataDictionaries.forEach(
                         apiDataDictionary -> {
                             String className = apiDataDictionary.getEnumClassName();
-                            apiDataDictionary.setEnumClass(getClassByClassName(className, runtimeUrls));
+                            apiDataDictionary.setEnumClass(getClassByClassName(className, classLoader));
                         }
                 );
             }
             if (StringUtils.isBlank(apiConfig.getProjectName())) {
                 apiConfig.setProjectName(projectName);
             }
+
             addSourcePaths(project, apiConfig, log);
             return apiConfig;
-        } catch (FileNotFoundException | MalformedURLException | DependencyResolutionRequiredException e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
             return null;
         }
+
     }
 
     /**
@@ -99,11 +98,9 @@ public class MojoUtils {
      * @param runtimeUrls urls
      * @return 类类型
      */
-    public static Class getClassByClassName(String className, URL[] runtimeUrls) {
+    public static Class getClassByClassName(String className, ClassLoader classLoader) {
         try {
-            URLClassLoader newLoader = new URLClassLoader(runtimeUrls,
-                    Thread.currentThread().getContextClassLoader());
-            return newLoader.loadClass(className);
+            return classLoader.loadClass(className);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
             return null;
