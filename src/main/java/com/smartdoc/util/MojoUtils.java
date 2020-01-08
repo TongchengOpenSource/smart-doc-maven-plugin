@@ -95,7 +95,7 @@ public class MojoUtils {
      * 根据 com.xxx.AClass获取类Class
      *
      * @param className   类名
-     * @param runtimeUrls urls
+     * @param classLoader urls
      * @return 类类型
      */
     public static Class getClassByClassName(String className, ClassLoader classLoader) {

@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @see jsonschema2pojo
+ *
  * Represents the classpath built from a maven project's dependencies.
  */
 public class SmartDocPluginClassLoader {
@@ -50,14 +50,10 @@ public class SmartDocPluginClassLoader {
      * @throws DependencyResolutionRequiredException if maven encounters a problem resolving project dependencies
      */
     private ClassLoader getClassLoader(MavenProject project, final ClassLoader parent, Log log) throws DependencyResolutionRequiredException {
-
         @SuppressWarnings("unchecked")
         List<String> classpathElements = project.getCompileClasspathElements();
-
         final List<URL> classpathUrls = new ArrayList<>(classpathElements.size());
-
         for (String classpathElement : classpathElements) {
-
             try {
                 log.debug("Adding project artifact to classpath: " + classpathElement);
                 classpathUrls.add(new File(classpathElement).toURI().toURL());
@@ -66,10 +62,8 @@ public class SmartDocPluginClassLoader {
             }
 
         }
-
         return AccessController.doPrivileged((PrivilegedAction<ClassLoader>) () ->
                 new URLClassLoader(classpathUrls.toArray(new URL[classpathUrls.size()]), parent));
-
     }
 
     public ClassLoader getClassLoader(MavenProject project, Log log) {

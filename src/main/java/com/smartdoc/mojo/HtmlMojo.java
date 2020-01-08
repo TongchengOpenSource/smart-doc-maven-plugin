@@ -39,8 +39,6 @@ public class HtmlMojo extends AbstractMojo {
             getLog().info(GlobalConstants.ERROR_MSG);
             return;
         }
-
-
         HtmlApiDocBuilder.builderControllersApi(apiConfig);
     }
 }
