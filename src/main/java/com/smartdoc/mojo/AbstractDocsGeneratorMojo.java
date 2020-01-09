@@ -6,6 +6,7 @@ import com.smartdoc.util.ClassLoaderUtil;
 import com.smartdoc.util.FileUtil;
 import com.thoughtworks.qdox.JavaProjectBuilder;
 import org.apache.maven.artifact.Artifact;
+import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.artifact.resolver.ArtifactResolutionRequest;
 import org.apache.maven.artifact.resolver.ArtifactResolutionResult;
 import org.apache.maven.plugin.AbstractMojo;
@@ -43,6 +44,9 @@ public abstract class AbstractDocsGeneratorMojo extends AbstractMojo {
 
     @Component
     protected RepositorySystem repositorySystem;
+
+    @Parameter(defaultValue = "${localRepository}", required = true, readonly = true)
+    private ArtifactRepository localRepository;
 
     protected JavaProjectBuilder javaProjectBuilder;
 
@@ -106,6 +110,7 @@ public abstract class AbstractDocsGeneratorMojo extends AbstractMojo {
         // create request
         ArtifactResolutionRequest request = new ArtifactResolutionRequest();
         request.setArtifact(sourcesArtifact);
+        request.setRemoteRepositories(project.getRemoteArtifactRepositories());
         // resolve deps
         ArtifactResolutionResult result = repositorySystem.resolve(request);
 
