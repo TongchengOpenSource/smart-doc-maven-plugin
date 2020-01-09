@@ -5,7 +5,6 @@ import com.smartdoc.constant.GlobalConstants;
 import com.smartdoc.util.ClassLoaderUtil;
 import com.smartdoc.util.FileUtil;
 import com.thoughtworks.qdox.JavaProjectBuilder;
-import com.thoughtworks.qdox.model.JavaClass;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.resolver.ArtifactResolutionRequest;
 import org.apache.maven.artifact.resolver.ArtifactResolutionResult;
@@ -21,7 +20,6 @@ import org.apache.maven.repository.RepositorySystem;
 import java.io.File;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.util.Collection;
 import java.util.Enumeration;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
@@ -56,25 +54,23 @@ public abstract class AbstractDocsGeneratorMojo extends AbstractMojo {
             getLog().info(GlobalConstants.ERROR_MSG);
             return;
         }
-        if(! FileUtil.isAbsPath(apiConfig.getOutPath())){
-            apiConfig.setOutPath(project.getBasedir().getPath()+"/"+apiConfig.getOutPath());
-            System.out.println("API File IN " + apiConfig.getOutPath());
-        }else {
-            System.out.println("API File IN (C:):" + apiConfig.getOutPath());
+        if (!FileUtil.isAbsPath(apiConfig.getOutPath())) {
+            apiConfig.setOutPath(project.getBasedir().getPath() + "/" + apiConfig.getOutPath());
+            getLog().info("API File IN " + apiConfig.getOutPath());
+        } else {
+            getLog().info("API File IN (C:):" + apiConfig.getOutPath());
         }
 
 
-        this.executeMojo(apiConfig,javaProjectBuilder);
+        this.executeMojo(apiConfig, javaProjectBuilder);
     }
 
-    public abstract void executeMojo(ApiConfig apiConfig,JavaProjectBuilder javaProjectBuilder) throws MojoExecutionException, MojoFailureException;
-
-    // *******************************************************
-    // CLASSLOADING
-    // *******************************************************
+    public abstract void executeMojo(ApiConfig apiConfig, JavaProjectBuilder javaProjectBuilder)
+            throws MojoExecutionException, MojoFailureException;
 
     /**
      * Classloading
+     *
      * @return
      * @throws MojoExecutionException
      */
@@ -92,6 +88,7 @@ public abstract class AbstractDocsGeneratorMojo extends AbstractMojo {
 
     /**
      * load sources
+     *
      * @param javaDocBuilder
      */
     private void loadSourcesDependencies(JavaProjectBuilder javaDocBuilder) {
@@ -115,7 +112,7 @@ public abstract class AbstractDocsGeneratorMojo extends AbstractMojo {
         // load source file into javadoc builder
         result.getArtifacts().forEach(artifact -> {
             try (JarFile jarFile = new JarFile(artifact.getFile())) {
-                for (Enumeration<?> entries = jarFile.entries(); entries.hasMoreElements();) {
+                for (Enumeration<?> entries = jarFile.entries(); entries.hasMoreElements(); ) {
                     JarEntry entry = (JarEntry) entries.nextElement();
                     String name = entry.getName();
                     if (name.endsWith(".java") && !name.endsWith("/package-info.java")) {
