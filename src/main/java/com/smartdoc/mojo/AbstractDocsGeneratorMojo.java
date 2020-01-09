@@ -3,6 +3,7 @@ package com.smartdoc.mojo;
 import com.power.doc.model.ApiConfig;
 import com.smartdoc.constant.GlobalConstants;
 import com.smartdoc.util.ClassLoaderUtil;
+import com.smartdoc.util.FileUtil;
 import com.thoughtworks.qdox.JavaProjectBuilder;
 import com.thoughtworks.qdox.model.JavaClass;
 import org.apache.maven.artifact.Artifact;
@@ -50,19 +51,19 @@ public abstract class AbstractDocsGeneratorMojo extends AbstractMojo {
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         javaProjectBuilder = buildJavaProjectBuilder();
-        Collection<JavaClass> classes = javaProjectBuilder.getClasses();
-        for(JavaClass javaClass:classes){
-            System.out.println("className:"+javaClass.getFullyQualifiedName());
-        }
-        // test get class
-        JavaClass javaClass = javaProjectBuilder.getClassByName("com.power.test.model.User");
-        System.out.println(javaClass.getFields().size());
-        //
         ApiConfig apiConfig = buildConfig(configFile, projectName, project, getLog());
         if (apiConfig == null) {
             getLog().info(GlobalConstants.ERROR_MSG);
             return;
         }
+        if(! FileUtil.isAbsPath(apiConfig.getOutPath())){
+            apiConfig.setOutPath(project.getBasedir().getPath()+"/"+apiConfig.getOutPath());
+            System.out.println("API File IN " + apiConfig.getOutPath());
+        }else {
+            System.out.println("API File IN (C:):" + apiConfig.getOutPath());
+        }
+
+
         this.executeMojo(apiConfig,javaProjectBuilder);
     }
 
@@ -118,8 +119,6 @@ public abstract class AbstractDocsGeneratorMojo extends AbstractMojo {
                     JarEntry entry = (JarEntry) entries.nextElement();
                     String name = entry.getName();
                     if (name.endsWith(".java") && !name.endsWith("/package-info.java")) {
-                        String jarFileName = "jar:" + artifact.getFile().toURI().toURL().toString() + "!/" + name;
-                        getLog().info("name:"+jarFileName);
                         javaDocBuilder.addSource(
                                 new URL("jar:" + artifact.getFile().toURI().toURL().toString() + "!/" + name));
                     }

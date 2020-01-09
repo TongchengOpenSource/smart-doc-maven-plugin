@@ -38,7 +38,7 @@ smart-doc-maven-plugin是smart-doc官方团队开发的`maven`插件，该插件
 **最小配置单元:**
 ```
 {
-   "outPath": "D://md2" //指定文档的输出路径
+   "outPath": "D://md2" //指定文档的输出路径  相对路径时请写 ./ 不要写 / eg:./src/main/resources/static/doc
 }
 ```
 **详细配置说明:**
