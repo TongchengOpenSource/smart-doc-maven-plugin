@@ -9,21 +9,14 @@ import com.power.doc.model.ApiConfig;
 import com.power.doc.model.ApiDataDictionary;
 import com.power.doc.model.ApiErrorCodeDictionary;
 import com.power.doc.model.SourceCodePath;
-import com.smartdoc.loader.SmartDocPluginClassLoader;
-import com.thoughtworks.qdox.JavaProjectBuilder;
-import com.thoughtworks.qdox.model.JavaClass;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.maven.artifact.DependencyResolutionRequiredException;
-import org.apache.maven.model.Dependency;
+import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.util.List;
 import java.util.Objects;
 
@@ -53,11 +46,13 @@ public class MojoUtils {
      * @param configFile  config file
      * @param projectName project name
      * @param project     Maven project object
+     * @param log         maven plugin log
      * @return com.power.doc.model.ApiConfig
+     * @throws MojoExecutionException MojoExecutionException
      */
-    public static ApiConfig buildConfig(File configFile, String projectName, MavenProject project, Log log) {
+    public static ApiConfig buildConfig(File configFile, String projectName, MavenProject project, Log log) throws MojoExecutionException {
         try {
-            ClassLoader classLoader = new SmartDocPluginClassLoader().getClassLoader(project,log);
+            ClassLoader classLoader = ClassLoaderUtil.getRuntimeClassLoader(project);
             String data = FileUtil.getFileContent(new FileInputStream(configFile));
             ApiConfig apiConfig = GSON.fromJson(data, ApiConfig.class);
             List<ApiDataDictionary> apiDataDictionaries = apiConfig.getDataDictionaries();
@@ -113,18 +108,16 @@ public class MojoUtils {
         if (project.hasParent()) {
             MavenProject mavenProject = project.getParent();
             if (null != mavenProject) {
-                log.info("--- parent project name is [" + mavenProject.getName() + "]");
+//                log.info("--- parent project name is [" + mavenProject.getName() + "]");
                 File file = mavenProject.getBasedir();
                 if (!Objects.isNull(file)) {
-                    log.info("--- parent project basedir is " + file.getPath());
+//                    log.info("--- parent project basedir is " + file.getPath());
                     apiConfig.setSourceCodePaths(SourceCodePath.path().setPath(file.getPath()));
-                    log.info("--- smart-doc-maven-plugin loaded resource from " + file.getPath());
+//                    log.info("--- smart-doc-maven-plugin loaded resource from " + file.getPath());
                 } else {
-                    log.info("WARN: smart-doc-maven-plugin checked you have a parent project, but not found basedir.");
+//                    log.info("WARN: smart-doc-maven-plugin checked you have a parent project, but not found basedir.");
                 }
             }
-        } else {
-            log.info("--- This is a single module project.");
         }
     }
 }

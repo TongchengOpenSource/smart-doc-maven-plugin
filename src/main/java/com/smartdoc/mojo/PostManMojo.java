@@ -16,6 +16,6 @@ public class PostManMojo extends AbstractDocsGeneratorMojo {
 
     @Override
     public void executeMojo(ApiConfig apiConfig, JavaProjectBuilder javaProjectBuilder)  {
-        PostmanJsonBuilder.buildPostmanApi(apiConfig,javaProjectBuilder);
+        PostmanJsonBuilder.buildPostmanCollection(apiConfig,javaProjectBuilder);
     }
 }
