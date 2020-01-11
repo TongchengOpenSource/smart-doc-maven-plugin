@@ -4,6 +4,7 @@ import org.apache.maven.artifact.Artifact;
 
 /**
  * Artifact filter util
+ *
  * @author yu 2020/1/11.
  */
 public class ArtifactFilterUtil {
@@ -65,11 +66,15 @@ public class ArtifactFilterUtil {
         }
     }
 
-    public static boolean ignoreSpringBootArtifactById(String artifactId){
+    public static boolean ignoreSpringBootArtifactById(String artifactId) {
         switch (artifactId) {
             case "spring-boot":
             case "spring-boot-starter-actuator":
             case "spring-boot-starter":
+            case "spring-boot-starter-undertow":
+            case "spring-boot-starter-aop":
+            case "spring-boot-starter-json":
+            case "spring-boot-starter-web":
                 return true;
             default:
                 return false;
