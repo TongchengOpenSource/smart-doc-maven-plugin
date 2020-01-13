@@ -60,6 +60,7 @@ public class ArtifactFilterUtil {
             case "spring-web":
             case "spring-webmvc":
             case "hibernate-validator":
+            case "xstream":
                 return true;
             default:
                 return false;
