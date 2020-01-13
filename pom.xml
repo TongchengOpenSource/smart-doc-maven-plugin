@@ -72,6 +72,7 @@
             <groupId>com.github.shalousun</groupId>
             <artifactId>smart-doc</artifactId>
             <version>1.8.1</version>
+            <exclusions></exclusions>
         </dependency>
     </dependencies>
     <build>

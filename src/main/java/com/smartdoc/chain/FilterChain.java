@@ -20,26 +20,16 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.smartdoc.util;
+package com.smartdoc.chain;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import org.apache.maven.artifact.Artifact;
 
 /**
- * @author xingzi  2020/01/09  21:18
+ * @author yu 2020/1/13.
  */
-public class FileUtil {
-    private static String regex = "^[a-zA-Z]:";
-    private static Pattern pattern = Pattern.compile(regex);
+public interface FilterChain {
 
-    public static boolean isAbsPath(String path) {
-        Matcher matcher = pattern.matcher(path);
-        if (matcher.find() || path.startsWith("/")) {
-            return true;
-        } else {
-            return false;
+    void setNext(FilterChain nextInChain);
 
-        }
-    }
-
+    boolean ignoreArtifactById(Artifact artifact);
 }

@@ -1,5 +1,28 @@
+/*
+ * smart-doc https://github.com/shalousun/smart-doc
+ *
+ * Copyright (C) 2019-2020 smart-doc
+ *
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 package com.smartdoc.util;
 
+import com.smartdoc.chain.*;
 import org.apache.maven.artifact.Artifact;
 
 /**
@@ -19,67 +42,16 @@ public class ArtifactFilterUtil {
         if ("test".equals(artifact.getScope())) {
             return true;
         }
-        String artifactId = artifact.getArtifactId();
-        if (artifactId.startsWith("maven")) {
-            return true;
-        }
-        if (artifactId.startsWith("asm")) {
-            return true;
-        }
-        if (artifactId.startsWith("tomcat") || artifactId.startsWith("jboss") || artifactId.startsWith("undertow")) {
-            return true;
-        }
-
-        if (artifactId.startsWith("jackson")) {
-            return true;
-        }
-
-        if (artifactId.contains("log4j") || artifactId.contains("logback") || artifactId.contains("slf4j")) {
-            return true;
-        }
-
-        if (artifactId.startsWith("micrometer") || artifactId.startsWith("spring-boot-actuator")) {
-            return true;
-        }
-        return ignoreArtifactById(artifactId);
+        FilterChain startsWithFilterChain = new StartsWithFilterChain();
+        FilterChain containsFilterChain = new ContainsFilterChain();
+        FilterChain commonArtifactFilterChain = new CommonArtifactFilterChain();
+        startsWithFilterChain.setNext(containsFilterChain);
+        containsFilterChain.setNext(commonArtifactFilterChain);
+        return startsWithFilterChain.ignoreArtifactById(artifact);
     }
 
-    private static boolean ignoreArtifactById(String artifactId) {
-        switch (artifactId) {
-            case "bcprov-jdk15on":
-            case "lombok":
-            case "jsqlparser":
-            case "disruptor":
-            case "commons-codec":
-            case "snakeyaml":
-            case "spring-boot-autoconfigure":
-            case "HikariCP":
-            case "mysql-connector-java":
-            case "classmate":
-            case "commons-lang3":
-            case "spring-web":
-            case "spring-webmvc":
-            case "hibernate-validator":
-            case "xstream":
-            case "guava":
-                return true;
-            default:
-                return false;
-        }
-    }
-
-    public static boolean ignoreSpringBootArtifactById(String artifactId) {
-        switch (artifactId) {
-            case "spring-boot":
-            case "spring-boot-starter-actuator":
-            case "spring-boot-starter":
-            case "spring-boot-starter-undertow":
-            case "spring-boot-starter-aop":
-            case "spring-boot-starter-json":
-            case "spring-boot-starter-web":
-                return true;
-            default:
-                return false;
-        }
+    public static boolean ignoreSpringBootArtifactById(Artifact artifact) {
+        FilterChain springBootArtifactFilterChain = new SpringBootArtifactFilterChain();
+        return springBootArtifactFilterChain.ignoreArtifactById(artifact);
     }
 }

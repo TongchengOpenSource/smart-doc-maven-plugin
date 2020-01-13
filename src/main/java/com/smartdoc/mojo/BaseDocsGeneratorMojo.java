@@ -1,3 +1,25 @@
+/*
+ * smart-doc https://github.com/shalousun/smart-doc
+ *
+ * Copyright (C) 2019-2020 smart-doc
+ *
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 package com.smartdoc.mojo;
 
 import com.power.common.util.CollectionUtil;
@@ -33,6 +55,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Objects;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
@@ -41,7 +64,7 @@ import static com.smartdoc.util.MojoUtils.buildConfig;
 /**
  * @author yu 2020/1/8.
  */
-public abstract class AbstractDocsGeneratorMojo extends AbstractMojo {
+public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
 
     @Parameter(defaultValue = "${project}", readonly = true, required = true)
     protected MavenProject project;
@@ -69,6 +92,9 @@ public abstract class AbstractDocsGeneratorMojo extends AbstractMojo {
 
     @Parameter(property = "projectName")
     private String projectName;
+
+    @Parameter(required = false)
+    private List excludes;
 
     private DependencyNode rootNode;
 
@@ -129,10 +155,14 @@ public abstract class AbstractDocsGeneratorMojo extends AbstractMojo {
             List<DependencyNode> dependencyNodes = this.rootNode.getChildren();
             List<Artifact> artifactList = this.getArtifacts(dependencyNodes);
             artifactList.forEach(artifact -> {
-                if (ArtifactFilterUtil.ignoreSpringBootArtifactById(artifact.getArtifactId())) {
+                if (ArtifactFilterUtil.ignoreSpringBootArtifactById(artifact)) {
                     return;
                 }
-//                getLog().info("art:"+artifact.getId());
+                String artifactName = artifact.getGroupId() + ":" + artifact.getId();
+                if (Objects.nonNull(excludes) && excludes.contains(artifactName)) {
+                    return;
+                }
+//              getLog().info("art:"+artifact.getId());
                 Artifact sourcesArtifact = repositorySystem.createArtifactWithClassifier(artifact.getGroupId(),
                         artifact.getArtifactId(), artifact.getVersion(), artifact.getType(), "sources");
                 this.loadSourcesDependency(javaDocBuilder, sourcesArtifact);
