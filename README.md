@@ -53,6 +53,7 @@ The configuration contents are as follows.
 }
 ```
 Only three configuration items are required to use the smart-doc-maven-plugin to generate API documentation. In fact, only outPath must be configured.
+
 **Detailed configuration content:**
 
 When you need to use smart-doc to generate more API document information, you can add detailed configuration content.
@@ -140,7 +141,7 @@ OS name: "windows 10", version: "10.0", arch: "amd64", family: "dos"
 On Use IntelliJ IDE, if you have added smart-doc-maven-plugin to the project, 
 you can directly find the plugin smart-doc plugin and click to generate API documentation.
 
-![smart-doc-maven-plugin](https://raw.githubusercontent.com/shalousun/smart-doc-maven-plugin/7ececdbaa2a45b6ad5614c2e3a14c5af00cd1d4e/idea.png)
+![smart-doc-maven-plugin](https://raw.githubusercontent.com/shalousun/smart-doc-maven-plugin/master/images/idea.png)
 
 ### Generated document example
 #### Interface header rendering
