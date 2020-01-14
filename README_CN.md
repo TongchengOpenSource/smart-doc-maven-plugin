@@ -14,15 +14,21 @@ smart-doc-maven-plugin是smart-doc官方团队开发的`maven`插件，该插件
 <plugin>
     <groupId>com.github.shalousun</groupId>
     <artifactId>smart-doc-maven-plugin</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <configuration>
-        <!--指定生成文档的使用的配置文件-->
+        <!--指定生成文档的使用的配置文件,配置文件放在自己的项目中-->
         <configFile>./src/main/resources/smart-doc.json</configFile>
         <!--指定项目名称-->
         <projectName>测试</projectName>
+        <!--smart-doc实现自动分析依赖树加载第三方依赖的源码，如果一些框架依赖库加载不到导致报错，这时请使用excludes排除掉-->
+        <excludes>
+            <!--格式为：groupId:artifactId;参考如下-->
+            <exclude>com.alibaba:fastjson</exclude>
+        </excludes>
     </configuration>
     <executions>
         <execution>
+            <!--如果不需要在执行编译时启动smart-doc，则将phase注释掉-->
             <phase>compile</phase>
             <goals>
                 <goal>html</goal>

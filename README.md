@@ -22,6 +22,11 @@ smart-doc-maven-plugin will also make smart-doc's ability to generate API docume
     <configuration>
         <!--Specify the configuration file used to generate the document-->
         <configFile>./src/main/resources/smart-doc.json</configFile>
+        <!--smart-doc implements automatic analysis of the dependency tree to load the source code of third-party dependencies. If some framework dependency libraries are not loaded, an error is reported, then use excludes to exclude-->
+        <excludes>
+            <!-The format is: groupId: artifactId; refer to the following->
+            <exclude>com.google.guava:guava</exclude>
+        </excludes>
     </configuration>
     <executions>
         <execution>
@@ -36,7 +41,7 @@ smart-doc-maven-plugin will also make smart-doc's ability to generate API docume
 ```
 ### Create a json config 
 Create a json configuration file in your project. The smart-doc-maven-plugin plugin will use this configuration information.
-For example, create `/ src / main / resources / smart-doc.json` in the project. 
+For example, create `/src/main/resources/smart-doc.json` in the project. 
 The configuration contents are as follows.
 
 **Minimize configuration:**
