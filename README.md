@@ -1,12 +1,16 @@
-<h1 align="center"><a href="https://github.com/shalousun/smart-doc-maven-plugin" target="_blank">Smart-Doc Maven Plugin</a></h1>
+<h1 align="center">Smart-Doc Maven Plugin</a></h1>
+
+[中文文档](https://github.com/shalousun/smart-doc-maven-plugin/blob/master/README_CN.md)
 
 ## Introduce
-smart-doc-maven-plugin是smart-doc官方团队开发的`maven`插件，该插件从smart-doc 1.7.9版本开始提供，
-使用smart-doc-maven-plugin更方便用户集成到自己的项目中，集成也更加轻量，你不再需要在项目中编写单元测试来
-启动smart-doc扫描代码分析生成接口文档。可以直接运行`maven`命令
-或者是IDE中点击smart-doc-maven-plugin预设好的`goal`即可生成接口文档。
-
-[关于smart-doc](https://gitee.com/sunyurepository/smart-doc)
+smart-doc-maven-plugin is a `maven` plugin developed by the smart-doc official team. 
+This plugin is available from smart-doc 1.7.9.
+Using smart-doc-maven-plugin makes it easier to integrate smart-doc into your project, and integration is more lightweight. 
+You no longer need to write unit tests in your project to
+Start smart-doc to scan source code analysis and generate API documents. 
+You can run the `maven` command directly or click on the preset` goal` of the smart-doc-maven-plugin in the IDE to generate API documentation. 
+smart-doc-maven-plugin will also make smart-doc's ability to generate API documentation more powerful.
+[About smart-doc](https://github.com/shalousun/smart-doc)
 
 ## Getting started
 ### Add plugin
@@ -14,15 +18,14 @@ smart-doc-maven-plugin是smart-doc官方团队开发的`maven`插件，该插件
 <plugin>
     <groupId>com.github.shalousun</groupId>
     <artifactId>smart-doc-maven-plugin</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <configuration>
-        <!--指定生成文档的使用的配置文件-->
+        <!--Specify the configuration file used to generate the document-->
         <configFile>./src/main/resources/smart-doc.json</configFile>
-        <!--指定项目名称 以配置文件project为主-->
-        <projectName>测试</projectName>
     </configuration>
     <executions>
         <execution>
+            <!--Comment out phase if you don't need to start smart-doc when compiling-->
             <phase>compile</phase>
             <goals>
                 <goal>html</goal>
@@ -32,92 +35,93 @@ smart-doc-maven-plugin是smart-doc官方团队开发的`maven`插件，该插件
 </plugin>
 ```
 ### Create a json config 
-在自己的项目中创建一个json配置文件，smart-doc-maven-plugin插件会根据这个配置生成项目的接口文档。
-例如在项目中创建`/src/main/resources/smart-doc.json`。配置内容参考如下。
+Create a json configuration file in your project. The smart-doc-maven-plugin plugin will use this configuration information.
+For example, create `/ src / main / resources / smart-doc.json` in the project. 
+The configuration contents are as follows.
 
-**最小配置单元:**
+**Minimize configuration:**
 ```
 {
-   "outPath": "D://md2" //指定文档的输出路径  相对路径时请写 ./ 不要写 / eg:./src/main/resources/static/doc
+   "allInOne": true, // whether to merge documents into one file, generally recommended as true
+   "isStrict": false,//If the strict mode is set to true, Smart-doc forces that the public method in each interface in the code has a comment.
+   "outPath": "/src/main/resources" //Set the api document output path.
 }
 ```
-**详细配置说明:**
+Only three configuration items are required to use the smart-doc-maven-plugin to generate API documentation. In fact, only outPath must be configured.
+**Detailed configuration content:**
+
+When you need to use smart-doc to generate more API document information, you can add detailed configuration content.
 ```
 {
-  "serverUrl": "http://127.0.0.1", //设置服务器地址,非必须
-  "isStrict": false, //是否开启严格模式
-  "allInOne": true,  //是否将文档合并到一个文件中，一般推荐为true
-  "outPath": "D://md2", //指定文档的输出路径
-  "coverOld": true,  //是否覆盖旧的文件，主要用于mardown文件覆盖
-  "packageFilters": "",//controller包过滤，多个包用英文逗号隔开
-  "md5EncryptedHtmlName": false,//只有每个controller生成一个html文件是才使用
-  "projectName": "smart-doc",//配置自己的项目名称
-  "skipTransientField": true,//目前未实现
-  "dataDictionaries": [ //配置数据字典，没有需求可以不设置
-    {
-      "title": "订单状态", //数据字典的名称
-      "enumClassName": "com.power.doc.enums.OrderEnum", //数据字典枚举类名称
-      "codeField": "code",//数据字典字典码对应的字段名称
-      "descField": "desc"//数据字典对象的描述信息字典
-    }
-  ],
+  "serverUrl": "http://127.0.0.1", // Set the server address, not required
+  "isStrict": false, // whether to enable strict mode
+  "allInOne": true, // whether to merge documents into one file, generally recommended as true
+  "outPath": "D: // md2", // Specify the output path of the document
+  "coverOld": true, // Whether to overwrite old files, mainly used for mardown file overwrite
+  "packageFilters": "", // controller package filtering, multiple package names separated by commas
+  "md5EncryptedHtmlName": false, // only used if each controller generates an html file
+  "projectName": "smart-doc", // Configure your own project name
+  "skipTransientField": true, // Not currently implemented
+  "dataDictionaries": [// Configure the data dictionary, no need to set
+    {
+      "title": "Order Status", // The name of the data dictionary
+      "enumClassName": "com.power.doc.enums.OrderEnum", // Data dictionary enumeration class name
+      "codeField": "code", // The field name corresponding to the data dictionary dictionary code
+      "descField": "desc" // Data dictionary object description information dictionary
+    }
+  ],
 
-  "errorCodeDictionaries": [{ //错误码列表，没有需求可以不设置
-    "title": "title",
-    "enumClassName": "com.power.doc.enums.ErrorCodeEnum", //错误码枚举类
-    "codeField": "code",//错误码的code码字段名称
-    "descField": "desc"//错误码的描述信息对应的字段名
-  }],
+  "errorCodeDictionaries": [{// error code list, no need to set
+    "title": "title",
+    "enumClassName": "com.power.doc.enums.ErrorCodeEnum", // Error code enumeration class
+    "codeField": "code", // Code field name of the error code
+    "descField": "desc" // Field name corresponding to the error code description
+  }],
 
-  "revisionLogs": [ //设置文档变更记录，没有需求可以不设置
-    {
-      "version": "1.0", //文档版本号
-      "status": "update", //变更操作状态，一般为：创建、更新等
-      "author": "author", //文档变更作者
-      "remarks": "desc" //变更描述
-    }
-  ],
-  "customResponseFields": [ //自定义添加字段和注释，api-doc后期遇到同名字段则直接给相应字段加注释，非必须
-    {
-      "name": "code",//覆盖响应码字段
-      "desc": "响应代码",//覆盖响应码的字段注释
-      "value": "00000"//设置响应码的值
-    }
-  ],
-  "requestHeaders": [ //设置全局请求头，没有需求可以不设置
-    {
-      "name": "token",
-      "type": "string",
-      "desc": "desc",
-      "required": false,
-      "since": "-"
-    }
-  ],
-
-  "sourceCodePaths": [ //设置代码路径，默认加载src/main/java, 没有需求可以不设置
-    {
-      "path": "src/main/java",
-      "desc": "测试"
-    }
-  ]
+  "revisionLogs": [// Set document change records, no need to set
+    {
+      "version": "1.0", // Document version number
+      "status": "update", // Change operation status, generally: create, update, etc.
+      "author": "author", // Document change author
+      "remarks": "desc" // Change description
+    }
+  ],
+  "customResponseFields": [// Customly add fields and comments. If api-doc encounters a field with the same name later, directly add a comment to the corresponding field. It is not necessary.
+    {
+      "name": "code", // Override the response code field
+      "desc": "Response code", // Override field comment of response code
+      "value": "00000" // Set the value of the response code
+    }
+  ],
+  "requestHeaders": [// Set global request headers, no need to set
+    {
+      "name": "token",
+      "type": "string",
+      "desc": "desc",
+      "required": false,
+      "since": "-"
+    }
+  ]
 }
 ```
-**注意：** 上面的json配置完全使用smart-doc的`ApiConfig`转化成json而来。因此项目配置也可以参考smart-doc的介绍。
+**Note:** The above json configuration is completely converted into json using the smart-doc's ApiConfig. 
+So the project configuration can also refer to the introduction of smart-doc.
 ### Generated document
 #### Use Maven command
 ```
-//生成html
-mvn -Dfile.encoding=UTF-8 smart-doc:html
-//生成markdown
-mvn -Dfile.encoding=UTF-8 smart-doc:markdown
-//生成adoc
-mvn -Dfile.encoding=UTF-8 smart-doc:adoc
-//生成postmanjson数据
-mvn -Dfile.encoding=UTF-8 smart-doc:postman
+// Generate html
+mvn -Dfile.encoding = UTF-8 smart-doc: html
+// Generate markdown
+mvn -Dfile.encoding = UTF-8 smart-doc: markdown
+// Generate adoc
+mvn -Dfile.encoding = UTF-8 smart-doc: adoc
+// Generate postman collection
+mvn -Dfile.encoding = UTF-8 smart-doc: postman
 ```
-**注意：** 尤其在window系统下，如果实际使用maven命令行执行文档生成，可能会出现乱码，因此需要在执行时指定`-Dfile.encoding=UTF-8`。
+**Note:** Under the window system, if you use the maven command line to perform document generation, 
+non-English characters may be garbled, so you need to specify `-Dfile.encoding = UTF-8` during execution.
 
-查看maven的编码
+View maven's coding
 ```
 # mvn -version
 Apache Maven 3.3.3 (7994120775791599e205a5524ec3e0dfe41d4a06; 2015-04-22T19:57:37+08:00)
@@ -127,30 +131,29 @@ Java home: D:\ProgramFiles\Java\jdk1.8.0_191\jre
 Default locale: zh_CN, platform encoding: GBK
 OS name: "windows 10", version: "10.0", arch: "amd64", family: "dos"
 ```
-#### Use IDEA
-当你使用Idea时，可以通过maven Helper插件选择生成何种文档。
+#### Use IntelliJ IDEA
+On Use IntelliJ IDE, if you have added smart-doc-maven-plugin to the project, 
+you can directly find the plugin smart-doc plugin and click to generate API documentation.
 
-![idea中smart-doc-maven插件使用](https://images.gitee.com/uploads/images/2019/1215/004902_b0c153d6_144669.png "idea.png")
+![smart-doc-maven-plugin](https://raw.githubusercontent.com/shalousun/smart-doc-maven-plugin/7ececdbaa2a45b6ad5614c2e3a14c5af00cd1d4e/idea.png)
 
 ### Generated document example
-[点击查看文档生成文档效果图](https://gitee.com/sunyurepository/smart-doc/wikis/文档效果图?sort_id=1652819)
-
+#### Interface header rendering
+![header](https://images.gitee.com/uploads/images/2019/1231/223538_be45f8a9_144669.png "header.png")
+#### Request parameter example rendering
+![request-params](https://images.gitee.com/uploads/images/2019/1231/223710_88933f55_144669.png "request.png")
+#### Response parameter example renderings
+![response-fields](https://images.gitee.com/uploads/images/2019/1231/223817_32bea6dc_144669.png "response.png")
 ## Building
-如果你需要自己构建，那可以使用下面命令，构建需要依赖Java 1.8。
+you can build with the following commands. (Java 1.8 is required to build the master branch)
 ```
 mvn clean install -Dmaven.test.skip=true
 ```
-## Releases
-[发布记录](https://gitee.com/sunyurepository/smart-doc-maven-plugin/blob/master/CHANGELOG.md)
 ## Other reference
-- [smart-doc功能使用介绍](https://my.oschina.net/u/1760791/blog/2250962)
-- [smart-doc官方wiki](https://gitee.com/sunyurepository/smart-doc/wikis/Home?sort_id=1652800)
-## License
-smart-doc-maven-plugin is under the Apache 2.0 license.  See the [LICENSE](https://gitee.com/sunyurepository/smart-doc/blob/master/license.txt) file for details.
+- [Smart-doc manual](https://github.com/shalousun/smart-doc/wiki)
 
-**注意：** smart-doc源代码文件全部带有版权注释，使用关键代码二次开源请保留原始版权，否则后果自负！
 ## Who is using
-> 排名不分先后，更多接入公司，欢迎在[https://gitee.com/sunyurepository/smart-doc/issues/I1594T](https://gitee.com/sunyurepository/smart-doc/issues/I1594T)登记（仅供开源用户参考）
+These are only part of the companies using smart-doc, for reference only. If you are using smart-doc, please [add your company here](https://github.com/shalousun/smart-doc/issues/12) to tell us your scenario to make smart-doc better.
 
 ![iFLYTEK](https://raw.githubusercontent.com/shalousun/smart-doc/dev/images/known-users/iflytek.png)
 &nbsp;&nbsp;<img src="https://raw.githubusercontent.com/shalousun/smart-doc/dev/images/known-users/oneplus.png" title="OnePlus" width="83px" height="83px"/>
@@ -158,8 +161,7 @@ smart-doc-maven-plugin is under the Apache 2.0 license.  See the [LICENSE](http
 <img src="https://raw.githubusercontent.com/shalousun/smart-doc/dev/images/known-users/yuanmengjiankang.png" title="yuanmengjiankang" width="260px" height="83px"/>
 <img src="https://raw.githubusercontent.com/shalousun/smart-doc/dev/images/known-users/zhongkezhilian.png" title="zhongkezhilian" width="272px" height="83px"/>
 <img src="https://raw.githubusercontent.com/shalousun/smart-doc/dev/images/known-users/puqie_gaitubao_100x100.jpg" title="puqie" width="83px" height="83px"/>
+## License
+smart-doc-maven=plugin is under the Apache 2.0 license.  See the [LICENSE](https://raw.githubusercontent.com/shalousun/smart-doc-maven-plugin/master/LICENSE) file for details.
 ## Contact
-愿意参与构建smart-doc或者是需要交流问题可以加入qq群：
-
-<img src="https://raw.githubusercontent.com/shalousun/smart-doc/dev/images/smart-doc-qq.png" title="qq群" width="200px" height="200px"/>
-
+Email： 836575280@qq.com
