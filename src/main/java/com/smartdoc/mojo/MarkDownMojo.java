@@ -39,6 +39,10 @@ public class MarkDownMojo extends BaseDocsGeneratorMojo {
 
     @Override
     public void executeMojo(ApiConfig apiConfig, JavaProjectBuilder javaProjectBuilder)  {
-        ApiDocBuilder.buildApiDoc(apiConfig,javaProjectBuilder);
+        try {
+            ApiDocBuilder.buildApiDoc(apiConfig,javaProjectBuilder);
+        }catch (Exception e){
+            getLog().error(e);
+        }
     }
 }

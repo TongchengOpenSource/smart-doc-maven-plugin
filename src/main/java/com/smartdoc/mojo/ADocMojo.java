@@ -37,8 +37,11 @@ import org.apache.maven.plugins.annotations.Mojo;
 public class ADocMojo extends BaseDocsGeneratorMojo {
 
     @Override
-    public void executeMojo(ApiConfig apiConfig, JavaProjectBuilder javaProjectBuilder)   {
-        AdocDocBuilder.buildApiDoc(apiConfig,javaProjectBuilder);
+    public void executeMojo(ApiConfig apiConfig, JavaProjectBuilder javaProjectBuilder) {
+        try {
+            AdocDocBuilder.buildApiDoc(apiConfig, javaProjectBuilder);
+        } catch (Exception e) {
+            getLog().error(e);
+        }
     }
-
 }

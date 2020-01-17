@@ -42,6 +42,10 @@ public class HtmlMojo extends BaseDocsGeneratorMojo {
 
     @Override
     public void executeMojo(ApiConfig apiConfig, JavaProjectBuilder javaProjectBuilder) throws MojoExecutionException, MojoFailureException {
-        HtmlApiDocBuilder.buildApiDoc(apiConfig,javaProjectBuilder);
+        try {
+            HtmlApiDocBuilder.buildApiDoc(apiConfig, javaProjectBuilder);
+        } catch (Exception e) {
+            getLog().error(e);
+        }
     }
 }
