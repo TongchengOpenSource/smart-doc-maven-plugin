@@ -37,10 +37,10 @@ import org.apache.maven.plugins.annotations.Mojo;
 public class PostManMojo extends BaseDocsGeneratorMojo {
 
     @Override
-    public void executeMojo(ApiConfig apiConfig, JavaProjectBuilder javaProjectBuilder)  {
-        try{
-            PostmanJsonBuilder.buildPostmanCollection(apiConfig,javaProjectBuilder);
-        }catch (Exception e){
+    public void executeMojo(ApiConfig apiConfig, JavaProjectBuilder javaProjectBuilder) {
+        try {
+            PostmanJsonBuilder.buildPostmanCollection(apiConfig, javaProjectBuilder);
+        } catch (Exception e) {
             getLog().error(e);
         }
     }

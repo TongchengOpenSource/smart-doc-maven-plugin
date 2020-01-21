@@ -98,7 +98,6 @@ public class MojoUtils {
             if (StringUtils.isBlank(apiConfig.getProjectName())) {
                 apiConfig.setProjectName(projectName);
             }
-
             addSourcePaths(project, apiConfig, log);
             return apiConfig;
         } catch (FileNotFoundException e) {
@@ -136,8 +135,6 @@ public class MojoUtils {
 //                    log.info("--- parent project basedir is " + file.getPath());
                     apiConfig.setSourceCodePaths(SourceCodePath.path().setPath(file.getPath()));
 //                    log.info("--- smart-doc-maven-plugin loaded resource from " + file.getPath());
-                } else {
-//                    log.info("WARN: smart-doc-maven-plugin checked you have a parent project, but not found basedir.");
                 }
             }
         }

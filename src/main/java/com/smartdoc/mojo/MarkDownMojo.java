@@ -36,12 +36,11 @@ import org.apache.maven.plugins.annotations.Mojo;
 @Mojo(name = "markdown")
 public class MarkDownMojo extends BaseDocsGeneratorMojo {
 
-
     @Override
-    public void executeMojo(ApiConfig apiConfig, JavaProjectBuilder javaProjectBuilder)  {
+    public void executeMojo(ApiConfig apiConfig, JavaProjectBuilder javaProjectBuilder) {
         try {
-            ApiDocBuilder.buildApiDoc(apiConfig,javaProjectBuilder);
-        }catch (Exception e){
+            ApiDocBuilder.buildApiDoc(apiConfig, javaProjectBuilder);
+        } catch (Exception e) {
             getLog().error(e);
         }
     }

@@ -38,8 +38,6 @@ public class FileUtil {
             return true;
         } else {
             return false;
-
         }
     }
-
 }
