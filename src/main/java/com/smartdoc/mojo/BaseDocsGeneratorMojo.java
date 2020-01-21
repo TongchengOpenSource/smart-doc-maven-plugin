@@ -148,6 +148,7 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
      */
     private void loadSourcesDependencies(JavaProjectBuilder javaDocBuilder) throws MojoExecutionException {
         try {
+            List<String> currentProjectModules = getCurrentProjectArtifacts(this.project);
             ArtifactFilter artifactFilter = this.createResolvingArtifactFilter();
             ProjectBuildingRequest buildingRequest = new DefaultProjectBuildingRequest(this.session.getProjectBuildingRequest());
             buildingRequest.setProject(this.project);
@@ -158,11 +159,14 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
                 if (ArtifactFilterUtil.ignoreSpringBootArtifactById(artifact)) {
                     return;
                 }
-                String artifactName = artifact.getGroupId() + ":" + artifact.getId();
+                String artifactName = artifact.getGroupId() + ":" + artifact.getArtifactId();
+                if (currentProjectModules.contains(artifactName)) {
+                    return;
+                }
                 if (Objects.nonNull(excludes) && excludes.contains(artifactName)) {
                     return;
                 }
-//              getLog().info("art:"+artifact.getId());
+//                getLog().info("art:" + artifactName);
                 Artifact sourcesArtifact = repositorySystem.createArtifactWithClassifier(artifact.getGroupId(),
                         artifact.getArtifactId(), artifact.getVersion(), artifact.getType(), "sources");
                 this.loadSourcesDependency(javaDocBuilder, sourcesArtifact);
@@ -236,5 +240,23 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
             }
         }
         return artifacts;
+    }
+
+    private List<String> getCurrentProjectArtifacts(MavenProject project) {
+        if (project.hasParent()) {
+            List<String> finalArtifactsName = new ArrayList<>();
+            MavenProject mavenProject = project.getParent();
+            if (Objects.nonNull(mavenProject)) {
+                File file = mavenProject.getBasedir();
+                if (!Objects.isNull(file)) {
+                    String groupId = mavenProject.getGroupId();
+                    List<String> moduleList = mavenProject.getModules();
+                    moduleList.forEach(str -> finalArtifactsName.add(groupId + ":" + str));
+                }
+            }
+            return finalArtifactsName;
+        } else {
+            return new ArrayList<>();
+        }
     }
 }
