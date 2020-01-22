@@ -59,7 +59,7 @@ public class CommonArtifactFilterChain implements FilterChain {
             case "spring-tx":
                 return true;
             default:
-                return false;
+                return this.ignore(filterChain, artifact);
         }
     }
 }

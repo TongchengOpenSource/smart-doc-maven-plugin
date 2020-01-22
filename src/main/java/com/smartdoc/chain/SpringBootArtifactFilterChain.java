@@ -50,7 +50,7 @@ public class SpringBootArtifactFilterChain implements FilterChain {
             case "spring-boot-starter-logging":
                 return true;
             default:
-                return false;
+                return this.ignore(filterChain, artifact);
         }
     }
 }

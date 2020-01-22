@@ -60,6 +60,6 @@ public class StartsWithFilterChain implements FilterChain {
         if (artifactId.startsWith("sharding")) {
             return true;
         }
-        return filterChain.ignoreArtifactById(artifact);
+        return this.ignore(filterChain, artifact);
     }
 }

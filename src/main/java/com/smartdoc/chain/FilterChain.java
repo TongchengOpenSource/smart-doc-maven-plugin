@@ -24,6 +24,8 @@ package com.smartdoc.chain;
 
 import org.apache.maven.artifact.Artifact;
 
+import java.util.Objects;
+
 /**
  * @author yu 2020/1/13.
  */
@@ -32,4 +34,12 @@ public interface FilterChain {
     void setNext(FilterChain nextInChain);
 
     boolean ignoreArtifactById(Artifact artifact);
+
+    default boolean ignore(FilterChain nextInChain,Artifact artifact){
+        if (Objects.nonNull(nextInChain)){
+            return nextInChain.ignoreArtifactById(artifact);
+        } else {
+            return false;
+        }
+    }
 }
