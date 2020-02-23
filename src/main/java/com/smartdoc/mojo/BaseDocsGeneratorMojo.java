@@ -22,6 +22,7 @@
  */
 package com.smartdoc.mojo;
 
+import com.power.common.constants.Charset;
 import com.power.common.util.CollectionUtil;
 import com.power.doc.model.ApiConfig;
 import com.smartdoc.constant.GlobalConstants;
@@ -51,7 +52,6 @@ import org.apache.maven.shared.dependency.graph.DependencyNode;
 
 import java.io.File;
 import java.net.URL;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -105,7 +105,7 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
     public void execute() throws MojoExecutionException, MojoFailureException {
         getLog().info("Smart-doc Starting Create API Documentation.");
         javaProjectBuilder = buildJavaProjectBuilder();
-        javaProjectBuilder.setEncoding(Charset.defaultCharset().toString());
+        javaProjectBuilder.setEncoding(Charset.DEFAULT_CHARSET);
         ApiConfig apiConfig = buildConfig(configFile, projectName, project, getLog());
         if (apiConfig == null) {
             getLog().info(GlobalConstants.ERROR_MSG);
@@ -131,7 +131,7 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
      */
     private JavaProjectBuilder buildJavaProjectBuilder() throws MojoExecutionException {
         JavaProjectBuilder javaDocBuilder = new JavaProjectBuilder();
-        javaDocBuilder.setEncoding(Charset.defaultCharset().toString());
+        javaDocBuilder.setEncoding(Charset.DEFAULT_CHARSET);
         javaDocBuilder.setErrorHandler(e -> getLog().warn(e.getMessage()));
         //addSourceTree
         javaDocBuilder.addSourceTree(new File("src/main/java"));
