@@ -110,7 +110,7 @@ smart-doc-maven-plugin是smart-doc官方团队开发的`maven`插件，该插件
 ```
 **注意：** 上面的json配置完全使用smart-doc的`ApiConfig`转化成json而来。因此项目配置也可以参考smart-doc的介绍。
 ### Generated document
-#### Use Maven command
+#### Run plugin with maven command
 ```
 //生成html
 mvn -Dfile.encoding=UTF-8 smart-doc:html
@@ -133,7 +133,7 @@ Java home: D:\ProgramFiles\Java\jdk1.8.0_191\jre
 Default locale: zh_CN, platform encoding: GBK
 OS name: "windows 10", version: "10.0", arch: "amd64", family: "dos"
 ```
-#### Use IDEA
+#### Run plugin in IDEA
 当你使用Idea时，可以通过maven Helper插件选择生成何种文档。
 
 ![idea中smart-doc-maven插件使用](https://images.gitee.com/uploads/images/2019/1215/004902_b0c153d6_144669.png "idea.png")

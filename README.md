@@ -113,7 +113,7 @@ When you need to use smart-doc to generate more API document information, you ca
 **Note:** The above json configuration is completely converted into json using the smart-doc's ApiConfig. 
 So the project configuration can also refer to the introduction of smart-doc.
 ### Generated document
-#### Use Maven command
+#### Run plugin with maven command
 ```
 // Generate html
 mvn -Dfile.encoding = UTF-8 smart-doc: html
@@ -137,7 +137,7 @@ Java home: D:\ProgramFiles\Java\jdk1.8.0_191\jre
 Default locale: zh_CN, platform encoding: GBK
 OS name: "windows 10", version: "10.0", arch: "amd64", family: "dos"
 ```
-#### Use IntelliJ IDEA
+#### Run plugin in IDEA
 On Use IntelliJ IDE, if you have added smart-doc-maven-plugin to the project, 
 you can directly find the plugin smart-doc plugin and click to generate API documentation.
 
@@ -168,6 +168,6 @@ These are only part of the companies using smart-doc, for reference only. If you
 <img src="https://raw.githubusercontent.com/shalousun/smart-doc/dev/images/known-users/zhongkezhilian.png" title="zhongkezhilian" width="272px" height="83px"/>
 <img src="https://raw.githubusercontent.com/shalousun/smart-doc/dev/images/known-users/puqie_gaitubao_100x100.jpg" title="puqie" width="83px" height="83px"/>
 ## License
-smart-doc-maven=plugin is under the Apache 2.0 license.  See the [LICENSE](https://raw.githubusercontent.com/shalousun/smart-doc-maven-plugin/master/LICENSE) file for details.
+smart-doc-maven-plugin is under the Apache 2.0 license.  See the [LICENSE](https://raw.githubusercontent.com/shalousun/smart-doc-maven-plugin/master/LICENSE) file for details.
 ## Contact
 Email： 836575280@qq.com
