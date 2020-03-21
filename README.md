@@ -18,7 +18,7 @@ smart-doc-maven-plugin will also make smart-doc's ability to generate API docume
 <plugin>
     <groupId>com.github.shalousun</groupId>
     <artifactId>smart-doc-maven-plugin</artifactId>
-    <version>1.0.2</version>
+    <version>[latest version]</version>
     <configuration>
         <!--Specify the configuration file used to generate the document-->
         <configFile>./src/main/resources/smart-doc.json</configFile>
