@@ -171,8 +171,8 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
                         artifact.getArtifactId(), artifact.getVersion(), artifact.getType(), "sources");
                 this.loadSourcesDependency(javaDocBuilder, sourcesArtifact);
             });
-        } catch (DependencyGraphBuilderException var4) {
-            throw new MojoExecutionException("Cannot build project dependency graph", var4);
+        } catch (DependencyGraphBuilderException e) {
+            throw new MojoExecutionException("Cannot build project dependency graph", e);
         }
     }
 

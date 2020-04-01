@@ -35,8 +35,8 @@ public interface FilterChain {
 
     boolean ignoreArtifactById(Artifact artifact);
 
-    default boolean ignore(FilterChain nextInChain,Artifact artifact){
-        if (Objects.nonNull(nextInChain)){
+    default boolean ignore(FilterChain nextInChain, Artifact artifact) {
+        if (Objects.nonNull(nextInChain)) {
             return nextInChain.ignoreArtifactById(artifact);
         } else {
             return false;

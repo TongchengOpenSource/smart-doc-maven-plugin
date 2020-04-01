@@ -23,6 +23,7 @@
 package com.smartdoc.chain;
 
 import org.apache.maven.artifact.Artifact;
+
 /**
  * @author yu 2020/1/13.
  */
@@ -43,6 +44,6 @@ public class ContainsFilterChain implements FilterChain {
                 || artifactId.contains("slf4j")) {
             return true;
         }
-        return this.ignore(filterChain,artifact);
+        return this.ignore(filterChain, artifact);
     }
 }
