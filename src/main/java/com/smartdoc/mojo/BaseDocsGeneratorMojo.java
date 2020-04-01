@@ -243,20 +243,19 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
     }
 
     private List<String> getCurrentProjectArtifacts(MavenProject project) {
-        if (project.hasParent()) {
-            List<String> finalArtifactsName = new ArrayList<>();
-            MavenProject mavenProject = project.getParent();
-            if (Objects.nonNull(mavenProject)) {
-                File file = mavenProject.getBasedir();
-                if (!Objects.isNull(file)) {
-                    String groupId = mavenProject.getGroupId();
-                    List<String> moduleList = mavenProject.getModules();
-                    moduleList.forEach(str -> finalArtifactsName.add(groupId + ":" + str));
-                }
-            }
-            return finalArtifactsName;
-        } else {
-            return new ArrayList<>();
+        if (!project.hasParent()) {
+            return new ArrayList<>(0);
         }
+        List<String> finalArtifactsName = new ArrayList<>();
+        MavenProject mavenProject = project.getParent();
+        if (Objects.nonNull(mavenProject)) {
+            File file = mavenProject.getBasedir();
+            if (!Objects.isNull(file)) {
+                String groupId = mavenProject.getGroupId();
+                List<String> moduleList = mavenProject.getModules();
+                moduleList.forEach(str -> finalArtifactsName.add(groupId + ":" + str));
+            }
+        }
+        return finalArtifactsName;
     }
 }
