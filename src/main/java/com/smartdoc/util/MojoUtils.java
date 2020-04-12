@@ -141,9 +141,6 @@ public class MojoUtils {
 
         SourceCodePath[] codePaths = new SourceCodePath[sourceCodePaths.size()];
         sourceCodePaths.toArray(codePaths);
-        log.info("*******load sourceCodePath start*******");
-        sourceCodePaths.forEach(s -> System.out.println(s.getPath()));
-        log.info("*******load sourceCodePath end*******");
         apiConfig.setSourceCodePaths(codePaths);
     }
     /**
