@@ -100,6 +100,8 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
 
     protected JavaProjectBuilder javaProjectBuilder;
 
+    public abstract void executeMojo(ApiConfig apiConfig, JavaProjectBuilder javaProjectBuilder)
+            throws MojoExecutionException, MojoFailureException;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
@@ -120,8 +122,6 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
         this.executeMojo(apiConfig, javaProjectBuilder);
     }
 
-    public abstract void executeMojo(ApiConfig apiConfig, JavaProjectBuilder javaProjectBuilder)
-            throws MojoExecutionException, MojoFailureException;
 
     /**
      * Classloading
