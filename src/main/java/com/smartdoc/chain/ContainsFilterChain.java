@@ -24,12 +24,23 @@ package com.smartdoc.chain;
 
 import org.apache.maven.artifact.Artifact;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author yu 2020/1/13.
  */
 public class ContainsFilterChain implements FilterChain {
 
+    private final static List<String> CONTAINS_LIST = new ArrayList<>();
+
     private FilterChain filterChain;
+
+    static {
+        CONTAINS_LIST.add("log4j");
+        CONTAINS_LIST.add("logback");
+        CONTAINS_LIST.add("slf4j");
+    }
 
     @Override
     public void setNext(FilterChain nextInChain) {
@@ -39,9 +50,7 @@ public class ContainsFilterChain implements FilterChain {
     @Override
     public boolean ignoreArtifactById(Artifact artifact) {
         String artifactId = artifact.getArtifactId();
-        if (artifactId.contains("log4j")
-                || artifactId.contains("logback")
-                || artifactId.contains("slf4j")) {
+        if (CONTAINS_LIST.stream().anyMatch(artifactId::contains)) {
             return true;
         }
         return this.ignore(filterChain, artifact);

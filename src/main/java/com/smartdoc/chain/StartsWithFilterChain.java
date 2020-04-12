@@ -24,12 +24,29 @@ package com.smartdoc.chain;
 
 import org.apache.maven.artifact.Artifact;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author yu 2020/1/13.
  */
 public class StartsWithFilterChain implements FilterChain {
 
+    private final static List<String> PREFIX_LIST = new ArrayList<>();
+
     private FilterChain filterChain;
+
+    static {
+        PREFIX_LIST.add("maven");
+        PREFIX_LIST.add("asm");
+        PREFIX_LIST.add("tomcat");
+        PREFIX_LIST.add("jboss");
+        PREFIX_LIST.add("undertow");
+        PREFIX_LIST.add("jackson");
+        PREFIX_LIST.add("micrometer");
+        PREFIX_LIST.add("spring-boot-actuator");
+        PREFIX_LIST.add("sharding");
+    }
 
     @Override
     public void setNext(FilterChain nextInChain) {
@@ -39,25 +56,7 @@ public class StartsWithFilterChain implements FilterChain {
     @Override
     public boolean ignoreArtifactById(Artifact artifact) {
         String artifactId = artifact.getArtifactId();
-        if (artifactId.startsWith("maven")) {
-            return true;
-        }
-        if (artifactId.startsWith("asm")) {
-            return true;
-        }
-        if (artifactId.startsWith("tomcat") ||
-                artifactId.startsWith("jboss") ||
-                artifactId.startsWith("undertow")) {
-            return true;
-        }
-        if (artifactId.startsWith("jackson")) {
-            return true;
-        }
-        if (artifactId.startsWith("micrometer") ||
-                artifactId.startsWith("spring-boot-actuator")) {
-            return true;
-        }
-        if (artifactId.startsWith("sharding")) {
+        if (PREFIX_LIST.stream().anyMatch(artifactId::startsWith)) {
             return true;
         }
         return this.ignore(filterChain, artifact);
