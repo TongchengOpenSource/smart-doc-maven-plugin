@@ -30,4 +30,8 @@ public interface GlobalConstants {
     String ERROR_MSG = "Failed to build ApiConfig, check if the configuration file is correct.";
 
     String DEFAULT_CONFIG = "./src/main/resources/default.json";
+
+    String SOURCE_CODE_PATH = "/src/main/java";
+
+    String SOURCE_CODE_PATH_REVERSE = "\\src\\main\\java";
 }

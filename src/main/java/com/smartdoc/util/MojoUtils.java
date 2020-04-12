@@ -31,6 +31,7 @@ import com.power.doc.model.ApiConfig;
 import com.power.doc.model.ApiDataDictionary;
 import com.power.doc.model.ApiErrorCodeDictionary;
 import com.power.doc.model.SourceCodePath;
+import com.smartdoc.constant.GlobalConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.logging.Log;
@@ -39,6 +40,8 @@ import org.apache.maven.project.MavenProject;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -98,7 +101,7 @@ public class MojoUtils {
             if (StringUtils.isBlank(apiConfig.getProjectName())) {
                 apiConfig.setProjectName(projectName);
             }
-            addSourcePaths(project, apiConfig, log);
+            addSourcePaths(project, apiConfig, new ArrayList<>(), log);
             return apiConfig;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -123,20 +126,65 @@ public class MojoUtils {
         }
     }
 
-    private static void addSourcePaths(MavenProject project, ApiConfig apiConfig, Log log) {
-        List<String> sourceRoots = project.getCompileSourceRoots();
-        sourceRoots.forEach(s -> apiConfig.setSourceCodePaths(SourceCodePath.path().setPath(s)));
+    /**
+     * addSourcePath
+     * @param project
+     * @param apiConfig
+     * @param sourceCodePaths
+     * @param log
+     */
+    private static void addSourcePaths(MavenProject project, ApiConfig apiConfig, ArrayList<SourceCodePath> sourceCodePaths, Log log) {
+        File file = getRootPath(project);
+        List<String> path = new ArrayList<>();
+        getSourceCodeFilePath(file, path);
+        path.forEach(s -> sourceCodePaths.add(SourceCodePath.path().setPath(s)));
+
+        SourceCodePath[] codePaths = new SourceCodePath[sourceCodePaths.size()];
+        sourceCodePaths.toArray(codePaths);
+        log.info("*******load sourceCodePath start*******");
+        sourceCodePaths.forEach(s -> System.out.println(s.getPath()));
+        log.info("*******load sourceCodePath end*******");
+        apiConfig.setSourceCodePaths(codePaths);
+    }
+    /**
+     * get project sourceCode
+     *
+     * @param file project root path
+     * @param path sourceCodePath
+     */
+    private static void getSourceCodeFilePath(File file, List<String> path) {
+        File[] fs = file.listFiles();
+        assert fs != null;
+        for (File f : fs) {
+            if (f.isDirectory()) {
+                if (f.getPath().endsWith(GlobalConstants.SOURCE_CODE_PATH) ||
+                        f.getPath().endsWith(GlobalConstants.SOURCE_CODE_PATH_REVERSE)) {
+                    path.add(f.getPath());
+                }
+                getSourceCodeFilePath(f, path);
+            }
+        }
+    }
+
+    /**
+     * get RootParentPath
+     * @param project
+     * @return
+     */
+    private static File getRootPath(MavenProject project) {
         if (project.hasParent()) {
             MavenProject mavenProject = project.getParent();
             if (null != mavenProject) {
-//                log.info("--- parent project name is [" + mavenProject.getName() + "]");
-                File file = mavenProject.getBasedir();
-                if (!Objects.isNull(file)) {
-//                    log.info("--- parent project basedir is " + file.getPath());
-                    apiConfig.setSourceCodePaths(SourceCodePath.path().setPath(file.getPath()));
-//                    log.info("--- smart-doc-maven-plugin loaded resource from " + file.getPath());
+                if (mavenProject.getBasedir() == null) {
+                    return project.getBasedir();
+                } else {
+                    return getRootPath(mavenProject);
                 }
+            } else {
+                return project.getBasedir();
             }
+        } else {
+            return project.getBasedir();
         }
     }
 }
