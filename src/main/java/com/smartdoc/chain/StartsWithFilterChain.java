@@ -46,6 +46,7 @@ public class StartsWithFilterChain implements FilterChain {
         PREFIX_LIST.add("micrometer");
         PREFIX_LIST.add("spring-boot-actuator");
         PREFIX_LIST.add("sharding");
+        PREFIX_LIST.add("mybatis-spring-boot-starter");
     }
 
     @Override
