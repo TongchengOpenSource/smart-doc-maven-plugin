@@ -38,7 +38,7 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
  * @author xingzi 2019/12/06 14:50
  */
 @Execute(phase = LifecyclePhase.COMPILE)
-@Mojo(name = "html",requiresDependencyResolution = ResolutionScope.COMPILE)
+@Mojo(name = "html", requiresDependencyResolution = ResolutionScope.COMPILE)
 public class HtmlMojo extends BaseDocsGeneratorMojo {
 
     @Override

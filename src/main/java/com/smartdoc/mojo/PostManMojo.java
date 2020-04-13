@@ -34,7 +34,7 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
  * @author xingzi 2019/12/07 17:35
  */
 @Execute(phase = LifecyclePhase.COMPILE)
-@Mojo(name = "postman",requiresDependencyResolution = ResolutionScope.COMPILE)
+@Mojo(name = "postman", requiresDependencyResolution = ResolutionScope.COMPILE)
 public class PostManMojo extends BaseDocsGeneratorMojo {
 
     @Override

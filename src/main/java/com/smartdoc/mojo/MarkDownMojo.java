@@ -34,7 +34,7 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
  * @author xingzi 2019/12/06 17:38
  */
 @Execute(phase = LifecyclePhase.COMPILE)
-@Mojo(name = "markdown",requiresDependencyResolution = ResolutionScope.COMPILE)
+@Mojo(name = "markdown", requiresDependencyResolution = ResolutionScope.COMPILE)
 public class MarkDownMojo extends BaseDocsGeneratorMojo {
 
     @Override
