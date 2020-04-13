@@ -31,13 +31,14 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Execute;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.ResolutionScope;
 
 
 /**
  * @author xingzi 2019/12/06 14:50
  */
 @Execute(phase = LifecyclePhase.COMPILE)
-@Mojo(name = "html")
+@Mojo(name = "html",requiresDependencyResolution = ResolutionScope.COMPILE)
 public class HtmlMojo extends BaseDocsGeneratorMojo {
 
     @Override

@@ -28,12 +28,13 @@ import com.thoughtworks.qdox.JavaProjectBuilder;
 import org.apache.maven.plugins.annotations.Execute;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.ResolutionScope;
 
 /**
  * @author xingzi 2019/12/07 17:35
  */
 @Execute(phase = LifecyclePhase.COMPILE)
-@Mojo(name = "postman")
+@Mojo(name = "postman",requiresDependencyResolution = ResolutionScope.COMPILE)
 public class PostManMojo extends BaseDocsGeneratorMojo {
 
     @Override
