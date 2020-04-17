@@ -24,30 +24,30 @@ package com.smartdoc.chain;
 
 import org.apache.maven.artifact.Artifact;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author yu 2020/1/13.
  */
 public class StartsWithFilterChain implements FilterChain {
 
-    private final static List<String> PREFIX_LIST = new ArrayList<>();
+    private final static Set<String> PREFIX_SET = new HashSet<>();
 
     private FilterChain filterChain;
 
     static {
-        PREFIX_LIST.add("maven");
-        PREFIX_LIST.add("asm");
-        PREFIX_LIST.add("tomcat");
-        PREFIX_LIST.add("jboss");
-        PREFIX_LIST.add("undertow");
-        PREFIX_LIST.add("jackson");
-        PREFIX_LIST.add("micrometer");
-        PREFIX_LIST.add("spring-boot-actuator");
-        PREFIX_LIST.add("sharding");
-        PREFIX_LIST.add("mybatis-spring-boot-starter");
-        PREFIX_LIST.add("flexmark");
+        PREFIX_SET.add("maven");
+        PREFIX_SET.add("asm");
+        PREFIX_SET.add("tomcat");
+        PREFIX_SET.add("jboss");
+        PREFIX_SET.add("undertow");
+        PREFIX_SET.add("jackson");
+        PREFIX_SET.add("micrometer");
+        PREFIX_SET.add("spring-boot-actuator");
+        PREFIX_SET.add("sharding");
+        PREFIX_SET.add("mybatis-spring-boot-starter");
+        PREFIX_SET.add("flexmark");
     }
 
     @Override
@@ -58,7 +58,7 @@ public class StartsWithFilterChain implements FilterChain {
     @Override
     public boolean ignoreArtifactById(Artifact artifact) {
         String artifactId = artifact.getArtifactId();
-        if (PREFIX_LIST.stream().anyMatch(artifactId::startsWith)) {
+        if (PREFIX_SET.stream().anyMatch(artifactId::startsWith)) {
             return true;
         }
         return this.ignore(filterChain, artifact);

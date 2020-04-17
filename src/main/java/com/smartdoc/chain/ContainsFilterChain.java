@@ -24,22 +24,22 @@ package com.smartdoc.chain;
 
 import org.apache.maven.artifact.Artifact;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author yu 2020/1/13.
  */
 public class ContainsFilterChain implements FilterChain {
 
-    private final static List<String> CONTAINS_LIST = new ArrayList<>();
+    private final static Set<String> CONTAINS_SET = new HashSet<>();
 
     private FilterChain filterChain;
 
     static {
-        CONTAINS_LIST.add("log4j");
-        CONTAINS_LIST.add("logback");
-        CONTAINS_LIST.add("slf4j");
+        CONTAINS_SET.add("log4j");
+        CONTAINS_SET.add("logback");
+        CONTAINS_SET.add("slf4j");
     }
 
     @Override
@@ -50,7 +50,7 @@ public class ContainsFilterChain implements FilterChain {
     @Override
     public boolean ignoreArtifactById(Artifact artifact) {
         String artifactId = artifact.getArtifactId();
-        if (CONTAINS_LIST.stream().anyMatch(artifactId::contains)) {
+        if (CONTAINS_SET.stream().anyMatch(artifactId::contains)) {
             return true;
         }
         return this.ignore(filterChain, artifact);
