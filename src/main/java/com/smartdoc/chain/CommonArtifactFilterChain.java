@@ -57,6 +57,7 @@ public class CommonArtifactFilterChain implements FilterChain {
             case "xstream":
             case "guava":
             case "spring-tx":
+            case "javassist":
                 return true;
             default:
                 return this.ignore(filterChain, artifact);

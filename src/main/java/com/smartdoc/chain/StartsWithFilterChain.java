@@ -48,6 +48,7 @@ public class StartsWithFilterChain implements FilterChain {
         PREFIX_SET.add("sharding");
         PREFIX_SET.add("mybatis-spring-boot-starter");
         PREFIX_SET.add("flexmark");
+        PREFIX_SET.add("hibernate-core");
     }
 
     @Override
