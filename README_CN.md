@@ -90,6 +90,10 @@ smart-doc-maven-plugin是smart-doc官方团队开发的`maven`插件，该插件
       "value": "00000"//设置响应码的值
     }
   ],
+  "apiObjectReplacements": [{ // 自smart-doc 1.8.5开始你可以使用自定义类覆盖其他类做文档渲染，非必须
+      "className": "org.springframework.data.domain.Pageable",
+      "replacementClassName": "com.power.doc.model.PageRequestDto" //自定义的PageRequestDto替换Pageable做文档渲染
+  }],
   "requestHeaders": [ //设置请求头，没有需求可以不设置
     {
       "name": "token",
