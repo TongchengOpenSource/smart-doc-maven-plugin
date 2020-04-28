@@ -48,6 +48,7 @@ public class SpringBootArtifactFilterChain implements FilterChain {
             case "spring-boot-starter-json":
             case "spring-boot-starter-web":
             case "spring-boot-starter-logging":
+            case "spring-boot-starter-tomcat":
                 return true;
             default:
                 return this.ignore(filterChain, artifact);
