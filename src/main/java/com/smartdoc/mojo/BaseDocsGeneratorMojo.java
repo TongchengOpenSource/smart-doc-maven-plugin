@@ -52,10 +52,7 @@ import org.apache.maven.shared.dependency.graph.DependencyNode;
 
 import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
@@ -94,7 +91,7 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
     private String projectName;
 
     @Parameter(required = false)
-    private List excludes;
+    private Set excludes;
 
     private DependencyNode rootNode;
 
@@ -163,7 +160,7 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
                 if (currentProjectModules.contains(artifactName)) {
                     return;
                 }
-                if (Objects.nonNull(excludes) && excludes.contains(artifactName)) {
+                if (ArtifactFilterUtil.isMatches(excludes, artifactName)) {
                     return;
                 }
 //                getLog().info("art:" + artifactName);
