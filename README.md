@@ -25,6 +25,7 @@ smart-doc-maven-plugin will also make smart-doc's ability to generate API docume
         <!--smart-doc implements automatic analysis of the dependency tree to load the source code of third-party dependencies. If some framework dependency libraries are not loaded, an error is reported, then use excludes to exclude-->
         <excludes>
             <!-The format is: groupId: artifactId; refer to the following->
+            <!-since 1.0.7 version you can also use regular matching to exclude, such as: poi. *->
             <exclude>com.google.guava:guava</exclude>
         </excludes>
     </configuration>

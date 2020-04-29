@@ -23,6 +23,7 @@ smart-doc-maven-plugin是smart-doc官方团队开发的`maven`插件，该插件
         <!--smart-doc实现自动分析依赖树加载第三方依赖的源码，如果一些框架依赖库加载不到导致报错，这时请使用excludes排除掉-->
         <excludes>
             <!--格式为：groupId:artifactId;参考如下-->
+            <!--1.0.7版本开始你还可以用正则匹配排除,如：poi.* -->
             <exclude>com.alibaba:fastjson</exclude>
         </excludes>
     </configuration>
