@@ -24,6 +24,7 @@ package com.smartdoc.mojo;
 
 import com.power.common.constants.Charset;
 import com.power.common.util.CollectionUtil;
+import com.power.common.util.RegexUtil;
 import com.power.doc.model.ApiConfig;
 import com.smartdoc.constant.GlobalConstants;
 import com.smartdoc.util.ArtifactFilterUtil;
@@ -160,7 +161,7 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
                 if (currentProjectModules.contains(artifactName)) {
                     return;
                 }
-                if (ArtifactFilterUtil.isMatches(excludes, artifactName)) {
+                if (RegexUtil.isMatches(excludes, artifactName)) {
                     return;
                 }
 //                getLog().info("art:" + artifactName);
