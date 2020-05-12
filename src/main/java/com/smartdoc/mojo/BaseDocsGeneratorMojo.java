@@ -53,6 +53,7 @@ import org.apache.maven.shared.dependency.graph.DependencyNode;
 
 import java.io.File;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
@@ -94,6 +95,10 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
     @Parameter(required = false)
     private Set excludes;
 
+    @Parameter(required = false)
+    private Set includes;
+
+
     private DependencyNode rootNode;
 
     protected JavaProjectBuilder javaProjectBuilder;
@@ -103,6 +108,7 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
+
         getLog().info("Smart-doc Starting Create API Documentation.");
         javaProjectBuilder = buildJavaProjectBuilder();
         javaProjectBuilder.setEncoding(Charset.DEFAULT_CHARSET);
@@ -118,6 +124,7 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
             getLog().info("API Documentation output to " + apiConfig.getOutPath());
         }
         this.executeMojo(apiConfig, javaProjectBuilder);
+
     }
 
 
@@ -164,10 +171,19 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
                 if (RegexUtil.isMatches(excludes, artifactName)) {
                     return;
                 }
-//                getLog().info("art:" + artifactName);
-                Artifact sourcesArtifact = repositorySystem.createArtifactWithClassifier(artifact.getGroupId(),
-                        artifact.getArtifactId(), artifact.getVersion(), artifact.getType(), "sources");
-                this.loadSourcesDependency(javaDocBuilder, sourcesArtifact);
+
+                if (RegexUtil.isMatches(includes, artifactName)) {
+                    //getLog().info("load "+artifactName);
+                    Artifact sourcesArtifact = repositorySystem.createArtifactWithClassifier(artifact.getGroupId(),
+                            artifact.getArtifactId(), artifact.getVersion(), artifact.getType(), "sources");
+                    this.loadSourcesDependency(javaDocBuilder, sourcesArtifact);
+                    return;
+                }
+                if(includes == null) {
+                    Artifact sourcesArtifact = repositorySystem.createArtifactWithClassifier(artifact.getGroupId(),
+                            artifact.getArtifactId(), artifact.getVersion(), artifact.getType(), "sources");
+                    this.loadSourcesDependency(javaDocBuilder, sourcesArtifact);
+                }
             });
         } catch (DependencyGraphBuilderException e) {
             throw new MojoExecutionException("Cannot build project dependency graph", e);
