@@ -53,7 +53,6 @@ import org.apache.maven.shared.dependency.graph.DependencyNode;
 
 import java.io.File;
 import java.net.URL;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
@@ -179,14 +178,14 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
                     this.loadSourcesDependency(javaDocBuilder, sourcesArtifact);
                     return;
                 }
-                if(includes == null) {
+                if (includes == null) {
                     Artifact sourcesArtifact = repositorySystem.createArtifactWithClassifier(artifact.getGroupId(),
                             artifact.getArtifactId(), artifact.getVersion(), artifact.getType(), "sources");
                     this.loadSourcesDependency(javaDocBuilder, sourcesArtifact);
                 }
             });
         } catch (DependencyGraphBuilderException e) {
-            throw new MojoExecutionException("Cannot build project dependency graph", e);
+            throw new MojoExecutionException("Can't build project dependency graph", e);
         }
     }
 

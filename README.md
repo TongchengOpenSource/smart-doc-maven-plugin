@@ -28,6 +28,12 @@ smart-doc-maven-plugin will also make smart-doc's ability to generate API docume
             <!-since 1.0.7 version you can also use regular matching to exclude, such as: poi. *->
             <exclude>com.google.guava:guava</exclude>
         </excludes>
+        <!--Since version 1.0.8, the plugin provides includes support-->
+        <!--smart-doc can automatically analyze the dependency tree to load all dependent source code. In principle, it will affect the efficiency of document construction, so you can use includes to let the plugin load the components you configure.-->
+        <includes>
+            <!-The format is: groupId: artifactId; refer to the following->
+            <include>com.alibaba:fastjson</include>
+        </includes>
     </configuration>
     <executions>
         <execution>
