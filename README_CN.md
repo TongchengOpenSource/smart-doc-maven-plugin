@@ -26,10 +26,10 @@ smart-doc-maven-plugin是smart-doc官方团队开发的`maven`插件，该插件
             <!--1.0.7版本开始你还可以用正则匹配排除,如：poi.* -->
             <exclude>com.alibaba:fastjson</exclude>
         </excludes>
-        <!--如果你的第三方依赖源码较少 可以使用include加入，此时不会加载所有的第三方源码 1.0.7版本-->
+        <!--自1.0.8版本开始，插件提供includes支持-->
+        <!--smart-doc能自动分析依赖树加载所有依赖源码，原则上会影响文档构建效率，因此你可以使用includes来让插件加载你配置的组件-->
         <includes>
             <!--格式为：groupId:artifactId;参考如下-->
-            <!--1.0.7版本开始你还可以用正则匹配,如：poi.* -->
             <include>com.alibaba:fastjson</include>
         </includes>
     </configuration>
