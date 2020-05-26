@@ -75,6 +75,8 @@ When you need to use smart-doc to generate more API document information, you ca
   "md5EncryptedHtmlName": false, // only used if each controller generates an html file
   "projectName": "smart-doc", // Configure your own project name
   "skipTransientField": true, // Not currently implemented
+  "requestFieldToUnderline":true, //convert request field to underline
+  "responseFieldToUnderline":true,//convert response field to underline
   "dataDictionaries": [// Configure the data dictionary, no need to set
     {
       "title": "Order Status", // The name of the data dictionary
@@ -110,6 +112,12 @@ When you need to use smart-doc to generate more API document information, you ca
         "className": "org.springframework.data.domain.Pageable",
         "replacementClassName": "com.power.doc.model.PageRequestDto" //Use custom PageRequestDto instead of JPA Pageable for document rendering.
   }],
+  "rpcApiDependencies":[{ // Your Apache Dubbo api interface module dependency description.
+        "artifactId":"SpringBoot2-Dubbo-Api",
+        "groupId":"com.demo",
+        "version":"1.0.0"
+     }
+  ],
   "requestHeaders": [// Set global request headers, no need to set
     {
       "name": "token",
@@ -127,13 +135,21 @@ So the project configuration can also refer to the introduction of smart-doc.
 #### Run plugin with maven command
 ```
 // Generate html
-mvn -Dfile.encoding = UTF-8 smart-doc: html
+mvn -Dfile.encoding = UTF-8 smart-doc:html
 // Generate markdown
-mvn -Dfile.encoding = UTF-8 smart-doc: markdown
+mvn -Dfile.encoding = UTF-8 smart-doc:markdown
 // Generate adoc
-mvn -Dfile.encoding = UTF-8 smart-doc: adoc
+mvn -Dfile.encoding = UTF-8 smart-doc:adoc
 // Generate postman collection
-mvn -Dfile.encoding = UTF-8 smart-doc: postman
+mvn -Dfile.encoding = UTF-8 smart-doc:postman
+
+// For Apache Dubbo Rpc
+// Generate html
+mvn -Dfile.encoding = UTF-8 smart-doc:rpc-html
+// Generate markdown
+mvn -Dfile.encoding = UTF-8 smart-doc:rpc-markdown
+// Generate adoc
+mvn -Dfile.encoding = UTF-8 smart-doc:rpc-adoc
 ```
 **Note:** Under the window system, if you use the maven command line to perform document generation, 
 non-English characters may be garbled, so you need to specify `-Dfile.encoding = UTF-8` during execution.

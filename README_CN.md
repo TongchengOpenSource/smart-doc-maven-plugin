@@ -66,6 +66,8 @@ smart-doc-maven-plugin是smart-doc官方团队开发的`maven`插件，该插件
   "md5EncryptedHtmlName": false,//只有每个controller生成一个html文件是才使用
   "projectName": "smart-doc",//配置自己的项目名称
   "skipTransientField": true,//目前未实现
+  "requestFieldToUnderline":true, //自动将驼峰入参字段在文档中转为下划线格式,//@since 1.8.7 版本开始
+  "responseFieldToUnderline":true,//自动将驼峰入参字段在文档中转为下划线格式,//@since 1.8.7 版本开始
   "dataDictionaries": [ //配置数据字典，没有需求可以不设置
     {
       "title": "订单状态", //数据字典的名称
@@ -101,6 +103,12 @@ smart-doc-maven-plugin是smart-doc官方团队开发的`maven`插件，该插件
       "className": "org.springframework.data.domain.Pageable",
       "replacementClassName": "com.power.doc.model.PageRequestDto" //自定义的PageRequestDto替换Pageable做文档渲染
   }],
+  "rpcApiDependencies":[{ // 项目开放的dubbo api接口模块依赖，配置后输出到文档方便使用者集成
+      "artifactId":"SpringBoot2-Dubbo-Api",
+      "groupId":"com.demo",
+      "version":"1.0.0"
+  	}
+  ],
   "requestHeaders": [ //设置请求头，没有需求可以不设置
     {
       "name": "token",
@@ -131,6 +139,14 @@ mvn -Dfile.encoding=UTF-8 smart-doc:markdown
 mvn -Dfile.encoding=UTF-8 smart-doc:adoc
 //生成postmanjson数据
 mvn -Dfile.encoding=UTF-8 smart-doc:postman
+
+// Apache Dubbo Rpc文档
+// Generate html
+mvn -Dfile.encoding = UTF-8 smart-doc:rpc-html
+// Generate markdown
+mvn -Dfile.encoding = UTF-8 smart-doc:rpc-markdown
+// Generate adoc
+mvn -Dfile.encoding = UTF-8 smart-doc:rpc-adoc
 ```
 **注意：** 尤其在window系统下，如果实际使用maven命令行执行文档生成，可能会出现乱码，因此需要在执行时指定`-Dfile.encoding=UTF-8`。
 
