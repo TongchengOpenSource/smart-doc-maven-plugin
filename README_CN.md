@@ -107,8 +107,8 @@ smart-doc-maven-plugin是smart-doc官方团队开发的`maven`插件，该插件
       "artifactId":"SpringBoot2-Dubbo-Api",
       "groupId":"com.demo",
       "version":"1.0.0"
-  	}
-  ],
+  }],
+  "rpcConsumerConfig": "src/main/resources/consumer-example.conf",//文档中添加dubbo consumer集成配置，用于方便集成方可以快速集成
   "requestHeaders": [ //设置请求头，没有需求可以不设置
     {
       "name": "token",
@@ -163,7 +163,7 @@ OS name: "windows 10", version: "10.0", arch: "amd64", family: "dos"
 #### Run plugin in IDEA
 当你使用Idea时，可以通过maven Helper插件选择生成何种文档。
 
-![idea中smart-doc-maven插件使用](https://images.gitee.com/uploads/images/2019/1215/004902_b0c153d6_144669.png "idea.png")
+![idea中smart-doc-maven插件使用](https://images.gitee.com/uploads/images/2020/0602/213139_739a4d41_144669.png "maven_plugin_tasks.png")
 
 ### Generated document example
 [点击查看文档生成文档效果图](https://gitee.com/sunyurepository/smart-doc/wikis/文档效果图?sort_id=1652819)

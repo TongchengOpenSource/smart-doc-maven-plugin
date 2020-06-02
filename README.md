@@ -116,8 +116,8 @@ When you need to use smart-doc to generate more API document information, you ca
         "artifactId":"SpringBoot2-Dubbo-Api",
         "groupId":"com.demo",
         "version":"1.0.0"
-     }
-  ],
+  }],
+  "rpcConsumerConfig": "src/main/resources/consumer-example.conf",//dubbo consumer config example
   "requestHeaders": [// Set global request headers, no need to set
     {
       "name": "token",
