@@ -66,6 +66,8 @@ smart-doc-maven-plugin是smart-doc官方团队开发的`maven`插件，该插件
   "md5EncryptedHtmlName": false,//只有每个controller生成一个html文件是才使用
   "projectName": "smart-doc",//配置自己的项目名称
   "skipTransientField": true,//目前未实现
+  "requestFieldToUnderline":true, //自动将驼峰入参字段在文档中转为下划线格式,//@since 1.8.7 版本开始
+  "responseFieldToUnderline":true,//自动将驼峰入参字段在文档中转为下划线格式,//@since 1.8.7 版本开始
   "dataDictionaries": [ //配置数据字典，没有需求可以不设置
     {
       "title": "订单状态", //数据字典的名称
@@ -101,6 +103,12 @@ smart-doc-maven-plugin是smart-doc官方团队开发的`maven`插件，该插件
       "className": "org.springframework.data.domain.Pageable",
       "replacementClassName": "com.power.doc.model.PageRequestDto" //自定义的PageRequestDto替换Pageable做文档渲染
   }],
+  "rpcApiDependencies":[{ // 项目开放的dubbo api接口模块依赖，配置后输出到文档方便使用者集成
+      "artifactId":"SpringBoot2-Dubbo-Api",
+      "groupId":"com.demo",
+      "version":"1.0.0"
+  }],
+  "rpcConsumerConfig": "src/main/resources/consumer-example.conf",//文档中添加dubbo consumer集成配置，用于方便集成方可以快速集成
   "requestHeaders": [ //设置请求头，没有需求可以不设置
     {
       "name": "token",
@@ -131,6 +139,14 @@ mvn -Dfile.encoding=UTF-8 smart-doc:markdown
 mvn -Dfile.encoding=UTF-8 smart-doc:adoc
 //生成postmanjson数据
 mvn -Dfile.encoding=UTF-8 smart-doc:postman
+
+// Apache Dubbo Rpc文档
+// Generate html
+mvn -Dfile.encoding = UTF-8 smart-doc:rpc-html
+// Generate markdown
+mvn -Dfile.encoding = UTF-8 smart-doc:rpc-markdown
+// Generate adoc
+mvn -Dfile.encoding = UTF-8 smart-doc:rpc-adoc
 ```
 **注意：** 尤其在window系统下，如果实际使用maven命令行执行文档生成，可能会出现乱码，因此需要在执行时指定`-Dfile.encoding=UTF-8`。
 
@@ -147,7 +163,7 @@ OS name: "windows 10", version: "10.0", arch: "amd64", family: "dos"
 #### Run plugin in IDEA
 当你使用Idea时，可以通过maven Helper插件选择生成何种文档。
 
-![idea中smart-doc-maven插件使用](https://images.gitee.com/uploads/images/2019/1215/004902_b0c153d6_144669.png "idea.png")
+![idea中smart-doc-maven插件使用](https://images.gitee.com/uploads/images/2020/0602/213139_739a4d41_144669.png "maven_plugin_tasks.png")
 
 ### Generated document example
 [点击查看文档生成文档效果图](https://gitee.com/sunyurepository/smart-doc/wikis/文档效果图?sort_id=1652819)
