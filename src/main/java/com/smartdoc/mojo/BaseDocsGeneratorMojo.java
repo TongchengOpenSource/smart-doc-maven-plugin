@@ -107,7 +107,6 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-
         getLog().info("Smart-doc Starting Create API Documentation.");
         javaProjectBuilder = buildJavaProjectBuilder();
         javaProjectBuilder.setEncoding(Charset.DEFAULT_CHARSET);
@@ -115,6 +114,9 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
         if (apiConfig == null) {
             getLog().info(GlobalConstants.ERROR_MSG);
             return;
+        }
+        if (!FileUtil.isAbsPath(apiConfig.getRpcConsumerConfig())) {
+            apiConfig.setRpcConsumerConfig(project.getBasedir().getPath() + "/" + apiConfig.getRpcConsumerConfig());
         }
         if (!FileUtil.isAbsPath(apiConfig.getOutPath())) {
             apiConfig.setOutPath(project.getBasedir().getPath() + "/" + apiConfig.getOutPath());
