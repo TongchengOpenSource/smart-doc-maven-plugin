@@ -35,7 +35,7 @@ public class FileUtil {
     private static Pattern pattern = Pattern.compile(regex);
 
     public static boolean isAbsPath(String path) {
-        if(StringUtil.isEmpty(path)){
+        if (StringUtil.isEmpty(path)) {
             return false;
         }
         Matcher matcher = pattern.matcher(path);
