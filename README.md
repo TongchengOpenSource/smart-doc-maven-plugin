@@ -77,6 +77,8 @@ When you need to use smart-doc to generate more API document information, you ca
   "skipTransientField": true, // Not currently implemented
   "requestFieldToUnderline":true, //convert request field to underline
   "responseFieldToUnderline":true,//convert response field to underline
+  "inlineEnum":true,// Set to true to display enumeration details in the parameter table
+  "recursionLimit":7,// Set the number of recursive executions to avoid stack overflow, the default is 7
   "dataDictionaries": [// Configure the data dictionary, no need to set
     {
       "title": "Order Status", // The name of the data dictionary
