@@ -66,8 +66,10 @@ smart-doc-maven-plugin是smart-doc官方团队开发的`maven`插件，该插件
   "md5EncryptedHtmlName": false,//只有每个controller生成一个html文件是才使用
   "projectName": "smart-doc",//配置自己的项目名称
   "skipTransientField": true,//目前未实现
-  "requestFieldToUnderline":true, //自动将驼峰入参字段在文档中转为下划线格式,//@since 1.8.7 版本开始
-  "responseFieldToUnderline":true,//自动将驼峰入参字段在文档中转为下划线格式,//@since 1.8.7 版本开始
+  "requestFieldToUnderline":true, //自动将驼峰入参字段在文档中转为下划线格式,//@since smart-doc 1.8.7 版本开始
+  "responseFieldToUnderline":true,//自动将驼峰入参字段在文档中转为下划线格式,//@since  smart-doc 1.8.7 版本开始
+  "inlineEnum":true,//设置为true会将枚举详情展示到参数表中，默认关闭，//@since smart-doc 1.8.8版本开始
+  "recursionLimit":7,//设置允许递归执行的次数用于避免一些对象解析卡主，默认是7，正常为3次以内，//@since smart-doc 1.8.8版本开始
   "dataDictionaries": [ //配置数据字典，没有需求可以不设置
     {
       "title": "订单状态", //数据字典的名称
