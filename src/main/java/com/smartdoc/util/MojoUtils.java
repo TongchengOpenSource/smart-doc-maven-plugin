@@ -27,10 +27,7 @@ import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.power.common.util.FileUtil;
-import com.power.doc.model.ApiConfig;
-import com.power.doc.model.ApiDataDictionary;
-import com.power.doc.model.ApiErrorCodeDictionary;
-import com.power.doc.model.SourceCodePath;
+import com.power.doc.model.*;
 import com.smartdoc.constant.GlobalConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -41,9 +38,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @author xingzi 2019/12/07 21:19
@@ -82,6 +77,7 @@ public class MojoUtils {
             ApiConfig apiConfig = GSON.fromJson(data, ApiConfig.class);
             List<ApiDataDictionary> apiDataDictionaries = apiConfig.getDataDictionaries();
             List<ApiErrorCodeDictionary> apiErrorCodes = apiConfig.getErrorCodeDictionaries();
+            List<ApiConstant> apiConstants = apiConfig.getApiConstants();
             if (apiErrorCodes != null) {
                 apiErrorCodes.forEach(
                         apiErrorCode -> {
@@ -95,6 +91,14 @@ public class MojoUtils {
                         apiDataDictionary -> {
                             String className = apiDataDictionary.getEnumClassName();
                             apiDataDictionary.setEnumClass(getClassByClassName(className, classLoader));
+                        }
+                );
+            }
+            if (apiConstants != null) {
+                apiConstants.forEach(
+                        apiConstant -> {
+                            String className = apiConstant.getConstantsClassName();
+                            apiConstant.setConstantsClass(getClassByClassName(className, classLoader));
                         }
                 );
             }
@@ -128,6 +132,7 @@ public class MojoUtils {
 
     /**
      * addSourcePath
+     *
      * @param project
      * @param apiConfig
      * @param sourceCodePaths
@@ -143,6 +148,7 @@ public class MojoUtils {
         sourceCodePaths.toArray(codePaths);
         apiConfig.setSourceCodePaths(codePaths);
     }
+
     /**
      * get project sourceCode
      *
@@ -165,6 +171,7 @@ public class MojoUtils {
 
     /**
      * get RootParentPath
+     *
      * @param project
      * @return
      */
