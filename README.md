@@ -119,6 +119,9 @@ When you need to use smart-doc to generate more API document information, you ca
         "groupId":"com.demo",
         "version":"1.0.0"
   }],
+  "apiConstants": [{//Configure your own constant class, smart-doc automatically replaces with a specific value when parsing to a constant
+        "constantsClassName": "com.power.doc.constants.RequestParamConstant"
+   }],
   "rpcConsumerConfig": "src/main/resources/consumer-example.conf",//dubbo consumer config example
   "requestHeaders": [// Set global request headers, no need to set
     {
