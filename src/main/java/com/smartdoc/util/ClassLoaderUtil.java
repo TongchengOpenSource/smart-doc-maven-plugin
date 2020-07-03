@@ -51,9 +51,7 @@ public class ClassLoaderUtil {
                 String element = runtimeClasspathElements.get(i);
                 runtimeUrls[i] = new File(element).toURI().toURL();
             }
-
             int j = runtimeClasspathElements.size();
-
             for (int i = 0; i < compileClasspathElements.size(); i++) {
                 String element = compileClasspathElements.get(i);
                 runtimeUrls[i + j] = new File(element).toURI().toURL();

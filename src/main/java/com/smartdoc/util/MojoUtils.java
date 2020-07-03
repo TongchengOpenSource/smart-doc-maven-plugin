@@ -143,7 +143,6 @@ public class MojoUtils {
         List<String> path = new ArrayList<>();
         getSourceCodeFilePath(file, path);
         path.forEach(s -> sourceCodePaths.add(SourceCodePath.path().setPath(s)));
-
         SourceCodePath[] codePaths = new SourceCodePath[sourceCodePaths.size()];
         sourceCodePaths.toArray(codePaths);
         apiConfig.setSourceCodePaths(codePaths);
