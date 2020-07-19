@@ -70,9 +70,9 @@ smart-doc-maven-plugin是smart-doc官方团队开发的`maven`插件，该插件
   "responseFieldToUnderline":true,//自动将驼峰入参字段在文档中转为下划线格式,//@since  smart-doc 1.8.7 版本开始
   "inlineEnum":true,//设置为true会将枚举详情展示到参数表中，默认关闭，//@since smart-doc 1.8.8版本开始
   "recursionLimit":7,//设置允许递归执行的次数用于避免一些对象解析卡主，默认是7，正常为3次以内，//@since smart-doc 1.8.8版本开始
-  "allInOneDocFileName":"index.html",//自定义设置输出文档名称, @since 1.9.0
-  "requestExample":"true",//是否将请求示例展示在文档中，默认true，@since 1.9.0
-  "responseExample":"true",//是否将响应示例展示在文档中，默认为true，@since 1.9.0
+  "allInOneDocFileName":"index.html",//自定义设置输出文档名称, @since smart-doc 1.9.0
+    "requestExample":"true",//是否将请求示例展示在文档中，默认true，@since smart-doc 1.9.0
+    "responseExample":"true",//是否将响应示例展示在文档中，默认为true，@since  smart-doc 1.9.0
   "dataDictionaries": [ //配置数据字典，没有需求可以不设置
     {
       "title": "订单状态", //数据字典的名称
