@@ -25,6 +25,7 @@ package com.smartdoc.mojo;
 import com.power.common.constants.Charset;
 import com.power.common.util.CollectionUtil;
 import com.power.common.util.RegexUtil;
+import com.power.common.util.StringUtil;
 import com.power.doc.model.ApiConfig;
 import com.smartdoc.constant.GlobalConstants;
 import com.smartdoc.util.ArtifactFilterUtil;
@@ -115,15 +116,14 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
             getLog().info(GlobalConstants.ERROR_MSG);
             return;
         }
-        if (!FileUtil.isAbsPath(apiConfig.getRpcConsumerConfig())) {
-            apiConfig.setRpcConsumerConfig(project.getBasedir().getPath() + "/" + apiConfig.getRpcConsumerConfig());
+        String rpcConsumerConfig = apiConfig.getRpcConsumerConfig();
+        if (!FileUtil.isAbsPath(rpcConsumerConfig) && StringUtil.isNotEmpty(rpcConsumerConfig)) {
+            apiConfig.setRpcConsumerConfig(project.getBasedir().getPath() + "/" + rpcConsumerConfig);
         }
         if (!FileUtil.isAbsPath(apiConfig.getOutPath())) {
             apiConfig.setOutPath(project.getBasedir().getPath() + "/" + apiConfig.getOutPath());
-            getLog().info("API Documentation output to " + apiConfig.getOutPath());
-        } else {
-            getLog().info("API Documentation output to " + apiConfig.getOutPath());
         }
+        getLog().info("API Documentation output to " + apiConfig.getOutPath());
         this.executeMojo(apiConfig, javaProjectBuilder);
 
     }
