@@ -120,12 +120,12 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
         if (!FileUtil.isAbsPath(rpcConsumerConfig) && StringUtil.isNotEmpty(rpcConsumerConfig)) {
             apiConfig.setRpcConsumerConfig(project.getBasedir().getPath() + "/" + rpcConsumerConfig);
         }
-        if (!FileUtil.isAbsPath(apiConfig.getOutPath())) {
-            apiConfig.setOutPath(project.getBasedir().getPath() + "/" + apiConfig.getOutPath());
+        String outPath = apiConfig.getOutPath();
+        if (!FileUtil.isAbsPath(outPath) && StringUtil.isNotEmpty(outPath)) {
+            apiConfig.setOutPath(project.getBasedir().getPath() + "/" + outPath);
         }
-        getLog().info("API Documentation output to " + apiConfig.getOutPath());
+        getLog().info("API Documentation output to " + outPath);
         this.executeMojo(apiConfig, javaProjectBuilder);
-
     }
 
 
