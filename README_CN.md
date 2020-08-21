@@ -146,6 +146,8 @@ mvn -Dfile.encoding=UTF-8 smart-doc:markdown
 mvn -Dfile.encoding=UTF-8 smart-doc:adoc
 //生成postmanjson数据
 mvn -Dfile.encoding=UTF-8 smart-doc:postman
+// 生成 Open Api 3.0+,Since 1.1.5
+mvn -Dfile.encoding = UTF-8 smart-doc:openapi
 
 // Apache Dubbo Rpc文档
 // Generate html
