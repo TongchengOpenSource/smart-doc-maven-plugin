@@ -150,7 +150,7 @@ mvn -Dfile.encoding = UTF-8 smart-doc:markdown
 mvn -Dfile.encoding = UTF-8 smart-doc:adoc
 // Generate postman collection
 mvn -Dfile.encoding = UTF-8 smart-doc:postman
-// Gnerate Open Api 3.0+,Since 1.1.5
+// Generate Open Api 3.0+,Since 1.1.5
 mvn -Dfile.encoding = UTF-8 smart-doc:openapi
 
 // For Apache Dubbo Rpc

@@ -146,7 +146,7 @@ mvn -Dfile.encoding=UTF-8 smart-doc:markdown
 mvn -Dfile.encoding=UTF-8 smart-doc:adoc
 //生成postmanjson数据
 mvn -Dfile.encoding=UTF-8 smart-doc:postman
-// 生成 Open Api 3.0+,Since 1.1.5
+// 生成 Open Api 3.0+,Since smart-doc-maven-plugin 1.1.5
 mvn -Dfile.encoding = UTF-8 smart-doc:openapi
 
 // Apache Dubbo Rpc文档
@@ -172,7 +172,7 @@ OS name: "windows 10", version: "10.0", arch: "amd64", family: "dos"
 #### Run plugin in IDEA
 当你使用Idea时，可以通过maven Helper插件选择生成何种文档。
 
-![idea中smart-doc-maven插件使用](https://images.gitee.com/uploads/images/2020/0602/213139_739a4d41_144669.png "maven_plugin_tasks.png")
+![idea中smart-doc-maven插件使用](https://gitee.com/sunyurepository/smart-doc-maven-plugin/raw/master/images/idea.png "maven_plugin_tasks.png")
 
 ### Generated document example
 [点击查看文档生成文档效果图](https://gitee.com/sunyurepository/smart-doc/wikis/文档效果图?sort_id=1652819)
