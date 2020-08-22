@@ -98,6 +98,9 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
     @Parameter(required = false)
     private Set includes;
 
+    @Parameter(property = "skip")
+    private String skip;
+
 
     private DependencyNode rootNode;
 
@@ -108,6 +111,10 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
+        //skip
+        if("true".equals(skip)){
+            return;
+        }
         getLog().info("Smart-doc Starting Create API Documentation.");
         javaProjectBuilder = buildJavaProjectBuilder();
         javaProjectBuilder.setEncoding(Charset.DEFAULT_CHARSET);
