@@ -73,6 +73,9 @@ smart-doc-maven-plugin是smart-doc官方团队开发的`maven`插件，该插件
   "allInOneDocFileName":"index.html",//自定义设置输出文档名称, @since smart-doc 1.9.0
   "requestExample":"true",//是否将请求示例展示在文档中，默认true，@since smart-doc 1.9.0
   "responseExample":"true",//是否将响应示例展示在文档中，默认为true，@since  smart-doc 1.9.0
+  "ignoreRequestParams":[ //忽略请求参数对象，把不想生成文档的参数对象屏蔽掉，@since smart-doc 1.9.2
+     "org.springframework.ui.ModelMap"
+  ],
   "dataDictionaries": [ //配置数据字典，没有需求可以不设置
     {
       "title": "订单状态", //数据字典的名称
