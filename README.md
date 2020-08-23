@@ -1,4 +1,4 @@
-<h1 align="center">Smart-Doc Maven Plugin</a></h1>
+<h1 align="center">Smart-Doc Maven Plugin</h1>
 
 [中文文档](https://github.com/shalousun/smart-doc-maven-plugin/blob/master/README_CN.md)
 
@@ -20,6 +20,8 @@ smart-doc-maven-plugin will also make smart-doc's ability to generate API docume
     <artifactId>smart-doc-maven-plugin</artifactId>
     <version>[latest version]</version>
     <configuration>
+        <!--skip option is used to disable plugin in child module-->
+        <!--<skip>true</skip>-->
         <!--Specify the configuration file used to generate the document-->
         <configFile>./src/main/resources/smart-doc.json</configFile>
         <!--smart-doc implements automatic analysis of the dependency tree to load the source code of third-party dependencies. If some framework dependency libraries are not loaded, an error is reported, then use excludes to exclude-->

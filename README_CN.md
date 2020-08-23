@@ -16,6 +16,10 @@ smart-doc-maven-plugin是smart-doc官方团队开发的`maven`插件，该插件
     <artifactId>smart-doc-maven-plugin</artifactId>
     <version>【最新版】</version>
     <configuration>
+        <!--对于maven多模块项目，插件在parent中时，触发插件会在各模块中执行一遍-->
+        <!--因此在不需要执行文档任务的模块中,可以添加插件后配置skip让maven跳过smart-doc插件 -->
+        <!--看不懂的同学不建议设置skip,因为报错不影响文档生成-->
+        <!--<skip>true</skip>-->
         <!--指定生成文档的使用的配置文件,配置文件放在自己的项目中-->
         <configFile>./src/main/resources/smart-doc.json</configFile>
         <!--指定项目名称-->
