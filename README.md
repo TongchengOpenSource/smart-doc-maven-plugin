@@ -66,7 +66,7 @@ The configuration contents are as follows.
    "outPath": "/src/main/resources" //Set the api document output path.
 }
 ```
-Only three configuration items are required to use the smart-doc-maven-plugin to generate API documentation. In fact, only outPath must be configured.
+Only three configurations items are needed to generate API documentation using smart-doc-maven-plugin. In fact, only outPath must be configured.
 
 **Detailed configuration content:**
 
