@@ -1,6 +1,11 @@
 <h1 align="center">Smart-Doc Maven Plugin</h1>
 
-[中文文档](https://github.com/shalousun/smart-doc-maven-plugin/blob/master/README_CN.md)
+![maven](https://img.shields.io/maven-central/v/com.github.shalousun/smart-doc-maven-plugin)
+[![License](https://img.shields.io/badge/license-Apache%202-green.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+![number of issues closed](https://img.shields.io/github/issues-closed-raw/shalousun/smart-doc-maven-plugin)
+![closed pull requests](https://img.shields.io/github/issues-pr-closed-raw/shalousun/smart-doc-maven-plugin)
+![java version](https://img.shields.io/badge/JAVA-1.8+-green.svg)
+[![chinese](https://img.shields.io/badge/chinese-中文文档-brightgreen)](https://github.com/shalousun/smart-doc-maven-plugin/blob/master/README_CN.md)
 
 ## Introduce
 smart-doc-maven-plugin is a `maven` plugin developed by the smart-doc official team. 
@@ -79,6 +84,7 @@ When you need to use smart-doc to generate more API document information, you ca
   "skipTransientField": true, // Not currently implemented
   "requestFieldToUnderline":true, //convert request field to underline
   "responseFieldToUnderline":true,//convert response field to underline
+  "sortByTitle":false,//Sort by interface title, the default value is false
   "inlineEnum":true,// Set to true to display enumeration details in the parameter table
   "recursionLimit":7,// Set the number of recursive executions to avoid stack overflow, the default is 7
   "allInOneDocFileName":"index.html",//Customize the output document name

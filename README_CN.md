@@ -1,5 +1,10 @@
 <h1 align="center"><a href="https://github.com/shalousun/smart-doc-maven-plugin" target="_blank">Smart-Doc Maven Plugin</a></h1>
 
+![maven](https://img.shields.io/maven-central/v/com.github.shalousun/smart-doc-maven-plugin)
+[![License](https://img.shields.io/badge/license-Apache%202-green.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+![closed pull requests](https://img.shields.io/github/issues-pr-closed-raw/shalousun/smart-doc-maven-plugin)
+![java version](https://img.shields.io/badge/JAVA-1.8+-green.svg)
+
 ## Introduce
 smart-doc-maven-plugin是smart-doc官方团队开发的`maven`插件，该插件从smart-doc 1.7.9版本开始提供，
 使用smart-doc-maven-plugin更方便用户集成到自己的项目中，集成也更加轻量，你不再需要在项目中编写单元测试来
@@ -70,6 +75,7 @@ smart-doc-maven-plugin是smart-doc官方团队开发的`maven`插件，该插件
   "md5EncryptedHtmlName": false,//只有每个controller生成一个html文件是才使用
   "projectName": "smart-doc",//配置自己的项目名称
   "skipTransientField": true,//目前未实现
+  "sortByTitle":false,//接口标题排序，默认为false,@since 1.8.7版本开始
   "requestFieldToUnderline":true, //自动将驼峰入参字段在文档中转为下划线格式,//@since smart-doc 1.8.7 版本开始
   "responseFieldToUnderline":true,//自动将驼峰入参字段在文档中转为下划线格式,//@since  smart-doc 1.8.7 版本开始
   "inlineEnum":true,//设置为true会将枚举详情展示到参数表中，默认关闭，//@since smart-doc 1.8.8版本开始
