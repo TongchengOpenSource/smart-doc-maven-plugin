@@ -11,7 +11,7 @@ smart-doc-maven-plugin是smart-doc官方团队开发的`maven`插件，该插件
 启动smart-doc扫描代码分析生成接口文档。可以直接运行`maven`命令
 或者是IDE中点击smart-doc-maven-plugin预设好的`goal`即可生成接口文档。
 
-[关于smart-doc](https://gitee.com/sunyurepository/smart-doc)
+[关于smart-doc](https://gitee.com/smart-doc-team/smart-doc)
 
 ## Getting started
 ### Add plugin
@@ -185,10 +185,10 @@ OS name: "windows 10", version: "10.0", arch: "amd64", family: "dos"
 #### Run plugin in IDEA
 当你使用Idea时，可以通过maven Helper插件选择生成何种文档。
 
-![idea中smart-doc-maven插件使用](https://gitee.com/sunyurepository/smart-doc-maven-plugin/raw/master/images/idea.png "maven_plugin_tasks.png")
+![idea中smart-doc-maven插件使用](https://gitee.com/smart-doc-team/smart-doc-maven-plugin/raw/master/images/idea.png "maven_plugin_tasks.png")
 
 ### Generated document example
-[点击查看文档生成文档效果图](https://gitee.com/sunyurepository/smart-doc/wikis/文档效果图?sort_id=1652819)
+[点击查看文档生成文档效果图](https://gitee.com/smart-doc-team/smart-doc/wikis/文档效果图?sort_id=1652819)
 
 ## Building
 如果你需要自己构建，那可以使用下面命令，构建需要依赖Java 1.8。
@@ -196,25 +196,25 @@ OS name: "windows 10", version: "10.0", arch: "amd64", family: "dos"
 mvn clean install -Dmaven.test.skip=true
 ```
 ## Releases
-[发布记录](https://gitee.com/sunyurepository/smart-doc-maven-plugin/blob/master/CHANGELOG.md)
+[发布记录](https://gitee.com/smart-doc-team/smart-doc-maven-plugin/blob/master/CHANGELOG.md)
 ## Other reference
 - [smart-doc功能使用介绍](https://my.oschina.net/u/1760791/blog/2250962)
-- [smart-doc官方wiki](https://gitee.com/sunyurepository/smart-doc/wikis/Home?sort_id=1652800)
+- [smart-doc官方wiki](https://gitee.com/smart-doc-team/smart-doc/wikis/Home?sort_id=1652800)
 ## License
-smart-doc-maven-plugin is under the Apache 2.0 license.  See the [LICENSE](https://gitee.com/sunyurepository/smart-doc/blob/master/license.txt) file for details.
+smart-doc-maven-plugin is under the Apache 2.0 license.  See the [LICENSE](https://gitee.com/smart-doc-team/smart-doc/blob/master/license.txt) file for details.
 
 **注意：** smart-doc源代码文件全部带有版权注释，使用关键代码二次开源请保留原始版权，否则后果自负！
 ## Who is using
-> 排名不分先后，更多接入公司，欢迎在[https://gitee.com/sunyurepository/smart-doc/issues/I1594T](https://gitee.com/sunyurepository/smart-doc/issues/I1594T)登记（仅供开源用户参考）
+> 排名不分先后，更多接入公司，欢迎在[https://gitee.com/smart-doc-team/smart-doc/issues/I1594T](https://gitee.com/smart-doc-team/smart-doc/issues/I1594T)登记（仅供开源用户参考）
 
-![iFLYTEK](https://gitee.com/sunyurepository/smart-doc/raw/master/images/known-users/iflytek.png)
-&nbsp;&nbsp;<img src="https://gitee.com/sunyurepository/smart-doc/raw/master/images/known-users/oneplus.png" title="一加" width="83px" height="83px"/>
-&nbsp;&nbsp;<img src="https://gitee.com/sunyurepository/smart-doc/raw/master/images/known-users/xiaomi.png" title="小米" width="170px" height="83px"/>
-<img src="https://gitee.com/sunyurepository/smart-doc/raw/master/images/known-users/yuanmengjiankang.png" title="远盟健康" width="260px" height="83px"/>
-<img src="https://gitee.com/sunyurepository/smart-doc/raw/master/images/known-users/zhongkezhilian.png" title="中科智链" width="272px" height="83px"/>
-<img src="https://gitee.com/sunyurepository/smart-doc/raw/master/images/known-users/puqie_gaitubao_100x100.jpg" title="普切信息科技" width="83px" height="83px"/>
+![iFLYTEK](https://gitee.com/smart-doc-team/smart-doc/raw/master/images/known-users/iflytek.png)
+&nbsp;&nbsp;<img src="https://gitee.com/smart-doc-team/smart-doc/raw/master/images/known-users/oneplus.png" title="一加" width="83px" height="83px"/>
+&nbsp;&nbsp;<img src="https://gitee.com/smart-doc-team/smart-doc/raw/master/images/known-users/xiaomi.png" title="小米" width="170px" height="83px"/>
+<img src="https://gitee.com/smart-doc-team/smart-doc/raw/master/images/known-users/yuanmengjiankang.png" title="远盟健康" width="260px" height="83px"/>
+<img src="https://gitee.com/smart-doc-team/smart-doc/raw/master/images/known-users/zhongkezhilian.png" title="中科智链" width="272px" height="83px"/>
+<img src="https://gitee.com/smart-doc-team/smart-doc/raw/master/images/known-users/puqie_gaitubao_100x100.jpg" title="普切信息科技" width="83px" height="83px"/>
 
 ## Contact
 愿意参与构建smart-doc或者是需要交流问题可以加入qq群：
 
-<img src="https://gitee.com/sunyurepository/smart-doc/raw/master/images/smart-doc-qq.png" title="qq群" width="200px" height="200px"/>
+<img src="https://gitee.com/smart-doc-team/smart-doc/raw/master/images/smart-doc-qq.png" title="qq群" width="200px" height="200px"/>
