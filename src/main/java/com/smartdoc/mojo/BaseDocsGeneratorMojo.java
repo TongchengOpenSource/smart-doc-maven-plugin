@@ -24,6 +24,7 @@ package com.smartdoc.mojo;
 
 import com.power.common.constants.Charset;
 import com.power.common.util.CollectionUtil;
+import com.power.common.util.DateTimeUtil;
 import com.power.common.util.RegexUtil;
 import com.power.common.util.StringUtil;
 import com.power.doc.model.ApiConfig;
@@ -112,10 +113,10 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         //skip
-        if("true".equals(skip)){
+        if ("true".equals(skip)) {
             return;
         }
-        getLog().info("Smart-doc Starting Create API Documentation.");
+        getLog().info("Smart-doc Start preparing sources at: " + DateTimeUtil.nowStrTime());
         javaProjectBuilder = buildJavaProjectBuilder();
         javaProjectBuilder.setEncoding(Charset.DEFAULT_CHARSET);
         ApiConfig apiConfig = buildConfig(configFile, projectName, project, getLog());
@@ -131,6 +132,7 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
         if (!FileUtil.isAbsPath(outPath) && StringUtil.isNotEmpty(outPath)) {
             apiConfig.setOutPath(project.getBasedir().getPath() + "/" + outPath);
         }
+        getLog().info("Smart-doc Starting Create API Documentation at: " + DateTimeUtil.nowStrTime());
         getLog().info("API Documentation output to " + outPath);
         this.executeMojo(apiConfig, javaProjectBuilder);
     }
