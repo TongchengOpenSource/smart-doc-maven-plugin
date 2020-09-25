@@ -90,6 +90,7 @@ When you need to use smart-doc to generate more API document information, you ca
   "allInOneDocFileName":"index.html",//Customize the output document name
   "requestExample":"true",//Whether to display the request example in the document, the default value is true.
   "responseExample":"true",//Whether to display the response example in the document, the default is true.
+  "displayActualType":false,//display actual type of generic,
   "ignoreRequestParams":[ //The request parameter object will be discarded when generating the document.@since 1.9.2
      "org.springframework.ui.ModelMap"
   ],

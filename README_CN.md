@@ -87,6 +87,7 @@ smart-doc-maven-plugin底层完全依赖于官方开源的smart-doc解析库，
   "allInOneDocFileName":"index.html",//自定义设置输出文档名称, @since smart-doc 1.9.0
   "requestExample":"true",//是否将请求示例展示在文档中，默认true，@since smart-doc 1.9.0
   "responseExample":"true",//是否将响应示例展示在文档中，默认为true，@since  smart-doc 1.9.0
+  "displayActualType":false,//配置true会在注释栏自动显示泛型的真实类型短类名，@since 1.9.6
   "ignoreRequestParams":[ //忽略请求参数对象，把不想生成文档的参数对象屏蔽掉，@since smart-doc 1.9.2
      "org.springframework.ui.ModelMap"
   ],

@@ -8,6 +8,8 @@
 - 更新日期：2020-01-01  
 - 更新内容：
 	1. 1.0.1依赖smart-doc 1.8.0
-	https://www.javatips.net/api/gcloud-maven-plugin-master/src/main/java/com/google/appengine/gcloudapp/GCloudAppRun.java
-	https://www.javatips.net/api/mojo-executor-master/mojo-executor-maven-plugin/src/main/java/org/twdata/maven/mojoexecutor/plugin/MojoExecutorMojo.java
-	
+
+### 版本号：1.2.0
+- 更新日期：2020-10-12
+- 更新内容：
+	1. 此版本优化了插件源码加载逻辑，提升用户体验
