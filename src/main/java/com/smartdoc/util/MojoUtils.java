@@ -38,7 +38,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static com.smartdoc.constant.GlobalConstants.FILE_SEPARATOR;
 
 /**
  * @author xingzi 2019/12/07 21:19
@@ -63,14 +67,15 @@ public class MojoUtils {
     /**
      * Build ApiConfig
      *
-     * @param configFile  config file
-     * @param projectName project name
-     * @param project     Maven project object
-     * @param log         maven plugin log
+     * @param configFile       config file
+     * @param projectName      project name
+     * @param project          Maven project object
+     * @param projectArtifacts project artifacts
+     * @param log              maven plugin log
      * @return com.power.doc.model.ApiConfig
      * @throws MojoExecutionException MojoExecutionException
      */
-    public static ApiConfig buildConfig(File configFile, String projectName, MavenProject project, Log log) throws MojoExecutionException {
+    public static ApiConfig buildConfig(File configFile, String projectName, MavenProject project, List<String> projectArtifacts, Log log) throws MojoExecutionException {
         try {
             ClassLoader classLoader = ClassLoaderUtil.getRuntimeClassLoader(project);
             String data = FileUtil.getFileContent(new FileInputStream(configFile));
@@ -105,7 +110,7 @@ public class MojoUtils {
             if (StringUtils.isBlank(apiConfig.getProjectName())) {
                 apiConfig.setProjectName(projectName);
             }
-            addSourcePaths(project, apiConfig, new ArrayList<>(), log);
+            addSourcePaths(project, apiConfig, projectArtifacts, log);
             return apiConfig;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -135,16 +140,32 @@ public class MojoUtils {
      *
      * @param project
      * @param apiConfig
-     * @param sourceCodePaths
+     * @param projectArtifacts
      * @param log
      */
-    private static void addSourcePaths(MavenProject project, ApiConfig apiConfig, ArrayList<SourceCodePath> sourceCodePaths, Log log) {
-        File file = getRootPath(project);
-        List<String> path = new ArrayList<>();
-        getSourceCodeFilePath(file, path);
-        path.forEach(s -> sourceCodePaths.add(SourceCodePath.path().setPath(s)));
+    private static void addSourcePaths(MavenProject project, ApiConfig apiConfig, List<String> projectArtifacts, Log log) {
+        List<SourceCodePath> sourceCodePaths = new ArrayList<>();
+        // key is module's artifact name, value is module's path
+        Map<String, String> modules = new HashMap<>();
+        getRootPath(project, modules);
+        modules.entrySet().forEach(entry -> {
+            String key = entry.getKey();
+            String modulePath = entry.getValue();
+            projectArtifacts.forEach(artifactName -> {
+                if (artifactName.equals(key)) {
+                    sourceCodePaths.add(SourceCodePath.path().setPath(modulePath));
+                }
+            });
+        });
+
+        sourceCodePaths.add(SourceCodePath.path()
+                .setPath(project.getBasedir() + FILE_SEPARATOR + GlobalConstants.SOURCE_CODE_PATH));
         SourceCodePath[] codePaths = new SourceCodePath[sourceCodePaths.size()];
         sourceCodePaths.toArray(codePaths);
+        if (log.isDebugEnabled()) {
+            log.debug("Artifacts that the current project depends on: " + projectArtifacts);
+            log.debug("Smart-doc has loaded the source code path: " + sourceCodePaths);
+        }
         apiConfig.setSourceCodePaths(codePaths);
     }
 
@@ -174,14 +195,20 @@ public class MojoUtils {
      * @param project
      * @return
      */
-    private static File getRootPath(MavenProject project) {
+    private static File getRootPath(MavenProject project, Map<String, String> moduleList) {
         if (project.hasParent()) {
             MavenProject mavenProject = project.getParent();
             if (null != mavenProject) {
                 if (mavenProject.getBasedir() == null) {
                     return project.getBasedir();
                 } else {
-                    return getRootPath(mavenProject);
+                    List<String> modules = mavenProject.getModules();
+                    String groupId = mavenProject.getGroupId();
+                    for (String module : modules) {
+                        moduleList.put(groupId + ":" + module, mavenProject.getBasedir() + FILE_SEPARATOR +
+                                module + FILE_SEPARATOR + GlobalConstants.SOURCE_CODE_PATH);
+                    }
+                    return getRootPath(mavenProject, moduleList);
                 }
             } else {
                 return project.getBasedir();

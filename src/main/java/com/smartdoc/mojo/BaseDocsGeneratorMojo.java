@@ -102,10 +102,11 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
     @Parameter(property = "skip")
     private String skip;
 
-
     private DependencyNode rootNode;
 
     protected JavaProjectBuilder javaProjectBuilder;
+
+    private List<String> projectArtifacts;
 
     public abstract void executeMojo(ApiConfig apiConfig, JavaProjectBuilder javaProjectBuilder)
             throws MojoExecutionException, MojoFailureException;
@@ -116,11 +117,15 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
         if ("true".equals(skip)) {
             return;
         }
+        if (Objects.nonNull(configFile) && !configFile.exists()) {
+            return;
+        }
         getLog().info("Smart-doc Start preparing sources at: " + DateTimeUtil.nowStrTime());
+        projectArtifacts = new ArrayList<>();
         javaProjectBuilder = buildJavaProjectBuilder();
         javaProjectBuilder.setEncoding(Charset.DEFAULT_CHARSET);
-        ApiConfig apiConfig = buildConfig(configFile, projectName, project, getLog());
-        if (apiConfig == null) {
+        ApiConfig apiConfig = buildConfig(configFile, projectName, project,projectArtifacts, getLog());
+        if (Objects.isNull(apiConfig)) {
             getLog().info(GlobalConstants.ERROR_MSG);
             return;
         }
@@ -133,7 +138,7 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
             apiConfig.setOutPath(project.getBasedir().getPath() + "/" + outPath);
         }
         getLog().info("Smart-doc Starting Create API Documentation at: " + DateTimeUtil.nowStrTime());
-        getLog().info("API Documentation output to " + outPath);
+        getLog().info("API documentation is output to " + outPath);
         this.executeMojo(apiConfig, javaProjectBuilder);
     }
 
@@ -176,22 +181,24 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
                 }
                 String artifactName = artifact.getGroupId() + ":" + artifact.getArtifactId();
                 if (currentProjectModules.contains(artifactName)) {
+                    this.projectArtifacts.add(artifactName);
                     return;
                 }
                 if (RegexUtil.isMatches(excludes, artifactName)) {
                     return;
                 }
-
                 if (RegexUtil.isMatches(includes, artifactName)) {
-                    //getLog().info("load "+artifactName);
+                    getLog().debug("load includes artifact: "+artifactName);
                     Artifact sourcesArtifact = repositorySystem.createArtifactWithClassifier(artifact.getGroupId(),
                             artifact.getArtifactId(), artifact.getVersion(), artifact.getType(), "sources");
+                    this.projectArtifacts.add(artifactName);
                     this.loadSourcesDependency(javaDocBuilder, sourcesArtifact);
                     return;
                 }
                 if (includes == null) {
                     Artifact sourcesArtifact = repositorySystem.createArtifactWithClassifier(artifact.getGroupId(),
                             artifact.getArtifactId(), artifact.getVersion(), artifact.getType(), "sources");
+                    this.projectArtifacts.add(artifactName);
                     this.loadSourcesDependency(javaDocBuilder, sourcesArtifact);
                 }
             });
@@ -218,7 +225,9 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
         // load source file into javadoc builder
         result.getArtifacts().forEach(artifact -> {
             try (JarFile jarFile = new JarFile(artifact.getFile())) {
-//                getLog().info("jar:" + artifact.getFile().toURI().toURL().toString() );
+                if(getLog().isDebugEnabled()){
+                    getLog().debug("smart-doc loaded jar source:" + artifact.getFile().toURI().toURL().toString() );
+                }
                 for (Enumeration<?> entries = jarFile.entries(); entries.hasMoreElements(); ) {
                     JarEntry entry = (JarEntry) entries.nextElement();
                     String name = entry.getName();

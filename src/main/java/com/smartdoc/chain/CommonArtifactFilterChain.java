@@ -58,6 +58,8 @@ public class CommonArtifactFilterChain implements FilterChain {
             case "guava":
             case "spring-tx":
             case "javassist":
+            case "javafaker":
+            case "qdox":
                 return true;
             default:
                 return this.ignore(filterChain, artifact);
