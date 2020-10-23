@@ -32,6 +32,7 @@ import com.smartdoc.constant.GlobalConstants;
 import com.smartdoc.util.ArtifactFilterUtil;
 import com.smartdoc.util.ClassLoaderUtil;
 import com.smartdoc.util.FileUtil;
+import com.smartdoc.util.MojoUtils;
 import com.thoughtworks.qdox.JavaProjectBuilder;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.repository.ArtifactRepository;
@@ -59,7 +60,6 @@ import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
-import static com.smartdoc.util.MojoUtils.buildConfig;
 
 /**
  * @author yu 2020/1/8.
@@ -124,7 +124,7 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
         projectArtifacts = new ArrayList<>();
         javaProjectBuilder = buildJavaProjectBuilder();
         javaProjectBuilder.setEncoding(Charset.DEFAULT_CHARSET);
-        ApiConfig apiConfig = buildConfig(configFile, projectName, project,projectArtifacts, getLog());
+        ApiConfig apiConfig = MojoUtils.buildConfig(configFile, projectName, project, projectArtifacts, getLog());
         if (Objects.isNull(apiConfig)) {
             getLog().info(GlobalConstants.ERROR_MSG);
             return;
@@ -188,7 +188,7 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
                     return;
                 }
                 if (RegexUtil.isMatches(includes, artifactName)) {
-                    getLog().debug("load includes artifact: "+artifactName);
+                    getLog().debug("load includes artifact: " + artifactName);
                     Artifact sourcesArtifact = repositorySystem.createArtifactWithClassifier(artifact.getGroupId(),
                             artifact.getArtifactId(), artifact.getVersion(), artifact.getType(), "sources");
                     this.projectArtifacts.add(artifactName);
@@ -225,8 +225,8 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
         // load source file into javadoc builder
         result.getArtifacts().forEach(artifact -> {
             try (JarFile jarFile = new JarFile(artifact.getFile())) {
-                if(getLog().isDebugEnabled()){
-                    getLog().debug("smart-doc loaded jar source:" + artifact.getFile().toURI().toURL().toString() );
+                if (getLog().isDebugEnabled()) {
+                    getLog().debug("smart-doc loaded jar source:" + artifact.getFile().toURI().toURL().toString());
                 }
                 for (Enumeration<?> entries = jarFile.entries(); entries.hasMoreElements(); ) {
                     JarEntry entry = (JarEntry) entries.nextElement();

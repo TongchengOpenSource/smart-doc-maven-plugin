@@ -158,7 +158,7 @@ public class MojoUtils {
             });
         });
 
-        sourceCodePaths.add(SourceCodePath.path()
+        sourceCodePaths.add(SourceCodePath.builder()
                 .setPath(project.getBasedir() + FILE_SEPARATOR + GlobalConstants.SOURCE_CODE_PATH));
         SourceCodePath[] codePaths = new SourceCodePath[sourceCodePaths.size()];
         sourceCodePaths.toArray(codePaths);
