@@ -66,7 +66,7 @@ smart-doc-maven-plugin底层完全依赖于官方开源的smart-doc解析库，
 **详细配置说明:**
 ```
 {
-  "serverUrl": "http://127.0.0.1", //设置服务器地址,非必须
+  "serverUrl": "http://127.0.0.1", //服务器地址,非必须。导出postman建议设置成http://{{server}}方便直接在postman直接设置环境变量
   "isStrict": false, //是否开启严格模式
   "allInOne": true,  //是否将文档合并到一个文件中，一般推荐为true
   "outPath": "D://md2", //指定文档的输出路径

@@ -153,7 +153,7 @@ public class MojoUtils {
             String modulePath = entry.getValue();
             projectArtifacts.forEach(artifactName -> {
                 if (artifactName.equals(key)) {
-                    sourceCodePaths.add(SourceCodePath.path().setPath(modulePath));
+                    sourceCodePaths.add(SourceCodePath.builder().setPath(modulePath));
                 }
             });
         });
