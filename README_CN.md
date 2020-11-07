@@ -85,39 +85,31 @@ smart-doc-maven-plugin底层完全依赖于官方开源的smart-doc解析库，
   "responseExample":"true",//是否将响应示例展示在文档中，默认为true，@since  smart-doc 1.9.0
   "displayActualType":false,//配置true会在注释栏自动显示泛型的真实类型短类名，@since 1.9.6
   "ignoreRequestParams":[ //忽略请求参数对象，把不想生成文档的参数对象屏蔽掉，@since smart-doc 1.9.2
-     "org.springframework.ui.ModelMap"
+      "org.springframework.ui.ModelMap"
   ],
-  "dataDictionaries": [ //配置数据字典，没有需求可以不设置
-    {
+  "dataDictionaries": [{ //配置数据字典，没有需求可以不设置
       "title": "订单状态", //数据字典的名称
       "enumClassName": "com.power.doc.enums.OrderEnum", //项目自定义数据字典枚举类名称
       "codeField": "code",//数据字典字典码对应的字段名称
       "descField": "desc"//数据字典对象的描述信息字典
-    }
-  ],
-
-  "errorCodeDictionaries": [{ //错误码列表，没有需求可以不设置
-    "title": "title",
-    "enumClassName": "com.power.doc.enums.ErrorCodeEnum", //项目自定义的错误码枚举类
-    "codeField": "code",//错误码的code码字段名称
-    "descField": "desc"//错误码的描述信息对应的字段名
   }],
-
-  "revisionLogs": [ //设置文档变更记录，没有需求可以不设置
-    {
+  "errorCodeDictionaries": [{ //错误码列表，没有需求可以不设置
+      "title": "title",
+      "enumClassName": "com.power.doc.enums.ErrorCodeEnum", //项目自定义的错误码枚举类
+      "codeField": "code",//错误码的code码字段名称
+      "descField": "desc"//错误码的描述信息对应的字段名
+  }],
+  "revisionLogs": [{ //设置文档变更记录，没有需求可以不设置
       "version": "1.0", //文档版本号
       "status": "update", //变更操作状态，一般为：创建、更新等
       "author": "author", //文档变更作者
       "remarks": "desc" //变更描述
-    }
-  ],
-  "customResponseFields": [ //自定义添加字段和注释，api-doc后期遇到同名字段则直接给相应字段加注释，非必须
-    {
+  }],
+  "customResponseFields": [{ //自定义添加字段和注释，api-doc后期遇到同名字段则直接给相应字段加注释，非必须
       "name": "code",//覆盖响应码字段
       "desc": "响应代码",//覆盖响应码的字段注释
       "value": "00000"//设置响应码的值
-    }
-  ],
+  }],
   "apiObjectReplacements": [{ // 自smart-doc 1.8.5开始你可以使用自定义类覆盖其他类做文档渲染，非必须
       "className": "org.springframework.data.domain.Pageable",
       "replacementClassName": "com.power.doc.model.PageRequestDto" //自定义的PageRequestDto替换Pageable做文档渲染
@@ -128,24 +120,23 @@ smart-doc-maven-plugin底层完全依赖于官方开源的smart-doc解析库，
       "version":"1.0.0"
   }],
   "rpcConsumerConfig": "src/main/resources/consumer-example.conf",//文档中添加dubbo consumer集成配置，用于方便集成方可以快速集成
-  "requestHeaders": [ //设置请求头，没有需求可以不设置
-    {
+  "requestHeaders": [{ //设置请求头，没有需求可以不设置
       "name": "token",
       "type": "string",
       "desc": "desc",
       "required": false,
       "since": "-"
-    }
-  ],
-  "apiConstants": [{//从1.8.9开始配置自己的常量类，smart-doc在解析到常量时自动替换为具体的值。非必须，根据自己需求来设置
-        "constantsClassName": "com.power.doc.constants.RequestParamConstant"//项目自己定义的常量
   }],
-  "sourceCodePaths": [ //设置代码路径，默认加载src/main/java, 没有需求可以不设置
-    {
+  "apiConstants": [{//从1.8.9开始配置自己的常量类，smart-doc在解析到常量时自动替换为具体的值。非必须，根据自己需求来设置
+      "constantsClassName": "com.power.doc.constants.RequestParamConstant"//项目自己定义的常量
+  }],
+  "apiConstants": [{//从1.8.9开始配置自己的常量类，smart-doc在解析到常量时自动替换为具体的值
+      "constantsClassName": "com.power.doc.constants.RequestParamConstant"
+  }],
+  "sourceCodePaths": [{//设置代码路径，默认加载src/main/java, 没有需求可以不设置
       "path": "src/main/java",
       "desc": "测试"
-    }
-  ]
+  }]
 }
 ```
 **注意：** 上面的json配置完全使用smart-doc的`ApiConfig`转化成json而来。因此项目配置也可以参考smart-doc的介绍。
