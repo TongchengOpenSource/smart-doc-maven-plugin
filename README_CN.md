@@ -130,9 +130,9 @@ smart-doc-maven-plugin底层完全依赖于官方开源的smart-doc解析库，
   "apiConstants": [{//从1.8.9开始配置自己的常量类，smart-doc在解析到常量时自动替换为具体的值。非必须，根据自己需求来设置
       "constantsClassName": "com.power.doc.constants.RequestParamConstant"//项目自己定义的常量
   }],
-  "apiConstants": [{//从1.8.9开始配置自己的常量类，smart-doc在解析到常量时自动替换为具体的值
-      "constantsClassName": "com.power.doc.constants.RequestParamConstant"
-  }],
+  "responseBodyAdvice":{ //自smart-doc 1.9.8起，ResponseBodyAdvice统一返回设置，可用ignoreResponseBodyAdvice tag来忽略
+       "className":"com.power.common.model.CommonResult" //通用响应体
+  },
   "sourceCodePaths": [{//设置代码路径，默认加载src/main/java, 没有需求可以不设置
       "path": "src/main/java",
       "desc": "测试"
