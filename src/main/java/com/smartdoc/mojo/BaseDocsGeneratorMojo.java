@@ -118,7 +118,7 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
             return;
         }
         if (Objects.nonNull(configFile) && !configFile.exists()) {
-            return;
+            throw new MojoFailureException("can not find configFile: " + configFile.getName());
         }
         getLog().info("Smart-doc Start preparing sources at: " + DateTimeUtil.nowStrTime());
         projectArtifacts = new ArrayList<>();
