@@ -118,7 +118,10 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
             return;
         }
         if (Objects.nonNull(configFile) && !configFile.exists()) {
-            throw new MojoFailureException("Can't find config file: " + configFile.getName());
+            // Throwing an exception will cause an error in the multi-module maven project build.
+            this.getLog().warn("Can't find config file: " + configFile.getName()+" from ["+project.getName()
+                    +"],If it is a non-web module, please ignore the error.");
+            return;
         }
         getLog().info("Smart-doc Start preparing sources at: " + DateTimeUtil.nowStrTime());
         projectArtifacts = new ArrayList<>();
