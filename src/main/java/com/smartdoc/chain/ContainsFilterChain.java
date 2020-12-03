@@ -40,6 +40,7 @@ public class ContainsFilterChain implements FilterChain {
         CONTAINS_SET.add("log4j");
         CONTAINS_SET.add("logback");
         CONTAINS_SET.add("slf4j");
+        CONTAINS_SET.add("swagger");
     }
 
     @Override
