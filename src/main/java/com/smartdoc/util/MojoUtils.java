@@ -27,6 +27,7 @@ import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.power.common.util.FileUtil;
+import com.power.common.util.StringUtil;
 import com.power.doc.model.*;
 import com.smartdoc.constant.GlobalConstants;
 import org.apache.commons.lang3.StringUtils;
@@ -37,10 +38,7 @@ import org.apache.maven.project.MavenProject;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.smartdoc.constant.GlobalConstants.FILE_SEPARATOR;
 
@@ -83,7 +81,8 @@ public class MojoUtils {
             List<ApiDataDictionary> apiDataDictionaries = apiConfig.getDataDictionaries();
             List<ApiErrorCodeDictionary> apiErrorCodes = apiConfig.getErrorCodeDictionaries();
             List<ApiConstant> apiConstants = apiConfig.getApiConstants();
-            if (apiErrorCodes != null) {
+            ResponseBodyAdvice responseBodyAdvice = apiConfig.getResponseBodyAdvice();
+            if (Objects.nonNull(apiErrorCodes)) {
                 apiErrorCodes.forEach(
                         apiErrorCode -> {
                             String className = apiErrorCode.getEnumClassName();
@@ -91,7 +90,7 @@ public class MojoUtils {
                         }
                 );
             }
-            if (apiDataDictionaries != null) {
+            if (Objects.nonNull(apiDataDictionaries)) {
                 apiDataDictionaries.forEach(
                         apiDataDictionary -> {
                             String className = apiDataDictionary.getEnumClassName();
@@ -99,13 +98,16 @@ public class MojoUtils {
                         }
                 );
             }
-            if (apiConstants != null) {
+            if (Objects.nonNull(apiConstants)) {
                 apiConstants.forEach(
                         apiConstant -> {
                             String className = apiConstant.getConstantsClassName();
                             apiConstant.setConstantsClass(getClassByClassName(className, classLoader));
                         }
                 );
+            }
+            if (Objects.nonNull(responseBodyAdvice) && StringUtil.isNotEmpty(responseBodyAdvice.getClassName())) {
+                responseBodyAdvice.setWrapperClass(getClassByClassName(responseBodyAdvice.getClassName(), classLoader));
             }
             if (StringUtils.isBlank(apiConfig.getProjectName())) {
                 apiConfig.setProjectName(projectName);
