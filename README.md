@@ -79,6 +79,7 @@ When you need to use smart-doc to generate more API document information, you ca
   "outPath": "D: // md2", // Specify the output path of the document
   "coverOld": true, // Whether to overwrite old files, mainly used for mardown file overwrite
   "style":"xt256", //set highlight
+  "createDebugPage": true,
   "packageFilters": "", // controller package filtering, multiple package names separated by commas
   "md5EncryptedHtmlName": false, // only used if each controller generates an html file
   "projectName": "smart-doc", // Configure your own project name

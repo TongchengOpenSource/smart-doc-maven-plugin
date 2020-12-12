@@ -72,6 +72,7 @@ smart-doc-maven-plugin底层完全依赖于官方开源的smart-doc解析库，
   "outPath": "D://md2", //指定文档的输出路径
   "coverOld": true,  //是否覆盖旧的文件，主要用于mardown文件覆盖
   "style":"xt256", //基于highlight.js的代码高设置,可选值很多可查看码云wiki，喜欢配色统一简洁的同学可以不设置
+  "createDebugPage": true,//@since 2.0.0 smart-doc支持创建可以测试的html页面
   "packageFilters": "",//controller包过滤，多个包用英文逗号隔开
   "md5EncryptedHtmlName": false,//只有每个controller生成一个html文件是才使用
   "projectName": "smart-doc",//配置自己的项目名称
