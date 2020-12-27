@@ -47,6 +47,7 @@ smart-doc-maven-plugin will also make smart-doc's ability to generate API docume
             <!--Comment out phase if you don't need to start smart-doc when compiling-->
             <phase>compile</phase>
             <goals>
+                <!--smart-doc provides html, openapi, markdown, adoc and other goals-->
                 <goal>html</goal>
             </goals>
         </execution>
@@ -79,7 +80,8 @@ When you need to use smart-doc to generate more API document information, you ca
   "outPath": "D: // md2", // Specify the output path of the document
   "coverOld": true, // Whether to overwrite old files, mainly used for mardown file overwrite
   "style":"xt256", //set highlight
-  "createDebugPage": true,
+  "createDebugPage": true,//Create a page that can be used to test your APIs like swagger
+  "language":"ENGLISH",//support ENGLISH and CHINESE
   "packageFilters": "", // controller package filtering, multiple package names separated by commas
   "md5EncryptedHtmlName": false, // only used if each controller generates an html file
   "projectName": "smart-doc", // Configure your own project name
