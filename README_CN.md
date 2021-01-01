@@ -106,6 +106,7 @@ smart-doc-maven-plugin底层完全依赖于官方开源的smart-doc解析库，
   }],
   "revisionLogs": [{ //设置文档变更记录，没有需求可以不设置
       "version": "1.0", //文档版本号
+      "revisionTime": "2020-12-31 10:30", //文档修订时间
       "status": "update", //变更操作状态，一般为：创建、更新等
       "author": "author", //文档变更作者
       "remarks": "desc" //变更描述
