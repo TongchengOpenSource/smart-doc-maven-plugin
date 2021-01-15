@@ -50,6 +50,7 @@ public class StartsWithFilterChain implements FilterChain {
         PREFIX_SET.add("flexmark");
         PREFIX_SET.add("hibernate-core");
         PREFIX_SET.add("springdoc-openapi");
+        PREFIX_SET.add("poi");
     }
 
     @Override
