@@ -119,8 +119,8 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
         }
         if (Objects.nonNull(configFile) && !configFile.exists()) {
             // Throwing an exception will cause an error in the multi-module maven project build.
-            this.getLog().warn("Can't find config file: " + configFile.getName()+" from ["+project.getName()
-                    +"],If it is a non-web module, please ignore the error.");
+            this.getLog().warn("Can't find config file: " + configFile.getName() + " from [" + project.getName()
+                    + "],If it is a non-web module, please ignore the error.");
             return;
         }
         getLog().info("Smart-doc Start preparing sources at: " + DateTimeUtil.nowStrTime());
@@ -198,13 +198,13 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
                     this.loadSourcesDependency(javaDocBuilder, sourcesArtifact);
                     return;
                 }
-                if (includes == null) {
+                if (CollectionUtil.isEmpty(includes)) {
                     Artifact sourcesArtifact = repositorySystem.createArtifactWithClassifier(artifact.getGroupId(),
                             artifact.getArtifactId(), artifact.getVersion(), artifact.getType(), "sources");
                     this.projectArtifacts.add(artifactName);
                     this.loadSourcesDependency(javaDocBuilder, sourcesArtifact);
                 }
-                getLog().debug("smart-doc loaded artifact:"+artifactName);
+                getLog().debug("smart-doc loaded artifact:" + artifactName);
             });
         } catch (DependencyGraphBuilderException e) {
             throw new MojoExecutionException("Can't build project dependency graph", e);
