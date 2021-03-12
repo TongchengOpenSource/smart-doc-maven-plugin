@@ -16,7 +16,10 @@ Start smart-doc to scan source code analysis and generate API documents.
 You can run the `maven` command directly or click on the preset` goal` of the smart-doc-maven-plugin in the IDE to generate API documentation. 
 smart-doc-maven-plugin will also make smart-doc's ability to generate API documentation more powerful.
 [About smart-doc](https://github.com/shalousun/smart-doc)
+## Best Practice
+smart-doc + [Torna](http://torna.cn) form an industry-leading document generation and management solution, using smart-doc to complete Java source code analysis and extract annotations to generate API documents without intrusion, and automatically push the documents to the Torna enterprise-level interface document management platform.
 
+![smart-doc+torna](http://torna.cn/assets/images/case/smart-doc.png)
 ## Getting started
 ### Add plugin
 ```
@@ -207,10 +210,6 @@ you can build with the following commands. (Java 1.8 is required to build the ma
 ```
 mvn clean install -Dmaven.test.skip=true
 ```
-## Best Practice
-smart-doc + [Torna](http://torna.cn) form an industry-leading document generation and management solution, using smart-doc to complete Java source code analysis and extract annotations to generate API documents without intrusion, and automatically push the documents to the Torna enterprise-level interface document management platform.
-
-![smart-doc+torna](http://torna.cn/assets/images/case/smart-doc.png)
 ## Other reference
 - [Smart-doc manual](https://github.com/shalousun/smart-doc/wiki)
 

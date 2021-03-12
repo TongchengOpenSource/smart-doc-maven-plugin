@@ -14,7 +14,10 @@ smart-doc-maven-plugin底层完全依赖于官方开源的smart-doc解析库，
 因此整个使用过程中遇到问题或者是想查看完整解决方案请前往码云smart-doc的仓库查看wiki文档。
 
 [关于smart-doc](https://gitee.com/smart-doc-team/smart-doc)
+## Best Practice
+smart-doc + [Torna](http://torna.cn) 组成行业领先的文档生成和管理解决方案，使用smart-doc无侵入完成Java源代码分析和提取注释生成API文档，自动将文档推送到Torna企业级接口文档管理平台。
 
+![smart-doc+torna](http://torna.cn/assets/images/case/smart-doc.png)
 ## Getting started
 ### Add plugin
 ```
@@ -201,10 +204,6 @@ OS name: "windows 10", version: "10.0", arch: "amd64", family: "dos"
 ```
 mvn clean install -Dmaven.test.skip=true
 ```
-## Best Practice
-smart-doc + [Torna](http://torna.cn) 组成行业领先的文档生成和管理解决方案，使用smart-doc无侵入完成Java源代码分析和提取注释生成API文档，自动将文档推送到Torna企业级接口文档管理平台。
-
-![smart-doc+torna](http://torna.cn/assets/images/case/smart-doc.png)
 ## Releases
 [发布记录](https://gitee.com/smart-doc-team/smart-doc-maven-plugin/blob/master/CHANGELOG.md)
 ## Other reference
