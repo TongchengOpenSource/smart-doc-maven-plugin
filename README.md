@@ -95,6 +95,10 @@ When you need to use smart-doc to generate more API document information, you ca
   "requestExample":"true",//Whether to display the request example in the document, the default value is true.
   "responseExample":"true",//Whether to display the response example in the document, the default is true.
   "displayActualType":false,//display actual type of generic,
+  "appKey": "xxx",// torna appKey, @since 2.0.9
+  "appToken": "xxx", //torna appToken,@since 2.0.9
+  "secret": "xx",//torna secret,@since 2.0.9
+  "openUrl": "torna server/api/",//torna server url,@since 2.0.9
   "ignoreRequestParams":[ //The request parameter object will be discarded when generating the document.@since 1.9.2
        "org.springframework.ui.ModelMap"
   ],
@@ -161,6 +165,8 @@ mvn -Dfile.encoding=UTF-8 smart-doc:adoc
 mvn -Dfile.encoding=UTF-8 smart-doc:postman
 // Generate Open Api 3.0+,Since 1.1.5
 mvn -Dfile.encoding=UTF-8 smart-doc:openapi
+// Generate document and send to Torna
+mvn -Dfile.encoding=UTF-8 smart-doc:torna-rest
 
 // For Apache Dubbo Rpc
 // Generate html
@@ -201,6 +207,9 @@ you can build with the following commands. (Java 1.8 is required to build the ma
 ```
 mvn clean install -Dmaven.test.skip=true
 ```
+## Best Practice
+smart-doc + [Torna](http://torna.cn) form an industry-leading document generation and management solution, using smart-doc to complete Java source code analysis and extract annotations to generate API documents without intrusion, and automatically push the documents to the Torna enterprise-level interface document management platform.
+(http://torna.cn/assets/images/case/smart-doc.png)
 ## Other reference
 - [Smart-doc manual](https://github.com/shalousun/smart-doc/wiki)
 
