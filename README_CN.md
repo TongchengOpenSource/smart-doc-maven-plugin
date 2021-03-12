@@ -203,7 +203,7 @@ mvn clean install -Dmaven.test.skip=true
 ```
 ## Best Practice
 smart-doc + [Torna](http://torna.cn) 组成行业领先的文档生成和管理解决方案，使用smart-doc无侵入完成Java源代码分析和提取注释生成API文档，自动将文档推送到Torna企业级接口文档管理平台。
-(http://torna.cn/assets/images/case/smart-doc.png)
+![smart-doc+torna](http://torna.cn/assets/images/case/smart-doc.png)
 ## Releases
 [发布记录](https://gitee.com/smart-doc-team/smart-doc-maven-plugin/blob/master/CHANGELOG.md)
 ## Other reference

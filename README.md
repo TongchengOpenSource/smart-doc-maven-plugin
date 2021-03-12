@@ -209,7 +209,7 @@ mvn clean install -Dmaven.test.skip=true
 ```
 ## Best Practice
 smart-doc + [Torna](http://torna.cn) form an industry-leading document generation and management solution, using smart-doc to complete Java source code analysis and extract annotations to generate API documents without intrusion, and automatically push the documents to the Torna enterprise-level interface document management platform.
-(http://torna.cn/assets/images/case/smart-doc.png)
+![smart-doc+torna](http://torna.cn/assets/images/case/smart-doc.png)(http://torna.cn/assets/images/case/smart-doc.png)
 ## Other reference
 - [Smart-doc manual](https://github.com/shalousun/smart-doc/wiki)
 
