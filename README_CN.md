@@ -17,7 +17,9 @@ smart-doc-maven-plugin底层完全依赖于官方开源的smart-doc解析库，
 ## Best Practice
 smart-doc + [Torna](http://torna.cn) 组成行业领先的文档生成和管理解决方案，使用smart-doc无侵入完成Java源代码分析和提取注释生成API文档，自动将文档推送到Torna企业级接口文档管理平台。
 
-![smart-doc+torna](http://torna.cn/assets/images/case/smart-doc.png)
+![smart-doc+torna](https://gitee.com/smart-doc-team/smart-doc/raw/master/images/smart-doc-torna.png)
+
+[smart-doc+Torna文档自动化](https://gitee.com/smart-doc-team/smart-doc/wikis/smart-doc与torna对接?sort_id=3695028)
 ## Getting started
 ### Add plugin
 ```
