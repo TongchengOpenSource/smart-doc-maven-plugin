@@ -93,6 +93,7 @@ smart-doc + [Torna](http://torna.cn) 组成行业领先的文档生成和管理�
   "allInOneDocFileName":"index.html",//自定义设置输出文档名称, @since smart-doc 1.9.0
   "requestExample":"true",//是否将请求示例展示在文档中，默认true，@since smart-doc 1.9.0
   "responseExample":"true",//是否将响应示例展示在文档中，默认为true，@since  smart-doc 1.9.0
+  "urlSuffix":".do",//支持SpringMVC旧项目的url后缀,@since 2.1.0
   "displayActualType":false,//配置true会在注释栏自动显示泛型的真实类型短类名，@since 1.9.6
   "appKey": "xxx",// torna平台对接appKey,, @since 2.0.9
   "appToken": "xxx", //torna平台appToken,@since 2.0.9
