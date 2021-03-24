@@ -101,6 +101,7 @@ smart-doc + [Torna](http://torna.cn) 组成行业领先的文档生成和管理�
   "openUrl": "torna server/api/",//torna平台地址，填写自己的私有化部署地址@since 2.0.9
   "debugEnvName":"测试环境", //torna测试环境
   "debugEnvUrl":"http://127.0.0.1",//torna
+  "tornaDebug":false,//启用会推送日志
   "ignoreRequestParams":[ //忽略请求参数对象，把不想生成文档的参数对象屏蔽掉，@since smart-doc 1.9.2
       "org.springframework.ui.ModelMap"
   ],

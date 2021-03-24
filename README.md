@@ -92,6 +92,7 @@ When you need to use smart-doc to generate more API document information, you ca
   "requestFieldToUnderline":true, //convert request field to underline
   "responseFieldToUnderline":true,//convert response field to underline
   "sortByTitle":false,//Sort by interface title, the default value is false
+  "showAuthor":true,// display author,default is true
   "inlineEnum":true,// Set to true to display enumeration details in the parameter table
   "recursionLimit":7,// Set the number of recursive executions to avoid stack overflow, the default is 7
   "allInOneDocFileName":"index.html",//Customize the output document name
