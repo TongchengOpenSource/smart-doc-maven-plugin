@@ -129,6 +129,14 @@ smart-doc + [Torna](http://torna.cn) 组成行业领先的文档生成和管理�
       "desc": "响应代码",//覆盖响应码的字段注释
       "value": "00000"//设置响应码的值
   }],
+  "customRequestFields": [{
+      "name":"code", //属性名
+      "desc":"状态码", //描述
+      "ownerClassName":"com.xxx.constant.entity.Result", //属性对应的类全路径
+      "value":"200", //默认值或者mock值
+      "required":true, //是否必填
+      "ignore":false //是否忽略
+  }],
   "apiObjectReplacements": [{ // 自smart-doc 1.8.5开始你可以使用自定义类覆盖其他类做文档渲染，非必须
       "className": "org.springframework.data.domain.Pageable",
       "replacementClassName": "com.power.doc.model.PageRequestDto" //自定义的PageRequestDto替换Pageable做文档渲染
