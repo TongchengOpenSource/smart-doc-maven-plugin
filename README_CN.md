@@ -124,12 +124,12 @@ smart-doc + [Torna](http://torna.cn) 组成行业领先的文档生成和管理�
       "author": "author", //文档变更作者
       "remarks": "desc" //变更描述
   }],
-  "customResponseFields": [{ //自定义添加字段和注释，api-doc后期遇到同名字段则直接给相应字段加注释，非必须
+  "customResponseFields": [{ //自定义添加字段和注释，smart-doc后期遇到同名字段则直接给相应字段加注释，非必须
       "name": "code",//覆盖响应码字段
       "desc": "响应代码",//覆盖响应码的字段注释
       "value": "00000"//设置响应码的值
   }],
-  "customRequestFields": [{
+  "customRequestFields": [{//自定义请求字段注释设置，@since 2.1.3
       "name":"code", //属性名
       "desc":"状态码", //描述
       "ownerClassName":"com.xxx.constant.entity.Result", //属性对应的类全路径
