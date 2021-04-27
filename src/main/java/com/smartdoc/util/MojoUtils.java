@@ -153,7 +153,7 @@ public class MojoUtils {
         List<SourceCodePath> sourceCodePaths = new ArrayList<>();
         // key is module's artifact name, value is module's path
         Map<String, String> modules = new HashMap<>();
-        getRootPath(project, modules);
+        getRootPath(project, modules,log);
         modules.entrySet().forEach(entry -> {
             String key = entry.getKey();
             String modulePath = entry.getValue();
@@ -201,9 +201,12 @@ public class MojoUtils {
      * @param project
      * @return
      */
-    private static File getRootPath(MavenProject project, Map<String, String> moduleList) {
+    private static File getRootPath(MavenProject project, Map<String, String> moduleList, Log log) {
         if (project.hasParent()) {
             MavenProject mavenProject = project.getParent();
+            if (log.isDebugEnabled()) {
+                log.debug(project.getName() +" parent is: " + mavenProject.getName());
+            }
             if (null != mavenProject) {
                 if (mavenProject.getBasedir() == null) {
                     return project.getBasedir();
@@ -214,7 +217,7 @@ public class MojoUtils {
                         moduleList.put(groupId + ":" + module, mavenProject.getBasedir() + FILE_SEPARATOR +
                                 module + FILE_SEPARATOR + GlobalConstants.SOURCE_CODE_PATH);
                     }
-                    return getRootPath(mavenProject, moduleList);
+                    return getRootPath(mavenProject, moduleList,log);
                 }
             } else {
                 return project.getBasedir();
