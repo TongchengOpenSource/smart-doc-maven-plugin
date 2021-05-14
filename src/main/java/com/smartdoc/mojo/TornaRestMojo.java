@@ -25,6 +25,8 @@ package com.smartdoc.mojo;
 import com.power.doc.builder.TornaBuilder;
 import com.power.doc.model.ApiConfig;
 import com.thoughtworks.qdox.JavaProjectBuilder;
+import org.apache.maven.plugins.annotations.Execute;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.ResolutionScope;
 
@@ -32,6 +34,7 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
  * Send API documents to Torna
  * @author yu 2021/3/11.
  */
+@Execute(phase = LifecyclePhase.COMPILE)
 @Mojo(name = "torna-rest", requiresDependencyResolution = ResolutionScope.COMPILE)
 public class TornaRestMojo extends BaseDocsGeneratorMojo {
 
