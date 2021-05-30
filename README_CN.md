@@ -38,7 +38,7 @@ smart-doc + [Torna](http://torna.cn) 组成行业领先的文档生成和管理�
             <!--1.0.7版本开始你还可以用正则匹配排除,如：poi.* -->
             <exclude>com.alibaba:fastjson</exclude>
         </excludes>
-        <!--自1.0.8版本开始，插件提供includes支持-->
+        <!--自1.0.8版本开始，插件提供includes支持,配置了includes后插件会按照用户配置加载而不是自动加载，因此使用时需要注意-->
         <!--smart-doc能自动分析依赖树加载所有依赖源码，原则上会影响文档构建效率，因此你可以使用includes来让插件加载你配置的组件-->
         <includes>
             <!--格式为：groupId:artifactId;参考如下-->
@@ -129,7 +129,7 @@ smart-doc + [Torna](http://torna.cn) 组成行业领先的文档生成和管理�
       "desc": "响应代码",//覆盖响应码的字段注释
       "value": "00000"//设置响应码的值
   }],
-  "customRequestFields": [{//自定义请求字段注释设置，@since 2.1.3
+  "customRequestFields": [{//自定义请求字段注释设置，@since 2.1.3,非必须
       "name":"code", //属性名
       "desc":"状态码", //描述
       "ownerClassName":"com.xxx.constant.entity.Result", //属性对应的类全路径
@@ -160,13 +160,9 @@ smart-doc + [Torna](http://torna.cn) 组成行业领先的文档生成和管理�
   "responseBodyAdvice":{ //自smart-doc 1.9.8起，ResponseBodyAdvice统一返回设置，可用ignoreResponseBodyAdvice tag来忽略
        "className":"com.power.common.model.CommonResult" //通用响应体
   },
-  "requestBodyAdvice":{ //自smart-doc 2.1.4 起，支持设置RequestBodyAdvice统一请求包装类
+  "requestBodyAdvice":{ //自smart-doc 2.1.4 起，支持设置RequestBodyAdvice统一请求包装类。非必须
        "className":"com.power.common.model.CommonResult"
-  },
-  "sourceCodePaths": [{//设置代码路径，默认加载src/main/java, 没有需求可以不设置
-      "path": "src/main/java",
-      "desc": "测试"
-  }]
+  }
 }
 ```
 **注意：** 上面的json配置完全使用smart-doc的`ApiConfig`转化成json而来。因此项目配置也可以参考smart-doc的介绍。
