@@ -142,7 +142,7 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
             apiConfig.setOutPath(project.getBasedir().getPath() + "/" + outPath);
         }
         getLog().info("Smart-doc Starting Create API Documentation at: " + DateTimeUtil.nowStrTime());
-        getLog().info("API documentation is output to " + outPath);
+        getLog().info("API documentation is output to => " + apiConfig.getOutPath().replace("\\", "/"));
         this.executeMojo(apiConfig, javaProjectBuilder);
     }
 
