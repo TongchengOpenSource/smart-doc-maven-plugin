@@ -123,13 +123,14 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
                     + "],If it is a non-web module, please ignore the error.");
             return;
         }
-        getLog().info("Smart-doc Start preparing sources at: " + DateTimeUtil.nowStrTime());
+        this.getLog().info("------------------------------------------------------------------------");
+        this.getLog().info("Smart-doc Start preparing sources at: " + DateTimeUtil.nowStrTime());
         projectArtifacts = new ArrayList<>();
         javaProjectBuilder = buildJavaProjectBuilder();
         javaProjectBuilder.setEncoding(Charset.DEFAULT_CHARSET);
         ApiConfig apiConfig = MojoUtils.buildConfig(configFile, projectName, project, projectArtifacts, getLog());
         if (Objects.isNull(apiConfig)) {
-            getLog().info(GlobalConstants.ERROR_MSG);
+            this.getLog().info(GlobalConstants.ERROR_MSG);
             return;
         }
         String rpcConsumerConfig = apiConfig.getRpcConsumerConfig();

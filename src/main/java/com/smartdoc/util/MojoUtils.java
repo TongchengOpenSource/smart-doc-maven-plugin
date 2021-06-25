@@ -29,6 +29,7 @@ import com.google.gson.GsonBuilder;
 import com.power.common.util.FileUtil;
 import com.power.common.util.StringUtil;
 import com.power.doc.model.*;
+import com.power.doc.utils.PathUtil;
 import com.smartdoc.constant.GlobalConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -153,10 +154,10 @@ public class MojoUtils {
         List<SourceCodePath> sourceCodePaths = new ArrayList<>();
         // key is module's artifact name, value is module's path
         Map<String, String> modules = new HashMap<>();
-        getRootPath(project, modules,log);
+        getRootPath(project, modules, log);
         modules.entrySet().forEach(entry -> {
             String key = entry.getKey();
-            String modulePath = entry.getValue();
+            String modulePath =  entry.getValue();
             projectArtifacts.forEach(artifactName -> {
                 if (artifactName.equals(key)) {
                     sourceCodePaths.add(SourceCodePath.builder().setPath(modulePath));
@@ -165,13 +166,14 @@ public class MojoUtils {
         });
 
         sourceCodePaths.add(SourceCodePath.builder()
-                .setPath(project.getBasedir() + FILE_SEPARATOR + GlobalConstants.SOURCE_CODE_PATH));
+                .setPath(project.getBasedir() + GlobalConstants.SOURCE_CODE_PATH));
         SourceCodePath[] codePaths = new SourceCodePath[sourceCodePaths.size()];
         sourceCodePaths.toArray(codePaths);
-        if (log.isDebugEnabled()) {
-            log.debug("Artifacts that the current project depends on: " + projectArtifacts);
-            log.debug("Smart-doc has loaded the source code path: " + sourceCodePaths);
-        }
+
+        log.info("Artifacts that the current project depends on: " + GSON.toJson(projectArtifacts));
+        log.info("Smart-doc has loaded the source code path: " + GSON.toJson(sourceCodePaths)
+                .replace("\\", "/").replaceAll("//","/"));
+
         apiConfig.setSourceCodePaths(codePaths);
     }
 
@@ -205,7 +207,7 @@ public class MojoUtils {
         if (project.hasParent()) {
             MavenProject mavenProject = project.getParent();
             if (log.isDebugEnabled()) {
-                log.debug(project.getName() +" parent is: " + mavenProject.getName());
+                log.debug(project.getName() + " parent is: " + mavenProject.getName());
             }
             if (null != mavenProject) {
                 if (mavenProject.getBasedir() == null) {
@@ -217,7 +219,7 @@ public class MojoUtils {
                         moduleList.put(groupId + ":" + module, mavenProject.getBasedir() + FILE_SEPARATOR +
                                 module + FILE_SEPARATOR + GlobalConstants.SOURCE_CODE_PATH);
                     }
-                    return getRootPath(mavenProject, moduleList,log);
+                    return getRootPath(mavenProject, moduleList, log);
                 }
             } else {
                 return project.getBasedir();
