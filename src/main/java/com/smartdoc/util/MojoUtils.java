@@ -29,7 +29,6 @@ import com.google.gson.GsonBuilder;
 import com.power.common.util.FileUtil;
 import com.power.common.util.StringUtil;
 import com.power.doc.model.*;
-import com.power.doc.utils.PathUtil;
 import com.smartdoc.constant.GlobalConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.plugin.MojoExecutionException;
