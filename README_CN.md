@@ -154,6 +154,30 @@ smart-doc + [Torna](http://torna.cn) 组成行业领先的文档生成和管理�
       "required": false,
       "since": "-"
   }],
+  "requestParams": [ //公共请求参数(通过拦截器处理的场景)，@since 2.2.3,没有需求请不要设置
+    {
+      "name": "configPathParam",//请求头名称
+      "type": "string",//请求头类型
+      "desc": "desc",//请求头描述信息
+      "paramIn": "path",
+      "value":"testPath",//不设置默认null
+      "required": false,//是否必须
+      "since": "-",//什么版本添加的改请求头
+      "pathPatterns": "*",//正则表达式过滤请求头
+      "excludePathPatterns":"/app/page/**" //参考请求头中的用法
+    },
+    {
+      "name": "configQueryParam",//请求头名称
+      "type": "string",//请求头类型
+      "desc": "desc",//请求头描述信息
+      "paramIn": "query",
+      "value":"testQuery",//不设置默认null
+      "required": false,//是否必须
+      "since": "-",//什么版本添加的改请求头
+      "pathPatterns": "*",//正则表达式过滤请求头
+      "excludePathPatterns":"/app/page/**"
+    }
+  ],
   "apiConstants": [{//从1.8.9开始配置自己的常量类，smart-doc在解析到常量时自动替换为具体的值。非必须，根据自己需求来设置
       "constantsClassName": "com.power.doc.constants.RequestParamConstant"//项目自己定义的常量
   }],

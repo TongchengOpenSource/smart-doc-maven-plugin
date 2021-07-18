@@ -50,6 +50,7 @@ public class SpringBootArtifactFilterChain implements FilterChain {
             case "spring-boot-starter-logging":
             case "spring-boot-starter-tomcat":
             case "spring-cloud-starter-openfeign":
+            case "spring-cloud-starter":
                 return true;
             default:
                 return this.ignore(filterChain, artifact);
