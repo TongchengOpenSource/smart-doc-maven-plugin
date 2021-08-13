@@ -153,16 +153,12 @@ public class MojoUtils {
         List<SourceCodePath> sourceCodePaths = new ArrayList<>();
         // key is module's artifact name, value is module's path
         Map<String, String> modules = new HashMap<>();
-        getRootPath(project, modules, log);
-        modules.entrySet().forEach(entry -> {
-            String key = entry.getKey();
-            String modulePath =  entry.getValue();
-            projectArtifacts.forEach(artifactName -> {
-                if (artifactName.equals(key)) {
-                    sourceCodePaths.add(SourceCodePath.builder().setPath(modulePath));
-                }
-            });
-        });
+        addReferenceModules(project, modules, log);
+        modules.forEach((key, modulePath) -> projectArtifacts.forEach(artifactName -> {
+            if (artifactName.equals(key)) {
+                sourceCodePaths.add(SourceCodePath.builder().setPath(modulePath));
+            }
+        }));
 
         sourceCodePaths.add(SourceCodePath.builder()
                 .setPath(project.getBasedir() + GlobalConstants.SOURCE_CODE_PATH));
@@ -177,54 +173,20 @@ public class MojoUtils {
     }
 
     /**
-     * get project sourceCode
-     *
-     * @param file project root path
-     * @param path sourceCodePath
-     */
-    private static void getSourceCodeFilePath(File file, List<String> path) {
-        File[] fs = file.listFiles();
-        assert fs != null;
-        for (File f : fs) {
-            if (f.isDirectory()) {
-                if (f.getPath().endsWith(GlobalConstants.SOURCE_CODE_PATH) ||
-                        f.getPath().endsWith(GlobalConstants.SOURCE_CODE_PATH_REVERSE)) {
-                    path.add(f.getPath());
-                }
-                getSourceCodeFilePath(f, path);
-            }
-        }
-    }
-
-    /**
-     * get RootParentPath
+     * add Reference module
      *
      * @param project
      * @return
      */
-    private static File getRootPath(MavenProject project, Map<String, String> moduleList, Log log) {
-        if (project.hasParent()) {
-            MavenProject mavenProject = project.getParent();
+    private static void addReferenceModules(MavenProject project, Map<String, String> moduleList, Log log) {
+        Map<String, MavenProject> referenceMavenProject = project.getProjectReferences();
+        for (Map.Entry<String, MavenProject> mavenProject : referenceMavenProject.entrySet()) {
             if (log.isDebugEnabled()) {
-                log.debug(project.getName() + " parent is: " + mavenProject.getName());
+                log.debug(project.getName() + " references mavenProject is: " + mavenProject.getValue().getName());
             }
-            if (null != mavenProject) {
-                if (mavenProject.getBasedir() == null) {
-                    return project.getBasedir();
-                } else {
-                    List<String> modules = mavenProject.getModules();
-                    String groupId = mavenProject.getGroupId();
-                    for (String module : modules) {
-                        moduleList.put(groupId + ":" + module, mavenProject.getBasedir() + FILE_SEPARATOR +
-                                module + FILE_SEPARATOR + GlobalConstants.SOURCE_CODE_PATH);
-                    }
-                    return getRootPath(mavenProject, moduleList, log);
-                }
-            } else {
-                return project.getBasedir();
-            }
-        } else {
-            return project.getBasedir();
+            String module = mavenProject.getValue().getModel().getName();
+            String groupId = mavenProject.getValue().getGroupId();
+            moduleList.put(groupId + ":" + module, mavenProject.getValue().getBasedir() + FILE_SEPARATOR + GlobalConstants.SOURCE_CODE_PATH);
         }
     }
 }
