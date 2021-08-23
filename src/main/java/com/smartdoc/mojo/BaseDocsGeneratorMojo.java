@@ -176,7 +176,7 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
             ArtifactFilter artifactFilter = this.createResolvingArtifactFilter();
             ProjectBuildingRequest buildingRequest = new DefaultProjectBuildingRequest(this.session.getProjectBuildingRequest());
             buildingRequest.setProject(this.project);
-            this.rootNode = this.dependencyGraphBuilder.buildDependencyGraph(buildingRequest, artifactFilter, this.reactorProjects);
+            this.rootNode = this.dependencyGraphBuilder.buildDependencyGraph(buildingRequest, artifactFilter);
             List<DependencyNode> dependencyNodes = this.rootNode.getChildren();
             List<Artifact> artifactList = this.getArtifacts(dependencyNodes);
             artifactList.forEach(artifact -> {
