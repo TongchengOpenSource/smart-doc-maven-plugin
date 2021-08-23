@@ -173,13 +173,13 @@ public class MojoUtils {
     }
 
     /**
-     * add Reference module
-     *
-     * @param project
+     * reference project to module
+     * @param project current maven project
      * @return
      */
     private static void addReferenceModules(MavenProject project, Map<String, String> moduleList, Log log) {
-        Map<String, MavenProject> referenceMavenProject = project.getProjectReferences();
+        Map<String,MavenProject> referenceMavenProject = new HashMap<>(20);
+        addReference(referenceMavenProject,project.getProjectReferences());
         for (Map.Entry<String, MavenProject> mavenProject : referenceMavenProject.entrySet()) {
             if (log.isDebugEnabled()) {
                 log.debug(project.getName() + " references mavenProject is: " + mavenProject.getValue().getName());
@@ -187,6 +187,21 @@ public class MojoUtils {
             String module = mavenProject.getValue().getModel().getName();
             String groupId = mavenProject.getValue().getGroupId();
             moduleList.put(groupId + ":" + module, mavenProject.getValue().getBasedir() + FILE_SEPARATOR + GlobalConstants.SOURCE_CODE_PATH);
+        }
+    }
+
+    /**
+     * add project reference
+     * @param referenceMavenProject target reference map
+     * @param sourceProject source reference map
+     */
+    public static void addReference(Map<String, MavenProject> referenceMavenProject,Map<String, MavenProject> sourceProject){
+        if(sourceProject.isEmpty()){
+            return;
+        }
+        referenceMavenProject.putAll(sourceProject);
+        for(Map.Entry<String,MavenProject> map : sourceProject.entrySet()){
+            addReference(referenceMavenProject,map.getValue().getProjectReferences());
         }
     }
 }
