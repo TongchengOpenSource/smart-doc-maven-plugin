@@ -48,6 +48,7 @@ import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.DefaultProjectBuildingRequest;
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.project.ProjectBuilder;
 import org.apache.maven.project.ProjectBuildingRequest;
 import org.apache.maven.repository.RepositorySystem;
 import org.apache.maven.shared.dependency.graph.DependencyGraphBuilder;
@@ -108,6 +109,10 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
 
     private List<String> projectArtifacts;
 
+    @Component(role =org.apache.maven.project.ProjectBuilder.class )
+    protected ProjectBuilder projectBuilder;
+
+
     public abstract void executeMojo(ApiConfig apiConfig, JavaProjectBuilder javaProjectBuilder)
             throws MojoExecutionException, MojoFailureException;
 
@@ -128,7 +133,7 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
         projectArtifacts = new ArrayList<>();
         javaProjectBuilder = buildJavaProjectBuilder();
         javaProjectBuilder.setEncoding(Charset.DEFAULT_CHARSET);
-        ApiConfig apiConfig = MojoUtils.buildConfig(configFile, projectName, project, projectArtifacts, getLog());
+        ApiConfig apiConfig = MojoUtils.buildConfig(configFile, projectName, project,projectBuilder,session, projectArtifacts, getLog());
         if (Objects.isNull(apiConfig)) {
             this.getLog().info(GlobalConstants.ERROR_MSG);
             return;

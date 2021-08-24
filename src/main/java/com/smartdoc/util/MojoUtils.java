@@ -26,14 +26,16 @@ import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.power.common.util.CollectionUtil;
 import com.power.common.util.FileUtil;
 import com.power.common.util.StringUtil;
 import com.power.doc.model.*;
 import com.smartdoc.constant.GlobalConstants;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.logging.Log;
-import org.apache.maven.project.MavenProject;
+import org.apache.maven.project.*;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -73,7 +75,7 @@ public class MojoUtils {
      * @return com.power.doc.model.ApiConfig
      * @throws MojoExecutionException MojoExecutionException
      */
-    public static ApiConfig buildConfig(File configFile, String projectName, MavenProject project, List<String> projectArtifacts, Log log) throws MojoExecutionException {
+    public static ApiConfig buildConfig(File configFile, String projectName, MavenProject project,ProjectBuilder projectBuilder,MavenSession mavenSession, List<String> projectArtifacts, Log log) throws MojoExecutionException {
         try {
             ClassLoader classLoader = ClassLoaderUtil.getRuntimeClassLoader(project);
             String data = FileUtil.getFileContent(new FileInputStream(configFile));
@@ -116,7 +118,7 @@ public class MojoUtils {
             if (StringUtils.isBlank(apiConfig.getProjectName())) {
                 apiConfig.setProjectName(projectName);
             }
-            addSourcePaths(project, apiConfig, projectArtifacts, log);
+            addSourcePaths(project, projectBuilder,mavenSession,apiConfig, projectArtifacts, log);
             return apiConfig;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -149,17 +151,16 @@ public class MojoUtils {
      * @param projectArtifacts
      * @param log
      */
-    private static void addSourcePaths(MavenProject project, ApiConfig apiConfig, List<String> projectArtifacts, Log log) {
+    private static void addSourcePaths(MavenProject project, ProjectBuilder projectBuilder,MavenSession mavenSession,ApiConfig apiConfig, List<String> projectArtifacts, Log log) {
         List<SourceCodePath> sourceCodePaths = new ArrayList<>();
         // key is module's artifact name, value is module's path
-        Map<String, String> modules = new HashMap<>();
-        addReferenceModules(project, modules, log);
+        Map<String, String> modules = new HashMap<>(40);
+        buildModules(project,projectBuilder,mavenSession,modules,log);
         modules.forEach((key, modulePath) -> projectArtifacts.forEach(artifactName -> {
             if (artifactName.equals(key)) {
                 sourceCodePaths.add(SourceCodePath.builder().setPath(modulePath));
             }
         }));
-
         sourceCodePaths.add(SourceCodePath.builder()
                 .setPath(project.getBasedir() + GlobalConstants.SOURCE_CODE_PATH));
         SourceCodePath[] codePaths = new SourceCodePath[sourceCodePaths.size()];
@@ -167,41 +168,119 @@ public class MojoUtils {
 
         log.info("Artifacts that the current project depends on: " + GSON.toJson(projectArtifacts));
         log.info("Smart-doc has loaded the source code path: " + GSON.toJson(sourceCodePaths)
-                .replace("\\", "/").replaceAll("//","/"));
+                .replace("\\", "/").replaceAll("//", "/"));
 
         apiConfig.setSourceCodePaths(codePaths);
     }
 
     /**
      * reference project to module
+     *
      * @param project current maven project
      * @return
      */
-    private static void addReferenceModules(MavenProject project, Map<String, String> moduleList, Log log) {
-        Map<String,MavenProject> referenceMavenProject = new HashMap<>(20);
-        addReference(referenceMavenProject,project.getProjectReferences());
+    private static void buildModules(MavenProject project, ProjectBuilder projectBuilder,MavenSession mavenSession,Map<String, String> moduleList, Log log) {
+        Map<String, MavenProject> referenceMavenProject = new HashMap<>(20);
+        //if module's version is SNAPSHOT
+        if(project.getProjectReferences().isEmpty()){
+            referenceMavenProject = collectProject(project,projectBuilder,mavenSession,log);
+        }
+        //if module's version isn't  SNAPSHOT
+        else {
+            addByProjectReference(referenceMavenProject, project.getProjectReferences());
+        }
         for (Map.Entry<String, MavenProject> mavenProject : referenceMavenProject.entrySet()) {
             if (log.isDebugEnabled()) {
                 log.debug(project.getName() + " references mavenProject is: " + mavenProject.getValue().getName());
             }
-            String module = mavenProject.getValue().getModel().getName();
+            String artifactId = mavenProject.getValue().getModel().getArtifactId();
             String groupId = mavenProject.getValue().getGroupId();
-            moduleList.put(groupId + ":" + module, mavenProject.getValue().getBasedir() + FILE_SEPARATOR + GlobalConstants.SOURCE_CODE_PATH);
+            moduleList.put(groupId + ":" + artifactId, mavenProject.getValue().getBasedir() + FILE_SEPARATOR + GlobalConstants.SOURCE_CODE_PATH);
         }
     }
 
     /**
-     * add project reference
+     * addByProjectReference
+     *
      * @param referenceMavenProject target reference map
-     * @param sourceProject source reference map
+     * @param sourceProject         source reference map
      */
-    public static void addReference(Map<String, MavenProject> referenceMavenProject,Map<String, MavenProject> sourceProject){
-        if(sourceProject.isEmpty()){
+    public static void addByProjectReference(Map<String, MavenProject> referenceMavenProject, Map<String, MavenProject> sourceProject) {
+        if (sourceProject.isEmpty()) {
             return;
         }
         referenceMavenProject.putAll(sourceProject);
-        for(Map.Entry<String,MavenProject> map : sourceProject.entrySet()){
-            addReference(referenceMavenProject,map.getValue().getProjectReferences());
+        for (Map.Entry<String, MavenProject> map : sourceProject.entrySet()) {
+            addByProjectReference(referenceMavenProject, map.getValue().getProjectReferences());
+        }
+    }
+    /**
+     * load MavenProject from pom.xml
+     * @param project current project
+     * @param projectBuilder projectBuilder
+     * @param session maven session
+     * @param log log
+     * @return
+     */
+    public static Map<String, MavenProject> collectProject(MavenProject project,ProjectBuilder projectBuilder, MavenSession session,Log log) {
+        Map<String, MavenProject> mavenProjects = new HashMap<>(40);
+        List<String> pomPath = new ArrayList<>();
+        getPomFilePath(getRootPath(project,log),pomPath);
+        for(String s : pomPath) {
+            File pomFile = new File(s);
+            ProjectBuildingRequest request = new DefaultProjectBuildingRequest(session.getProjectBuildingRequest());
+            try {
+                MavenProject target = projectBuilder.build(pomFile, request).getProject();
+                mavenProjects.put(target.getGroupId()+":"+target.getArtifactId(),target);
+            } catch (ProjectBuildingException e) {
+                e.printStackTrace();
+            }
+        }
+        return mavenProjects;
+    }
+
+    /**
+     * @param file rootProject path
+     * @param path all pom.xml path
+     */
+    private static void getPomFilePath(File file, List<String> path) {
+        File[] fs = file.listFiles();
+        assert fs != null;
+        for (File f : fs) {
+            if (!f.isDirectory()) {
+                if (f.getPath().endsWith("pom.xml")) {
+                    path.add(f.getPath());
+                }
+            } else {
+                getPomFilePath(f, path);
+            }
+        }
+    }
+
+
+    /**
+     * RootParentPath
+     *
+     * @param project current Project
+     * @return
+     */
+    private static File getRootPath(MavenProject project,Log log) {
+        if (project.hasParent()) {
+            MavenProject mavenProject = project.getParent();
+            if (log.isDebugEnabled()) {
+                log.debug(project.getName() + " parent is: " + mavenProject.getName());
+            }
+            if (null != mavenProject) {
+                if (mavenProject.getBasedir() == null) {
+                    return project.getBasedir();
+                } else {
+                    return getRootPath(mavenProject, log);
+                }
+            } else {
+                return project.getBasedir();
+            }
+        } else {
+            return project.getBasedir();
         }
     }
 }
