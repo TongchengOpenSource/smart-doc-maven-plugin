@@ -31,7 +31,7 @@ public interface GlobalConstants {
 
     String DEFAULT_CONFIG = "./src/main/resources/default.json";
 
-    String SOURCE_CODE_PATH = "/src/main/java";
+    String SOURCE_CODE_PATH = "src/main/java";
 
     String POM_XML = "pom.xml";
 
