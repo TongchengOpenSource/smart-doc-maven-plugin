@@ -109,7 +109,7 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
 
     private List<String> projectArtifacts;
 
-    @Component(role =org.apache.maven.project.ProjectBuilder.class )
+    @Component(role = org.apache.maven.project.ProjectBuilder.class)
     protected ProjectBuilder projectBuilder;
 
 
@@ -133,7 +133,7 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
         projectArtifacts = new ArrayList<>();
         javaProjectBuilder = buildJavaProjectBuilder();
         javaProjectBuilder.setEncoding(Charset.DEFAULT_CHARSET);
-        ApiConfig apiConfig = MojoUtils.buildConfig(configFile, projectName, project,projectBuilder,session, projectArtifacts, getLog());
+        ApiConfig apiConfig = MojoUtils.buildConfig(configFile, projectName, project, projectBuilder, session, projectArtifacts, getLog());
         if (Objects.isNull(apiConfig)) {
             this.getLog().info(GlobalConstants.ERROR_MSG);
             return;
@@ -143,6 +143,10 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
             apiConfig.setRpcConsumerConfig(project.getBasedir().getPath() + "/" + rpcConsumerConfig);
         }
         String outPath = apiConfig.getOutPath();
+        if (StringUtil.isEmpty(outPath)) {
+            this.getLog().error("Smart-doc out path can't be null or empty.");
+            throw new RuntimeException("Smart-doc out path can't be null or empty.");
+        }
         if (!FileUtil.isAbsPath(outPath) && StringUtil.isNotEmpty(outPath)) {
             apiConfig.setOutPath(project.getBasedir().getPath() + "/" + outPath);
         }

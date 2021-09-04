@@ -127,11 +127,11 @@ public class MojoUtils {
     }
 
     /**
-     * 根据 com.xxx.AClass获取类Class
+     * Obtain Class by class name
      *
-     * @param className   类名
+     * @param className   class name
      * @param classLoader urls
-     * @return 类类型
+     * @return Class
      */
     public static Class getClassByClassName(String className, ClassLoader classLoader) {
         try {
