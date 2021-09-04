@@ -56,11 +56,5 @@
       "required": false,
       "since": "-"
     }
-  ],
-  "sourceCodePaths": [
-    {
-      "path": "src/main/java",
-      "desc": "测试"
-    }
   ]
 }
