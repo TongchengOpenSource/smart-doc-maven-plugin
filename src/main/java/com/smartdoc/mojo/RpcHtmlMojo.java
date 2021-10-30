@@ -24,6 +24,7 @@ package com.smartdoc.mojo;
 
 import com.power.doc.builder.rpc.RpcHtmlBuilder;
 import com.power.doc.model.ApiConfig;
+import com.smartdoc.constant.MojoConstants;
 import com.thoughtworks.qdox.JavaProjectBuilder;
 import org.apache.maven.plugins.annotations.Execute;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -34,7 +35,7 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
  * @author yu 2020/5/26.
  */
 @Execute(phase = LifecyclePhase.COMPILE)
-@Mojo(name = "rpc-html", requiresDependencyResolution = ResolutionScope.COMPILE)
+@Mojo(name = MojoConstants.RPC_HTML_MOJO, requiresDependencyResolution = ResolutionScope.COMPILE)
 public class RpcHtmlMojo extends BaseDocsGeneratorMojo {
 
     @Override

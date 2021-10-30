@@ -29,6 +29,7 @@ import com.power.common.util.RegexUtil;
 import com.power.common.util.StringUtil;
 import com.power.doc.model.ApiConfig;
 import com.smartdoc.constant.GlobalConstants;
+import com.smartdoc.constant.MojoConstants;
 import com.smartdoc.util.ArtifactFilterUtil;
 import com.smartdoc.util.ClassLoaderUtil;
 import com.smartdoc.util.FileUtil;
@@ -42,6 +43,7 @@ import org.apache.maven.artifact.resolver.filter.ArtifactFilter;
 import org.apache.maven.artifact.resolver.filter.ScopeArtifactFilter;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecution;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Component;
@@ -103,6 +105,9 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
     @Parameter(property = "skip")
     private String skip;
 
+    @Parameter(defaultValue = "${mojoExecution}")
+    private MojoExecution mojoEx;
+
     private DependencyNode rootNode;
 
     protected JavaProjectBuilder javaProjectBuilder;
@@ -118,6 +123,7 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
+
         //skip
         if ("true".equals(skip)) {
             return;
@@ -142,16 +148,22 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
         if (!FileUtil.isAbsPath(rpcConsumerConfig) && StringUtil.isNotEmpty(rpcConsumerConfig)) {
             apiConfig.setRpcConsumerConfig(project.getBasedir().getPath() + "/" + rpcConsumerConfig);
         }
+
+        String goal = mojoEx.getGoal();
         String outPath = apiConfig.getOutPath();
         if (StringUtil.isEmpty(outPath)) {
-            this.getLog().error("Smart-doc out path can't be null or empty.");
-            throw new RuntimeException("Smart-doc out path can't be null or empty.");
+            if (!MojoConstants.TORNA_REST_MOJO.equals(goal) && !MojoConstants.TORNA_RPC_MOJO.equals(goal)) {
+                this.getLog().error("Smart-doc out path can't be null or empty.");
+                throw new RuntimeException("Smart-doc out path can't be null or empty.");
+            }
         }
         if (!FileUtil.isAbsPath(outPath) && StringUtil.isNotEmpty(outPath)) {
             apiConfig.setOutPath(project.getBasedir().getPath() + "/" + outPath);
         }
         getLog().info("Smart-doc Starting Create API Documentation at: " + DateTimeUtil.nowStrTime());
-        getLog().info("API documentation is output to => " + apiConfig.getOutPath().replace("\\", "/"));
+        if (!MojoConstants.TORNA_RPC_MOJO.equals(goal) && !MojoConstants.TORNA_REST_MOJO.equals(goal)) {
+            getLog().info("API documentation is output to => " + apiConfig.getOutPath().replace("\\", "/"));
+        }
         this.executeMojo(apiConfig, javaProjectBuilder);
     }
 

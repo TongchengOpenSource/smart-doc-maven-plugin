@@ -23,21 +23,27 @@
 package com.smartdoc.constant;
 
 /**
- * @author yu 2019/12/13.
+ * @author yu 2021/10/30.
  */
-public interface GlobalConstants {
+public interface MojoConstants {
 
-    String ERROR_MSG = "Failed to build ApiConfig, check if the configuration file is correct.";
+    String ADOC_MOJO = "adoc";
 
-    String DEFAULT_CONFIG = "./src/main/resources/default.json";
+    String HTML_MOJO = "html";
 
-    String SOURCE_CODE_PATH = "src/main/java";
+    String MARKDOWN_MOJO = "markdown";
 
-    String TARGET_OUT_PATH = "target/doc";
+    String OPENAPI_MOJO = "openapi";
 
-    String POM_XML = "pom.xml";
+    String POSTMAN_MOJO = "postman";
 
-    String SOURCE_CODE_PATH_REVERSE = "\\src\\main\\java";
+    String RPC_ADOC_MOJO = "rpc-adoc";
 
-    String FILE_SEPARATOR = System.getProperty("file.separator");
+    String RPC_HTML_MOJO = "rpc-html";
+
+    String RPC_MARKDOWN_MOJO = "rpc-markdown";
+
+    String TORNA_REST_MOJO = "torna-rest";
+
+    String TORNA_RPC_MOJO = "torna-rpc";
 }

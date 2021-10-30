@@ -24,6 +24,7 @@ package com.smartdoc.mojo;
 
 import com.power.doc.builder.PostmanJsonBuilder;
 import com.power.doc.model.ApiConfig;
+import com.smartdoc.constant.MojoConstants;
 import com.thoughtworks.qdox.JavaProjectBuilder;
 import org.apache.maven.plugins.annotations.Execute;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -34,7 +35,7 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
  * @author xingzi 2019/12/07 17:35
  */
 @Execute(phase = LifecyclePhase.COMPILE)
-@Mojo(name = "postman", requiresDependencyResolution = ResolutionScope.COMPILE)
+@Mojo(name = MojoConstants.POSTMAN_MOJO, requiresDependencyResolution = ResolutionScope.COMPILE)
 public class PostManMojo extends BaseDocsGeneratorMojo {
 
     @Override

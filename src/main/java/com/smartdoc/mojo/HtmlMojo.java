@@ -25,6 +25,7 @@ package com.smartdoc.mojo;
 
 import com.power.doc.builder.HtmlApiDocBuilder;
 import com.power.doc.model.ApiConfig;
+import com.smartdoc.constant.MojoConstants;
 import com.thoughtworks.qdox.JavaProjectBuilder;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -38,7 +39,7 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
  * @author xingzi 2019/12/06 14:50
  */
 @Execute(phase = LifecyclePhase.COMPILE)
-@Mojo(name = "html", requiresDependencyResolution = ResolutionScope.COMPILE)
+@Mojo(name = MojoConstants.HTML_MOJO, requiresDependencyResolution = ResolutionScope.COMPILE)
 public class HtmlMojo extends BaseDocsGeneratorMojo {
 
     @Override

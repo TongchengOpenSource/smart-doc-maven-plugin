@@ -24,6 +24,7 @@ package com.smartdoc.mojo;
 
 import com.power.doc.builder.ApiDocBuilder;
 import com.power.doc.model.ApiConfig;
+import com.smartdoc.constant.MojoConstants;
 import com.thoughtworks.qdox.JavaProjectBuilder;
 import org.apache.maven.plugins.annotations.Execute;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -34,7 +35,7 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
  * @author xingzi 2019/12/06 17:38
  */
 @Execute(phase = LifecyclePhase.COMPILE)
-@Mojo(name = "markdown", requiresDependencyResolution = ResolutionScope.COMPILE)
+@Mojo(name = MojoConstants.MARKDOWN_MOJO, requiresDependencyResolution = ResolutionScope.COMPILE)
 public class MarkDownMojo extends BaseDocsGeneratorMojo {
 
     @Override

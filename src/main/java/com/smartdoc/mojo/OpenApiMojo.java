@@ -24,6 +24,7 @@ package com.smartdoc.mojo;
 
 import com.power.doc.builder.OpenApiBuilder;
 import com.power.doc.model.ApiConfig;
+import com.smartdoc.constant.MojoConstants;
 import com.thoughtworks.qdox.JavaProjectBuilder;
 import org.apache.maven.plugins.annotations.Execute;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -36,7 +37,7 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
  * @author yu 2020/8/19.
  */
 @Execute(phase = LifecyclePhase.COMPILE)
-@Mojo(name = "openapi", requiresDependencyResolution = ResolutionScope.COMPILE)
+@Mojo(name = MojoConstants.OPENAPI_MOJO, requiresDependencyResolution = ResolutionScope.COMPILE)
 public class OpenApiMojo extends BaseDocsGeneratorMojo {
 
     @Override
