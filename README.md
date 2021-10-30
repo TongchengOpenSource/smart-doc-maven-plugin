@@ -15,11 +15,11 @@ You no longer need to write unit tests in your project to
 Start smart-doc to scan source code analysis and generate API documents. 
 You can run the `maven` command directly or click on the preset` goal` of the smart-doc-maven-plugin in the IDE to generate API documentation. 
 smart-doc-maven-plugin will also make smart-doc's ability to generate API documentation more powerful.
-[About smart-doc](https://github.com/shalousun/smart-doc)
+[About smart-doc](https://smart-doc-group.github.io/#/)
 ## Best Practice
 smart-doc + [Torna](http://torna.cn) form an industry-leading document generation and management solution, using smart-doc to complete Java source code analysis and extract annotations to generate API documents without intrusion, and automatically push the documents to the Torna enterprise-level interface document management platform.
 
-![smart-doc+torna](http://torna.cn/assets/images/case/smart-doc.png)
+![smart-doc+torna](https://raw.githubusercontent.com/shalousun/smart-doc/master/images/smart-doc-torna-en.png)
 ## Getting started
 ### Add plugin
 ```
@@ -247,10 +247,10 @@ you can build with the following commands. (Java 1.8 is required to build the ma
 mvn clean install -Dmaven.test.skip=true
 ```
 ## Other reference
-- [Smart-doc manual](https://github.com/shalousun/smart-doc/wiki)
+- [Smart-doc manual](https://smart-doc-group.github.io/#/)
 
 ## Who is using
-These are only part of the companies using smart-doc, for reference only. If you are using smart-doc, please [add your company here](https://github.com/shalousun/smart-doc/issues/12) to tell us your scenario to make smart-doc better.
+These are only part of the companies using smart-doc, for reference only. If you are using smart-doc, please [add your company here](https://github.com/smart-doc-group/smart-doc/issues/12) to tell us your scenario to make smart-doc better.
 
 ![iFLYTEK](https://raw.githubusercontent.com/shalousun/smart-doc/dev/images/known-users/iflytek.png)
 &nbsp;&nbsp;<img src="https://raw.githubusercontent.com/shalousun/smart-doc/dev/images/known-users/oneplus.png" title="OnePlus" width="83px" height="83px"/>
@@ -259,6 +259,6 @@ These are only part of the companies using smart-doc, for reference only. If you
 <img src="https://raw.githubusercontent.com/shalousun/smart-doc/dev/images/known-users/zhongkezhilian.png" title="zhongkezhilian" width="272px" height="83px"/>
 <img src="https://raw.githubusercontent.com/shalousun/smart-doc/dev/images/known-users/puqie_gaitubao_100x100.jpg" title="puqie" width="83px" height="83px"/>
 ## License
-smart-doc-maven-plugin is under the Apache 2.0 license.  See the [LICENSE](https://raw.githubusercontent.com/shalousun/smart-doc-maven-plugin/master/LICENSE) file for details.
+smart-doc-maven-plugin is under the Apache 2.0 license.  See the [LICENSE](https://raw.githubusercontent.com/smart-doc-group/smart-doc-maven-plugin/master/LICENSE) file for details.
 ## Contact
 Email： 836575280@qq.com
