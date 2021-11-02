@@ -62,6 +62,7 @@ public class CommonArtifactFilterChain implements FilterChain {
             case "javafaker":
             case "qdox":
             case "gson":
+            case "netty-all":
             case "javacv-platform":
                 return true;
             default:
