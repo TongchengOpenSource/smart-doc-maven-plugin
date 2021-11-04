@@ -44,14 +44,15 @@ public class CommonArtifactFilterChain implements FilterChain {
             case "lombok":
             case "jsqlparser":
             case "disruptor":
-            case "commons-codec":
             case "snakeyaml":
             case "spring-boot-autoconfigure":
             case "HikariCP":
             case "mysql-connector-java":
             case "classmate":
+            case "commons-codec":
             case "commons-lang3":
             case "commons-text":
+            case "commons-beanutils":
             case "spring-web":
             case "spring-webmvc":
             case "hibernate-validator":
