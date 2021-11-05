@@ -53,6 +53,7 @@ public class CommonArtifactFilterChain implements FilterChain {
             case "commons-lang3":
             case "commons-text":
             case "commons-beanutils":
+            case "commons-beanutils-core":
             case "spring-web":
             case "spring-webmvc":
             case "hibernate-validator":
