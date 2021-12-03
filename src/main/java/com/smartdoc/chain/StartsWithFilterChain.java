@@ -51,6 +51,8 @@ public class StartsWithFilterChain implements FilterChain {
         PREFIX_SET.add("hibernate-core");
         PREFIX_SET.add("springdoc-openapi");
         PREFIX_SET.add("poi");
+        PREFIX_SET.add("commons-io");
+        PREFIX_SET.add("commons-lang");
     }
 
     @Override
