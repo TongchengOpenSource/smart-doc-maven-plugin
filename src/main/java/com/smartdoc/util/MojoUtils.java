@@ -30,7 +30,6 @@ import com.power.common.util.FileUtil;
 import com.power.common.util.StringUtil;
 import com.power.doc.model.*;
 import com.smartdoc.constant.GlobalConstants;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.logging.Log;
@@ -114,7 +113,13 @@ public class MojoUtils {
             if (Objects.nonNull(requestBodyAdvice) && StringUtil.isNotEmpty(requestBodyAdvice.getClassName())) {
                 requestBodyAdvice.setWrapperClass(getClassByClassName(requestBodyAdvice.getClassName(), classLoader));
             }
-            if (StringUtils.isBlank(apiConfig.getProjectName())) {
+
+            if (StringUtil.isEmpty(apiConfig.getProjectName()) && StringUtil.isEmpty(projectName)) {
+                apiConfig.setProjectName(project.getName());
+            } else if (StringUtil.isNotEmpty(apiConfig.getProjectName())
+                    && "${project.artifactId}".equals(apiConfig.getProjectName())) {
+                apiConfig.setProjectName(project.getArtifactId());
+            } else if (StringUtil.isNotEmpty(projectName)) {
                 apiConfig.setProjectName(projectName);
             }
             addSourcePaths(project, projectBuilder, mavenSession, apiConfig, projectArtifacts, log);
