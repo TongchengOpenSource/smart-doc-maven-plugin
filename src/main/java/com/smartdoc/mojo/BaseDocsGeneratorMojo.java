@@ -258,8 +258,12 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
                     JarEntry entry = (JarEntry) entries.nextElement();
                     String name = entry.getName();
                     if (name.endsWith(".java") && !name.endsWith("/package-info.java")) {
+                        String uri = "jar:" + artifact.getFile().toURI().toURL().toString() + "!/" + name;
+                        if (getLog().isDebugEnabled()) {
+                            getLog().debug(uri);
+                        }
                         javaDocBuilder.addSource(
-                                new URL("jar:" + artifact.getFile().toURI().toURL().toString() + "!/" + name));
+                                new URL(uri));
                     }
                 }
             } catch (Exception e) {

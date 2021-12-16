@@ -76,6 +76,8 @@ public class CommonArtifactFilterChain implements FilterChain {
             case "xml-apis":
             case "mchange-commons-java":
             case "hadoop-common":
+            case "jaxb-core":
+            case "jaxb-impl":
                 return true;
             default:
                 return this.ignore(filterChain, artifact);
