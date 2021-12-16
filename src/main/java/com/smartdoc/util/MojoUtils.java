@@ -226,7 +226,7 @@ public class MojoUtils {
      * @param projectBuilder projectBuilder
      * @param session        maven session
      * @param log            log
-     * @return
+     * @return Map
      */
     public static Map<String, MavenProject> collectProject(MavenProject project, ProjectBuilder projectBuilder, MavenSession session, Log log) {
         Map<String, MavenProject> mavenProjects = new HashMap<>(40);

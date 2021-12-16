@@ -53,6 +53,8 @@ public class StartsWithFilterChain implements FilterChain {
         PREFIX_SET.add("poi");
         PREFIX_SET.add("commons-io");
         PREFIX_SET.add("commons-lang");
+        PREFIX_SET.add("commons-logging");
+        PREFIX_SET.add("jaxb");
     }
 
     @Override
