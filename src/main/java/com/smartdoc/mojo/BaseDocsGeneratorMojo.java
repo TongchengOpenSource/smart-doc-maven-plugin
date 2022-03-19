@@ -27,6 +27,7 @@ import com.power.common.util.CollectionUtil;
 import com.power.common.util.DateTimeUtil;
 import com.power.common.util.RegexUtil;
 import com.power.common.util.StringUtil;
+import com.power.doc.helper.JavaProjectBuilderHelper;
 import com.power.doc.model.ApiConfig;
 import com.smartdoc.constant.GlobalConstants;
 import com.smartdoc.constant.MojoConstants;
@@ -35,6 +36,9 @@ import com.smartdoc.util.ClassLoaderUtil;
 import com.smartdoc.util.FileUtil;
 import com.smartdoc.util.MojoUtils;
 import com.thoughtworks.qdox.JavaProjectBuilder;
+import com.thoughtworks.qdox.library.ErrorHandler;
+import com.thoughtworks.qdox.library.SortedClassLibraryBuilder;
+import com.thoughtworks.qdox.parser.ParseException;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.artifact.resolver.ArtifactResolutionRequest;
@@ -175,7 +179,13 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
      * @throws MojoExecutionException
      */
     private JavaProjectBuilder buildJavaProjectBuilder() throws MojoExecutionException {
-        JavaProjectBuilder javaDocBuilder = new JavaProjectBuilder();
+        SortedClassLibraryBuilder classLibraryBuilder=new SortedClassLibraryBuilder();
+        classLibraryBuilder.setErrorHander(new ErrorHandler() {
+            @Override
+            public void handle(ParseException e) { getLog().error("解析错误",e);
+            }
+        });
+        JavaProjectBuilder javaDocBuilder =  JavaProjectBuilderHelper.create(classLibraryBuilder);
         javaDocBuilder.setEncoding(Charset.DEFAULT_CHARSET);
         javaDocBuilder.setErrorHandler(e -> getLog().warn(e.getMessage()));
         //addSourceTree
