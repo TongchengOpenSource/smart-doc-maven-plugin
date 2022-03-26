@@ -180,11 +180,7 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
      */
     private JavaProjectBuilder buildJavaProjectBuilder() throws MojoExecutionException {
         SortedClassLibraryBuilder classLibraryBuilder=new SortedClassLibraryBuilder();
-        classLibraryBuilder.setErrorHander(new ErrorHandler() {
-            @Override
-            public void handle(ParseException e) { getLog().error("解析错误",e);
-            }
-        });
+        classLibraryBuilder.setErrorHander(e -> getLog().error("Parse error",e));
         JavaProjectBuilder javaDocBuilder =  JavaProjectBuilderHelper.create(classLibraryBuilder);
         javaDocBuilder.setEncoding(Charset.DEFAULT_CHARSET);
         javaDocBuilder.setErrorHandler(e -> getLog().warn(e.getMessage()));
