@@ -31,6 +31,7 @@ import com.power.common.util.StringUtil;
 import com.power.doc.model.*;
 import com.smartdoc.constant.GlobalConstants;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.logging.Log;
@@ -82,6 +83,7 @@ public class MojoUtils {
       ClassLoader classLoader = ClassLoaderUtil.getRuntimeClassLoader(project);
       String data = FileUtil.getFileContent(new FileInputStream(configFile));
       ApiConfig apiConfig = GSON.fromJson(data, ApiConfig.class);
+      apiConfig.setClassLoader(classLoader);
       List<ApiDataDictionary> apiDataDictionaries = apiConfig.getDataDictionaries();
       List<ApiErrorCodeDictionary> apiErrorCodes = apiConfig.getErrorCodeDictionaries();
       List<ApiConstant> apiConstants = apiConfig.getApiConstants();
@@ -143,6 +145,10 @@ public class MojoUtils {
    * @return Class
    */
   public static Class getClassByClassName(String className, ClassLoader classLoader) {
+    if (StringUtils.isBlank(className)) {
+      return null;
+    }
+
     try {
       return classLoader.loadClass(className);
     } catch (ClassNotFoundException e) {
