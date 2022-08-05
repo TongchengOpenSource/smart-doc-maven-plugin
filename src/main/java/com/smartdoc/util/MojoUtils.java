@@ -83,6 +83,9 @@ public class MojoUtils {
       ClassLoader classLoader = ClassLoaderUtil.getRuntimeClassLoader(project);
       String data = FileUtil.getFileContent(new FileInputStream(configFile));
       ApiConfig apiConfig = GSON.fromJson(data, ApiConfig.class);
+      if(StringUtil.isEmpty(apiConfig.getCodePath())){
+        apiConfig.setCodePath(GlobalConstants.SOURCE_CODE_PATH);
+      }
       apiConfig.setClassLoader(classLoader);
       List<ApiDataDictionary> apiDataDictionaries = apiConfig.getDataDictionaries();
       List<ApiErrorCodeDictionary> apiErrorCodes = apiConfig.getErrorCodeDictionaries();
@@ -165,14 +168,14 @@ public class MojoUtils {
     List<SourceCodePath> sourceCodePaths = new ArrayList<>();
     // key is module's artifact name, value is module's path
     Map<String, String> modules = new HashMap<>(40);
-    buildModules(project, projectBuilder, mavenSession, modules, log);
+    buildModules(project, projectBuilder, mavenSession, modules, apiConfig.getCodePath(),log);
     modules.forEach((key, modulePath) -> projectArtifacts.forEach(artifactName -> {
       if (artifactName.equals(key)) {
         sourceCodePaths.add(SourceCodePath.builder().setPath(modulePath));
       }
     }));
     sourceCodePaths.add(SourceCodePath.builder()
-        .setPath(project.getBasedir() + FILE_SEPARATOR + GlobalConstants.SOURCE_CODE_PATH));
+        .setPath(project.getBasedir() + FILE_SEPARATOR + apiConfig.getCodePath()));
     SourceCodePath[] codePaths = new SourceCodePath[sourceCodePaths.size()];
     sourceCodePaths.toArray(codePaths);
 
@@ -189,7 +192,7 @@ public class MojoUtils {
    * @param project current maven project
    */
   private static void buildModules(MavenProject project, ProjectBuilder projectBuilder, MavenSession mavenSession, Map<String, String> moduleList,
-      Log log) {
+     String codePath, Log log) {
     Map<String, MavenProject> referenceMavenProject = new HashMap<>(20);
     //if module's version is SNAPSHOT
     if (project.getProjectReferences().isEmpty()) {
@@ -205,7 +208,7 @@ public class MojoUtils {
       }
       String artifactId = mavenProject.getValue().getModel().getArtifactId();
       String groupId = mavenProject.getValue().getGroupId();
-      moduleList.put(groupId + ":" + artifactId, mavenProject.getValue().getBasedir() + FILE_SEPARATOR + GlobalConstants.SOURCE_CODE_PATH);
+      moduleList.put(groupId + ":" + artifactId, mavenProject.getValue().getBasedir() + FILE_SEPARATOR + codePath);
     }
   }
 

@@ -143,9 +143,9 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
         this.getLog().info("------------------------------------------------------------------------");
         this.getLog().info("Smart-doc Start preparing sources at: " + DateTimeUtil.nowStrTime());
         projectArtifacts = project.getDependencies().stream().map(moduleName-> moduleName.getGroupId() + ":"+moduleName.getArtifactId()).collect(Collectors.toList());
-        javaProjectBuilder = buildJavaProjectBuilder();
-        javaProjectBuilder.setEncoding(Charset.DEFAULT_CHARSET);
         ApiConfig apiConfig = MojoUtils.buildConfig(configFile, projectName, project, projectBuilder, session, projectArtifacts, getLog());
+        javaProjectBuilder = buildJavaProjectBuilder(apiConfig.getCodePath());
+        javaProjectBuilder.setEncoding(Charset.DEFAULT_CHARSET);
         if (Objects.isNull(apiConfig)) {
             this.getLog().info(GlobalConstants.ERROR_MSG);
             return;
@@ -180,14 +180,14 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
      * @return
      * @throws MojoExecutionException
      */
-    private JavaProjectBuilder buildJavaProjectBuilder() throws MojoExecutionException {
+    private JavaProjectBuilder buildJavaProjectBuilder(String codePath) throws MojoExecutionException {
         SortedClassLibraryBuilder classLibraryBuilder=new SortedClassLibraryBuilder();
         classLibraryBuilder.setErrorHander(e -> getLog().error("Parse error",e));
         JavaProjectBuilder javaDocBuilder =  JavaProjectBuilderHelper.create(classLibraryBuilder);
         javaDocBuilder.setEncoding(Charset.DEFAULT_CHARSET);
         javaDocBuilder.setErrorHandler(e -> getLog().warn(e.getMessage()));
         //addSourceTree
-        javaDocBuilder.addSourceTree(new File("src/main/java"));
+        javaDocBuilder.addSourceTree(new File(codePath));
         //sources.stream().map(File::new).forEach(javaDocBuilder::addSourceTree);
         javaDocBuilder.addClassLoader(ClassLoaderUtil.getRuntimeClassLoader(project));
         loadSourcesDependencies(javaDocBuilder);
