@@ -34,8 +34,6 @@ public class ContainsFilterChain implements FilterChain {
 
     private final static Set<String> CONTAINS_SET = new HashSet<>();
 
-    private FilterChain filterChain;
-
     static {
         CONTAINS_SET.add("log4j");
         CONTAINS_SET.add("logback");
@@ -43,6 +41,8 @@ public class ContainsFilterChain implements FilterChain {
         CONTAINS_SET.add("swagger");
         CONTAINS_SET.add("dom4j");
     }
+
+    private FilterChain filterChain;
 
     @Override
     public void setNext(FilterChain nextInChain) {

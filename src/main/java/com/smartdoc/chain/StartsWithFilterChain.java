@@ -34,8 +34,6 @@ public class StartsWithFilterChain implements FilterChain {
 
     private final static Set<String> PREFIX_SET = new HashSet<>();
 
-    private FilterChain filterChain;
-
     static {
         PREFIX_SET.add("maven");
         PREFIX_SET.add("asm");
@@ -57,6 +55,8 @@ public class StartsWithFilterChain implements FilterChain {
         PREFIX_SET.add("commons-logging");
         PREFIX_SET.add("jaxb");
     }
+
+    private FilterChain filterChain;
 
     @Override
     public void setNext(FilterChain nextInChain) {

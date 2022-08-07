@@ -36,9 +36,7 @@ import com.smartdoc.util.ClassLoaderUtil;
 import com.smartdoc.util.FileUtil;
 import com.smartdoc.util.MojoUtils;
 import com.thoughtworks.qdox.JavaProjectBuilder;
-import com.thoughtworks.qdox.library.ErrorHandler;
 import com.thoughtworks.qdox.library.SortedClassLibraryBuilder;
-import com.thoughtworks.qdox.parser.ParseException;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.artifact.resolver.ArtifactResolutionRequest;
@@ -46,7 +44,6 @@ import org.apache.maven.artifact.resolver.ArtifactResolutionResult;
 import org.apache.maven.artifact.resolver.filter.ArtifactFilter;
 import org.apache.maven.artifact.resolver.filter.ScopeArtifactFilter;
 import org.apache.maven.execution.MavenSession;
-import org.apache.maven.model.Dependency;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecution;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -80,49 +77,33 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
 
     @Component
     protected RepositorySystem repositorySystem;
-
-    @Parameter(defaultValue = "${localRepository}", required = true, readonly = true)
-    private ArtifactRepository localRepository;
-
-    @Parameter(defaultValue = "${session}", readonly = true, required = true)
-    private MavenSession session;
-
-    @Parameter(defaultValue = "${reactorProjects}", readonly = true, required = true)
-    private List<MavenProject> reactorProjects;
-
-    @Component(hint = "default")
-    private DependencyGraphBuilder dependencyGraphBuilder;
-
-    @Parameter(property = "scope")
-    private String scope;
-
-    @Parameter(property = "configFile", defaultValue = GlobalConstants.DEFAULT_CONFIG)
-    private File configFile;
-
-    @Parameter(property = "projectName")
-    private String projectName;
-
-    @Parameter(required = false)
-    private Set excludes;
-
-    @Parameter(required = false)
-    private Set includes;
-
-    @Parameter(property = "skip")
-    private String skip;
-
-    @Parameter(defaultValue = "${mojoExecution}")
-    private MojoExecution mojoEx;
-
-    private DependencyNode rootNode;
-
     protected JavaProjectBuilder javaProjectBuilder;
-
-    private List<String> projectArtifacts;
-
     @Component(role = org.apache.maven.project.ProjectBuilder.class)
     protected ProjectBuilder projectBuilder;
-
+    @Parameter(defaultValue = "${localRepository}", required = true, readonly = true)
+    private ArtifactRepository localRepository;
+    @Parameter(defaultValue = "${session}", readonly = true, required = true)
+    private MavenSession session;
+    @Parameter(defaultValue = "${reactorProjects}", readonly = true, required = true)
+    private List<MavenProject> reactorProjects;
+    @Component(hint = "default")
+    private DependencyGraphBuilder dependencyGraphBuilder;
+    @Parameter(property = "scope")
+    private String scope;
+    @Parameter(property = "configFile", defaultValue = GlobalConstants.DEFAULT_CONFIG)
+    private File configFile;
+    @Parameter(property = "projectName")
+    private String projectName;
+    @Parameter(required = false)
+    private Set excludes;
+    @Parameter(required = false)
+    private Set includes;
+    @Parameter(property = "skip")
+    private String skip;
+    @Parameter(defaultValue = "${mojoExecution}")
+    private MojoExecution mojoEx;
+    private DependencyNode rootNode;
+    private List<String> projectArtifacts;
 
     public abstract void executeMojo(ApiConfig apiConfig, JavaProjectBuilder javaProjectBuilder)
             throws MojoExecutionException, MojoFailureException;
@@ -142,7 +123,7 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
         }
         this.getLog().info("------------------------------------------------------------------------");
         this.getLog().info("Smart-doc Start preparing sources at: " + DateTimeUtil.nowStrTime());
-        projectArtifacts = project.getDependencies().stream().map(moduleName-> moduleName.getGroupId() + ":"+moduleName.getArtifactId()).collect(Collectors.toList());
+        projectArtifacts = project.getDependencies().stream().map(moduleName -> moduleName.getGroupId() + ":" + moduleName.getArtifactId()).collect(Collectors.toList());
         ApiConfig apiConfig = MojoUtils.buildConfig(configFile, projectName, project, projectBuilder, session, projectArtifacts, getLog());
         javaProjectBuilder = buildJavaProjectBuilder(apiConfig.getCodePath());
         javaProjectBuilder.setEncoding(Charset.DEFAULT_CHARSET);
@@ -181,9 +162,9 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
      * @throws MojoExecutionException
      */
     private JavaProjectBuilder buildJavaProjectBuilder(String codePath) throws MojoExecutionException {
-        SortedClassLibraryBuilder classLibraryBuilder=new SortedClassLibraryBuilder();
-        classLibraryBuilder.setErrorHander(e -> getLog().error("Parse error",e));
-        JavaProjectBuilder javaDocBuilder =  JavaProjectBuilderHelper.create(classLibraryBuilder);
+        SortedClassLibraryBuilder classLibraryBuilder = new SortedClassLibraryBuilder();
+        classLibraryBuilder.setErrorHander(e -> getLog().error("Parse error", e));
+        JavaProjectBuilder javaDocBuilder = JavaProjectBuilderHelper.create(classLibraryBuilder);
         javaDocBuilder.setEncoding(Charset.DEFAULT_CHARSET);
         javaDocBuilder.setErrorHandler(e -> getLog().warn(e.getMessage()));
         //addSourceTree

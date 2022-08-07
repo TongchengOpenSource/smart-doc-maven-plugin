@@ -29,58 +29,58 @@ import org.apache.maven.artifact.Artifact;
  */
 public class CommonArtifactFilterChain implements FilterChain {
 
-  private FilterChain filterChain;
+    private FilterChain filterChain;
 
-  @Override
-  public void setNext(FilterChain nextInChain) {
-    this.filterChain = nextInChain;
-  }
-
-  @Override
-  public boolean ignoreArtifactById(Artifact artifact) {
-    String artifactId = artifact.getArtifactId();
-    switch (artifactId) {
-      case "aspectjweaver":
-      case "fastjson":
-      case "bcprov-jdk15on":
-      case "bcpkix-jdk15on":
-      case "lombok":
-      case "jsqlparser":
-      case "disruptor":
-      case "snakeyaml":
-      case "spring-boot-autoconfigure":
-      case "HikariCP":
-      case "mysql-connector-java":
-      case "classmate":
-      case "commons-codec":
-      case "commons-lang3":
-      case "commons-text":
-      case "commons-beanutils":
-      case "commons-beanutils-core":
-      case "spring-web":
-      case "spring-webmvc":
-      case "hibernate-validator":
-      case "xstream":
-      case "guava":
-      case "spring-tx":
-      case "javassist":
-      case "javafaker":
-      case "qdox":
-      case "gson":
-      case "netty-all":
-      case "javacv-platform":
-      case "antlr4-runtime":
-      case "jetty":
-      case "velocity":
-      case "beetl":
-      case "xml-apis":
-      case "mchange-commons-java":
-      case "hadoop-common":
-      case "druid":
-      case "mssql-jdbc":
-        return true;
-      default:
-        return this.ignore(filterChain, artifact);
+    @Override
+    public void setNext(FilterChain nextInChain) {
+        this.filterChain = nextInChain;
     }
-  }
+
+    @Override
+    public boolean ignoreArtifactById(Artifact artifact) {
+        String artifactId = artifact.getArtifactId();
+        switch (artifactId) {
+            case "aspectjweaver":
+            case "fastjson":
+            case "bcprov-jdk15on":
+            case "bcpkix-jdk15on":
+            case "lombok":
+            case "jsqlparser":
+            case "disruptor":
+            case "snakeyaml":
+            case "spring-boot-autoconfigure":
+            case "HikariCP":
+            case "mysql-connector-java":
+            case "classmate":
+            case "commons-codec":
+            case "commons-lang3":
+            case "commons-text":
+            case "commons-beanutils":
+            case "commons-beanutils-core":
+            case "spring-web":
+            case "spring-webmvc":
+            case "hibernate-validator":
+            case "xstream":
+            case "guava":
+            case "spring-tx":
+            case "javassist":
+            case "javafaker":
+            case "qdox":
+            case "gson":
+            case "netty-all":
+            case "javacv-platform":
+            case "antlr4-runtime":
+            case "jetty":
+            case "velocity":
+            case "beetl":
+            case "xml-apis":
+            case "mchange-commons-java":
+            case "hadoop-common":
+            case "druid":
+            case "mssql-jdbc":
+                return true;
+            default:
+                return this.ignore(filterChain, artifact);
+        }
+    }
 }
