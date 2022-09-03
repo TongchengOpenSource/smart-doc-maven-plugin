@@ -79,6 +79,7 @@ public class CommonArtifactFilterChain implements FilterChain {
             case "hadoop-common":
             case "druid":
             case "mssql-jdbc":
+            case "easyexcel":
                 return true;
             default:
                 return this.ignore(filterChain, artifact);
