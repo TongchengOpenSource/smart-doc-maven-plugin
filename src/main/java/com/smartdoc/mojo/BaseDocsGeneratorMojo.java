@@ -123,14 +123,14 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
         }
         this.getLog().info("------------------------------------------------------------------------");
         this.getLog().info("Smart-doc Start preparing sources at: " + DateTimeUtil.nowStrTime());
-        projectArtifacts = project.getDependencies().stream().map(moduleName -> moduleName.getGroupId() + ":" + moduleName.getArtifactId()).collect(Collectors.toList());
+        projectArtifacts = project.getArtifacts().stream().map(moduleName -> moduleName.getGroupId() + ":" + moduleName.getArtifactId()).collect(Collectors.toList());
         ApiConfig apiConfig = MojoUtils.buildConfig(configFile, projectName, project, projectBuilder, session, projectArtifacts, getLog());
-        javaProjectBuilder = buildJavaProjectBuilder(apiConfig.getCodePath());
-        javaProjectBuilder.setEncoding(Charset.DEFAULT_CHARSET);
         if (Objects.isNull(apiConfig)) {
             this.getLog().info(GlobalConstants.ERROR_MSG);
             return;
         }
+        javaProjectBuilder = buildJavaProjectBuilder(apiConfig.getCodePath());
+        javaProjectBuilder.setEncoding(Charset.DEFAULT_CHARSET);
         String rpcConsumerConfig = apiConfig.getRpcConsumerConfig();
         if (!FileUtil.isAbsPath(rpcConsumerConfig) && StringUtil.isNotEmpty(rpcConsumerConfig)) {
             apiConfig.setRpcConsumerConfig(project.getBasedir().getPath() + "/" + rpcConsumerConfig);
