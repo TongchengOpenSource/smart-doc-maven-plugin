@@ -129,7 +129,7 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
             this.getLog().info(GlobalConstants.ERROR_MSG);
             return;
         }
-        javaProjectBuilder = buildJavaProjectBuilder(apiConfig.getCodePath());
+        javaProjectBuilder = buildJavaProjectBuilder(apiConfig.getCodePath(),project.getArtifacts());
         javaProjectBuilder.setEncoding(Charset.DEFAULT_CHARSET);
         String rpcConsumerConfig = apiConfig.getRpcConsumerConfig();
         if (!FileUtil.isAbsPath(rpcConsumerConfig) && StringUtil.isNotEmpty(rpcConsumerConfig)) {
@@ -161,7 +161,7 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
      * @return
      * @throws MojoExecutionException
      */
-    private JavaProjectBuilder buildJavaProjectBuilder(String codePath) throws MojoExecutionException {
+    private JavaProjectBuilder buildJavaProjectBuilder(String codePath,Set<Artifact> projectArtifacts) throws MojoExecutionException {
         SortedClassLibraryBuilder classLibraryBuilder = new SortedClassLibraryBuilder();
         classLibraryBuilder.setErrorHander(e -> getLog().error("Parse error", e));
         JavaProjectBuilder javaDocBuilder = JavaProjectBuilderHelper.create(classLibraryBuilder);
@@ -171,7 +171,7 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
         javaDocBuilder.addSourceTree(new File(codePath));
         //sources.stream().map(File::new).forEach(javaDocBuilder::addSourceTree);
         javaDocBuilder.addClassLoader(ClassLoaderUtil.getRuntimeClassLoader(project));
-        loadSourcesDependencies(javaDocBuilder);
+        loadSourcesDependencies(javaDocBuilder,projectArtifacts);
         return javaDocBuilder;
     }
 
@@ -180,16 +180,9 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
      *
      * @param javaDocBuilder
      */
-    private void loadSourcesDependencies(JavaProjectBuilder javaDocBuilder) throws MojoExecutionException {
-        try {
+    private void loadSourcesDependencies(JavaProjectBuilder javaDocBuilder,Set<Artifact> projectArtifacts)  {
             List<String> currentProjectModules = getCurrentProjectArtifacts(this.project);
-            ArtifactFilter artifactFilter = this.createResolvingArtifactFilter();
-            ProjectBuildingRequest buildingRequest = new DefaultProjectBuildingRequest(this.session.getProjectBuildingRequest());
-            buildingRequest.setProject(this.project);
-            this.rootNode = this.dependencyGraphBuilder.buildDependencyGraph(buildingRequest, artifactFilter);
-            List<DependencyNode> dependencyNodes = this.rootNode.getChildren();
-            List<Artifact> artifactList = this.getArtifacts(dependencyNodes);
-            artifactList.forEach(artifact -> {
+            projectArtifacts.forEach(artifact -> {
                 if (ArtifactFilterUtil.ignoreSpringBootArtifactById(artifact)) {
                     return;
                 }
@@ -202,7 +195,7 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
                     return;
                 }
                 if (RegexUtil.isMatches(includes, artifactName)) {
-                    getLog().debug("load includes artifact: " + artifactName);
+                    getLog().info("load includes artifact: " + artifactName);
                     Artifact sourcesArtifact = repositorySystem.createArtifactWithClassifier(artifact.getGroupId(),
                             artifact.getArtifactId(), artifact.getVersion(), artifact.getType(), "sources");
                     this.projectArtifacts.add(artifactName);
@@ -217,9 +210,6 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
                 }
                 getLog().debug("smart-doc loaded artifact:" + artifactName);
             });
-        } catch (DependencyGraphBuilderException e) {
-            throw new MojoExecutionException("Can't build project dependency graph", e);
-        }
     }
 
     /**
