@@ -104,13 +104,14 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
     private MojoExecution mojoEx;
     private DependencyNode rootNode;
     private List<String> projectArtifacts;
+    @Parameter(defaultValue = "${tornaToken}")
+    private String tornaToken;
 
     public abstract void executeMojo(ApiConfig apiConfig, JavaProjectBuilder javaProjectBuilder)
             throws MojoExecutionException, MojoFailureException;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-
         //skip
         if ("true".equals(skip)) {
             return;
@@ -128,6 +129,9 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
         if (Objects.isNull(apiConfig)) {
             this.getLog().info(GlobalConstants.ERROR_MSG);
             return;
+        }
+        if(StringUtil.isNotEmpty(tornaToken)){
+            apiConfig.setAppToken(tornaToken);
         }
         javaProjectBuilder = buildJavaProjectBuilder(apiConfig.getCodePath(),project.getArtifacts());
         javaProjectBuilder.setEncoding(Charset.DEFAULT_CHARSET);
