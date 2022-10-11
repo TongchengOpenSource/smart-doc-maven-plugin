@@ -54,6 +54,18 @@ public class StartsWithFilterChain implements FilterChain {
         PREFIX_SET.add("commons-lang");
         PREFIX_SET.add("commons-logging");
         PREFIX_SET.add("jaxb");
+        PREFIX_SET.add("byte-buddy");
+        PREFIX_SET.add("rxjava");
+        PREFIX_SET.add("checker-qual");
+        PREFIX_SET.add("nacos");
+        PREFIX_SET.add("junit");
+        PREFIX_SET.add("caffeine");
+        PREFIX_SET.add("lettuce-core");
+        PREFIX_SET.add("spring-oxm");
+        PREFIX_SET.add("spring-data-redis");
+        PREFIX_SET.add("json");
+
+
     }
 
     private FilterChain filterChain;

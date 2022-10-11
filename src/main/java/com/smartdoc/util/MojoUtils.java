@@ -177,8 +177,12 @@ public class MojoUtils {
                 .setPath(project.getBasedir() + FILE_SEPARATOR + apiConfig.getCodePath()));
         SourceCodePath[] codePaths = new SourceCodePath[sourceCodePaths.size()];
         sourceCodePaths.toArray(codePaths);
-
-        log.info("Artifacts that the current project depends on: " + GSON.toJson(projectArtifacts));
+        List<String> artifacts = new ArrayList<>();
+        for(Map.Entry<String,String> module : modules.entrySet()){
+            String artifactName = module.getKey().split(":")[1];
+            artifacts.add(artifactName);
+        }
+        log.info("Artifacts that the current project depends on: " + GSON.toJson(artifacts));
         log.info("Smart-doc has loaded the source code path: " + GSON.toJson(sourceCodePaths)
                 .replaceAll("\\\\", "/").replaceAll("//", "/"));
 
@@ -247,7 +251,7 @@ public class MojoUtils {
                 MavenProject target = projectBuilder.build(pomFile, request).getProject();
                 mavenProjects.put(target.getGroupId() + ":" + target.getArtifactId(), target);
             } catch (ProjectBuildingException e) {
-                e.printStackTrace();
+                log.info(e.getMessage());
             }
         }
         return mavenProjects;
