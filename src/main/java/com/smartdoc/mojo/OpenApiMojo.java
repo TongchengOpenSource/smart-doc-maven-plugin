@@ -22,7 +22,7 @@
  */
 package com.smartdoc.mojo;
 
-import com.power.doc.builder.OpenApiBuilder;
+import com.power.doc.builder.openapi.OpenApiBuilder;
 import com.power.doc.model.ApiConfig;
 import com.smartdoc.constant.MojoConstants;
 import com.thoughtworks.qdox.JavaProjectBuilder;

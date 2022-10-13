@@ -35,6 +35,8 @@ public interface MojoConstants {
 
     String OPENAPI_MOJO = "openapi";
 
+    String SWAGGER_MOJO = "swagger";
+
     String POSTMAN_MOJO = "postman";
 
     String RPC_ADOC_MOJO = "rpc-adoc";
