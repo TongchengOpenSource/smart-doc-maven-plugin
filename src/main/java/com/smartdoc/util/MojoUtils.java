@@ -178,7 +178,7 @@ public class MojoUtils {
         SourceCodePath[] codePaths = new SourceCodePath[sourceCodePaths.size()];
         sourceCodePaths.toArray(codePaths);
         List<String> artifacts = new ArrayList<>();
-        for(Map.Entry<String,String> module : modules.entrySet()){
+        for (Map.Entry<String, String> module : modules.entrySet()) {
             String artifactName = module.getKey().split(":")[1];
             artifacts.add(artifactName);
         }

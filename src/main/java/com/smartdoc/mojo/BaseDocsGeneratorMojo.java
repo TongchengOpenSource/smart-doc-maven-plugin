@@ -130,7 +130,7 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
             this.getLog().info(GlobalConstants.ERROR_MSG);
             return;
         }
-        if(StringUtil.isNotEmpty(tornaToken)){
+        if (StringUtil.isNotEmpty(tornaToken)) {
             apiConfig.setAppToken(tornaToken);
         }
         javaProjectBuilder = buildJavaProjectBuilder(apiConfig.getCodePath());
@@ -186,14 +186,14 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
      */
     private void loadSourcesDependencies(JavaProjectBuilder javaDocBuilder) throws MojoExecutionException {
         try {
-        List<String> currentProjectModules = getCurrentProjectArtifacts(this.project);
-        ArtifactFilter artifactFilter = this.createResolvingArtifactFilter();
-        ProjectBuildingRequest buildingRequest = new DefaultProjectBuildingRequest(this.session.getProjectBuildingRequest());
-        buildingRequest.setProject(this.project);
-        this.rootNode = this.dependencyGraphBuilder.buildDependencyGraph(buildingRequest, artifactFilter);
-        List<DependencyNode> dependencyNodes = this.rootNode.getChildren();
-        List<Artifact> artifactList = this.getArtifacts(dependencyNodes);
-        artifactList.forEach(artifact -> {
+            List<String> currentProjectModules = getCurrentProjectArtifacts(this.project);
+            ArtifactFilter artifactFilter = this.createResolvingArtifactFilter();
+            ProjectBuildingRequest buildingRequest = new DefaultProjectBuildingRequest(this.session.getProjectBuildingRequest());
+            buildingRequest.setProject(this.project);
+            this.rootNode = this.dependencyGraphBuilder.buildDependencyGraph(buildingRequest, artifactFilter);
+            List<DependencyNode> dependencyNodes = this.rootNode.getChildren();
+            List<Artifact> artifactList = this.getArtifacts(dependencyNodes);
+            artifactList.forEach(artifact -> {
                 if (ArtifactFilterUtil.ignoreSpringBootArtifactById(artifact)) {
                     return;
                 }
@@ -206,7 +206,7 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
                     return;
                 }
                 Artifact sourcesArtifact = repositorySystem.createArtifactWithClassifier(artifact.getGroupId(),
-                    artifact.getArtifactId(), artifact.getVersion(), artifact.getType(), "sources");
+                        artifact.getArtifactId(), artifact.getVersion(), artifact.getType(), "sources");
                 if (RegexUtil.isMatches(includes, artifactName)) {
                     this.projectArtifacts.add(artifactName);
                     this.loadSourcesDependency(javaDocBuilder, sourcesArtifact);
@@ -216,7 +216,7 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
                     this.projectArtifacts.add(artifactName);
                     this.loadSourcesDependency(javaDocBuilder, sourcesArtifact);
                 }
-            getLog().debug("smart-doc loaded artifact:" + artifactName);
+                getLog().debug("smart-doc loaded artifact:" + artifactName);
             });
 
         } catch (DependencyGraphBuilderException e) {
