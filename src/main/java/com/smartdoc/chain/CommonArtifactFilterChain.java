@@ -50,8 +50,10 @@ public class CommonArtifactFilterChain implements FilterChain {
             case "disruptor":
             case "snakeyaml":
             case "spring-boot-autoconfigure":
+            case "forest-spring-boot-starter":
             case "HikariCP":
             case "mysql-connector-java":
+            case "mysql-connector-j":
             case "classmate":
             case "commons-codec":
             case "commons-lang3":
@@ -60,6 +62,7 @@ public class CommonArtifactFilterChain implements FilterChain {
             case "commons-beanutils-core":
             case "spring-web":
             case "spring-webmvc":
+            case "spring-r2dbc":
             case "hibernate-validator":
             case "xstream":
             case "guava":

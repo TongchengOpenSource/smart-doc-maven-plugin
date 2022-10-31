@@ -45,8 +45,10 @@ public class ArtifactFilterUtil {
         FilterChain startsWithFilterChain = new StartsWithFilterChain();
         FilterChain containsFilterChain = new ContainsFilterChain();
         FilterChain commonArtifactFilterChain = new CommonArtifactFilterChain();
+        FilterChain springBootArtifactFilterChain = new SpringBootArtifactFilterChain();
         startsWithFilterChain.setNext(containsFilterChain);
         containsFilterChain.setNext(commonArtifactFilterChain);
+        commonArtifactFilterChain.setNext(springBootArtifactFilterChain);
         return startsWithFilterChain.ignoreArtifactById(artifact);
     }
 
