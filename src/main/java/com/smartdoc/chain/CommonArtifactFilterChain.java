@@ -65,7 +65,6 @@ public class CommonArtifactFilterChain implements FilterChain {
             case "spring-r2dbc":
             case "hibernate-validator":
             case "xstream":
-            case "guava":
             case "spring-tx":
             case "javassist":
             case "javafaker":
