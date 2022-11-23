@@ -216,7 +216,6 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
                     this.projectArtifacts.add(artifactName);
                     this.loadSourcesDependency(javaDocBuilder, sourcesArtifact);
                 }
-                getLog().debug("smart-doc loaded artifact:" + artifactName);
             });
 
         } catch (DependencyGraphBuilderException e) {
@@ -231,6 +230,8 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
      * @param sourcesArtifact Artifact
      */
     private void loadSourcesDependency(JavaProjectBuilder javaDocBuilder, Artifact sourcesArtifact) {
+        String artifactName = sourcesArtifact.getGroupId() + ":" + sourcesArtifact.getArtifactId();
+        getLog().debug("smart-doc loaded artifact:" + artifactName);
         // create request
         ArtifactResolutionRequest request = new ArtifactResolutionRequest();
         request.setArtifact(sourcesArtifact);
