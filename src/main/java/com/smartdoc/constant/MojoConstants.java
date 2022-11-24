@@ -48,4 +48,5 @@ public interface MojoConstants {
     String TORNA_REST_MOJO = "torna-rest";
 
     String TORNA_RPC_MOJO = "torna-rpc";
+    String DOCX_MOJO = "docx-html";
 }

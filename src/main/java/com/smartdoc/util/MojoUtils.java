@@ -199,12 +199,16 @@ public class MojoUtils {
         Map<String, MavenProject> referenceMavenProject = new HashMap<>(20);
         //if module's version is SNAPSHOT
         if (project.getProjectReferences().isEmpty()) {
+            log.info(project.getArtifactId()+"'s project references is empty");
             referenceMavenProject = collectProject(project, projectBuilder, mavenSession, log);
         }
         //if module's version isn't  SNAPSHOT
         else {
             addByProjectReference(referenceMavenProject, project.getProjectReferences());
         }
+        referenceMavenProject.forEach((k,v)->{
+            log.info("project ---- "+k+" had been calculated");
+        });
         for (Map.Entry<String, MavenProject> mavenProject : referenceMavenProject.entrySet()) {
             if (log.isDebugEnabled()) {
                 log.debug(project.getName() + " references mavenProject is: " + mavenProject.getValue().getName());
