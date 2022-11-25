@@ -2,6 +2,8 @@ package com.smartdoc.plugin.test;
 
 import java.io.File;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Properties;
@@ -9,6 +11,8 @@ import java.util.function.Function;
 
 import com.power.common.util.CollectionUtil;
 import com.power.common.util.StringUtil;
+import org.apache.maven.artifact.Artifact;
+import org.apache.maven.artifact.DefaultArtifact;
 import org.apache.maven.execution.DefaultMavenExecutionRequest;
 import org.apache.maven.execution.DefaultMavenExecutionResult;
 import org.apache.maven.execution.MavenExecutionRequest;
@@ -20,13 +24,18 @@ import org.apache.maven.execution.scope.internal.MojoExecutionScope;
 import org.apache.maven.lifecycle.LifecycleExecutionException;
 import org.apache.maven.lifecycle.internal.DependencyContext;
 import org.apache.maven.lifecycle.internal.MojoExecutor;
+import org.apache.maven.model.Build;
 import org.apache.maven.model.Plugin;
 import org.apache.maven.model.PluginExecution;
 import org.apache.maven.plugin.Mojo;
 import org.apache.maven.plugin.MojoExecution;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.descriptor.InvalidPluginDescriptorException;
 import org.apache.maven.plugin.descriptor.MojoDescriptor;
+import org.apache.maven.plugin.descriptor.PluginDescriptor;
 import org.apache.maven.plugin.internal.DefaultLegacySupport;
+import org.apache.maven.plugin.logging.SystemStreamLog;
+import org.apache.maven.plugin.testing.AbstractMojoTestCase;
 import org.apache.maven.plugin.testing.MojoRule;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.ProjectBuilder;
@@ -34,6 +43,17 @@ import org.apache.maven.project.ProjectBuildingRequest;
 import org.apache.maven.project.ProjectBuildingResult;
 import org.apache.maven.repository.internal.MavenRepositorySystemUtils;
 import org.apache.maven.session.scope.internal.SessionScope;
+import org.apache.maven.tools.plugin.DefaultPluginToolsRequest;
+import org.apache.maven.tools.plugin.PluginToolsRequest;
+import org.apache.maven.tools.plugin.extractor.ExtractionException;
+import org.apache.maven.tools.plugin.extractor.MojoDescriptorExtractor;
+import org.apache.maven.tools.plugin.extractor.annotations.JavaAnnotationsMojoDescriptorExtractor;
+import org.apache.maven.tools.plugin.generator.GeneratorException;
+import org.apache.maven.tools.plugin.generator.GeneratorUtils;
+import org.apache.maven.tools.plugin.generator.PluginDescriptorGenerator;
+import org.apache.maven.tools.plugin.scanner.DefaultMojoScanner;
+import org.apache.maven.tools.plugin.scanner.MojoScanner;
+import org.codehaus.plexus.component.repository.ComponentDependency;
 import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.eclipse.aether.DefaultRepositorySystemSession;
@@ -56,14 +76,75 @@ public abstract class BaseMojoTest {
 	 * <code> java -Dsmart-doc.test.local.repository=${user.home}/.m2/repository</code>
 	 *
 	 */
-	private final static String SYSTEM_REPOSITORY_PATH = System.getProperty("smart-doc.test.local.repository");
+
+	private final static String SYSTEM_REPOSITORY_PATH = System.getProperty("smartdoc.local.repository");
 	private static LocalRepository LOCAL_REPOSITORY = null;
 	private DefaultRepositorySystemSession defaultRepositorySystemSession = null;
 
 	private MavenProject mavenProject;
 	private MavenSession mavenSession;
+
+	AbstractMojoTestCase preparePluginXml = new AbstractMojoTestCase(){
+		MavenProject mockThisPluginMavenProject(){
+			MavenProject project = new MavenProject();
+			project.setGroupId("com.github.shalousun");
+			project.setArtifactId("smart-doc-maven-plugin");
+			project.setVersion("any-version");
+			project.setName(project.getArtifactId());
+			project.setBuild(mockThisPluginBuild());
+			Artifact artifact = new DefaultArtifact("com.github.shalousun", "smart-doc-maven-plugin", "any-version", null, "jar", "classifier", null);
+			project.setArtifact(artifact);
+			return project;
+		}
+
+		private Build mockThisPluginBuild() {
+			Build build = new Build();
+			build.setOutputDirectory("target/classes");
+			return build;
+		}
+
+		protected void setUp() throws Exception {
+			File outputDirectory= new File("target/test-classes/META-INF/maven");
+			// create plugin.xml file
+			PluginDescriptor pluginDescriptor = new PluginDescriptor();
+			MavenProject project = mockThisPluginMavenProject();
+			pluginDescriptor.setGroupId( project.getGroupId() );
+			pluginDescriptor.setArtifactId( project.getArtifactId() );
+			pluginDescriptor.setVersion( project.getVersion() );
+			pluginDescriptor.setGoalPrefix( "smart-doc" );
+			pluginDescriptor.setName( project.getName() );
+			pluginDescriptor.setDescription( project.getDescription() );
+			try
+			{
+				List<ComponentDependency> deps = GeneratorUtils.toComponentDependencies( project.getArtifacts() );
+				pluginDescriptor.setDependencies( deps );
+
+				PluginToolsRequest request = new DefaultPluginToolsRequest( project, pluginDescriptor );
+				MojoScanner scanner = new DefaultMojoScanner(new HashMap<String, org.apache.maven.tools.plugin.extractor.MojoDescriptorExtractor>(){{
+					put("java-annotations",getContainer().lookup(MojoDescriptorExtractor.class,"java-annotations"));
+				}});
+				scanner.setActiveExtractors(new HashSet<String>(){
+					{
+						add("java-annotations");
+					}
+				});
+				scanner.populatePluginDescriptor( request );
+				outputDirectory.mkdirs();
+				PluginDescriptorGenerator pluginDescriptorGenerator = new PluginDescriptorGenerator(new SystemStreamLog());
+				pluginDescriptorGenerator.execute( outputDirectory, request );
+
+			}
+			catch ( Exception e )
+			{
+				throw new RuntimeException( "can't create plugin.xml file", e );
+			}
+
+			super.setUp();
+		}
+	};
 	@Rule
-	public MojoRule rule = new MojoRule() {
+	public MojoRule rule = new MojoRule(preparePluginXml) {
+
 		@Override
 		protected void before() throws Throwable {
 			if (SYSTEM_REPOSITORY_PATH == null) {

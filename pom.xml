@@ -107,6 +107,18 @@
             <version>1.6.3</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugin-tools</groupId>
+            <artifactId>maven-plugin-tools-generators</artifactId>
+            <version>${maven.pluging.annotations.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugin-tools</groupId>
+            <artifactId>maven-plugin-tools-annotations</artifactId>
+            <version>${maven.pluging.annotations.version}</version>
+            <scope>test</scope>
+        </dependency>
 
     </dependencies>
     <build>
