@@ -49,6 +49,15 @@ public class SpringBootArtifactFilterChain implements FilterChain {
             case "spring-boot-starter-web":
             case "spring-boot-starter-logging":
             case "spring-boot-starter-tomcat":
+            case "spring-boot-starter-validation":
+            case "spring-boot-starter-security":
+            case "spring-boot-starter-data-redis":
+            case "spring-boot-starter-log4j2":
+            case "spring-boot-actuator-autoconfigure":
+            case "spring-boot-starter-oauth2-client":
+            case "spring-boot-starter-quartz":
+            case "spring-boot-starter-batch":
+            case "spring-boot-starter-jdbc":
             case "spring-cloud-starter-feign":
             case "spring-cloud-starter-openfeign":
             case "spring-cloud-starter":
