@@ -44,6 +44,9 @@ public class RpcHtmlMojo extends BaseDocsGeneratorMojo {
             RpcHtmlBuilder.buildApiDoc(apiConfig, javaProjectBuilder);
         } catch (Exception e) {
             getLog().error(e);
+            if (apiConfig.isStrict()) {
+                throw new RuntimeException(e.getMessage());
+            }
         }
     }
 }

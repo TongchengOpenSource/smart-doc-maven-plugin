@@ -24,6 +24,9 @@ public class SwaggerMojo extends BaseDocsGeneratorMojo {
             SwaggerBuilder.buildOpenApi(apiConfig, javaProjectBuilder);
         } catch (Exception e) {
             getLog().error(e);
+            if (apiConfig.isStrict()) {
+                throw new RuntimeException(e.getMessage());
+            }
         }
     }
 }

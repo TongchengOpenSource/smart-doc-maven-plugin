@@ -46,6 +46,9 @@ public class TornaRestMojo extends BaseDocsGeneratorMojo {
             TornaBuilder.buildApiDoc(apiConfig, javaProjectBuilder);
         } catch (Exception e) {
             getLog().error(e);
+            if (apiConfig.isStrict()) {
+                throw new RuntimeException(e.getMessage());
+            }
         }
     }
 }
