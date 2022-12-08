@@ -52,6 +52,7 @@ public class SpringBootArtifactFilterChain implements FilterChain {
             case "spring-boot-starter-validation":
             case "spring-boot-starter-security":
             case "spring-boot-starter-data-redis":
+            case "spring-boot-starter-activemq":
             case "spring-boot-starter-log4j2":
             case "spring-boot-actuator-autoconfigure":
             case "spring-boot-starter-oauth2-client":
