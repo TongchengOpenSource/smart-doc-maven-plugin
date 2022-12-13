@@ -22,7 +22,7 @@ public class SwaggerMojo extends BaseDocsGeneratorMojo {
     public void executeMojo(ApiConfig apiConfig, JavaProjectBuilder javaProjectBuilder) {
         try {
             SwaggerBuilder.buildOpenApi(apiConfig, javaProjectBuilder);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             getLog().error(e);
             if (apiConfig.isStrict()) {
                 throw new RuntimeException(e.getMessage());
