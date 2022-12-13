@@ -46,7 +46,7 @@ public class HtmlMojo extends BaseDocsGeneratorMojo {
     public void executeMojo(ApiConfig apiConfig, JavaProjectBuilder javaProjectBuilder) throws MojoExecutionException, MojoFailureException {
         try {
             HtmlApiDocBuilder.buildApiDoc(apiConfig, javaProjectBuilder);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             getLog().error(e);
             if (apiConfig.isStrict()) {
                 throw new RuntimeException(e.getMessage());

@@ -42,7 +42,7 @@ public class ADocMojo extends BaseDocsGeneratorMojo {
     public void executeMojo(ApiConfig apiConfig, JavaProjectBuilder javaProjectBuilder) {
         try {
             AdocDocBuilder.buildApiDoc(apiConfig, javaProjectBuilder);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             getLog().error(e);
             if (apiConfig.isStrict()) {
                 throw new RuntimeException(e.getMessage());
