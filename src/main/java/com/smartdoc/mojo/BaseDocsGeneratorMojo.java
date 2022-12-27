@@ -22,6 +22,18 @@
  */
 package com.smartdoc.mojo;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
+import java.util.stream.Collectors;
+
 import com.power.common.constants.Charset;
 import com.power.common.util.CollectionUtil;
 import com.power.common.util.DateTimeUtil;
@@ -37,6 +49,7 @@ import com.smartdoc.util.FileUtil;
 import com.smartdoc.util.MojoUtils;
 import com.thoughtworks.qdox.JavaProjectBuilder;
 import com.thoughtworks.qdox.library.SortedClassLibraryBuilder;
+
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.artifact.resolver.ArtifactResolutionRequest;
@@ -58,13 +71,6 @@ import org.apache.maven.repository.RepositorySystem;
 import org.apache.maven.shared.dependency.graph.DependencyGraphBuilder;
 import org.apache.maven.shared.dependency.graph.DependencyGraphBuilderException;
 import org.apache.maven.shared.dependency.graph.DependencyNode;
-
-import java.io.File;
-import java.net.URL;
-import java.util.*;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
-import java.util.stream.Collectors;
 
 
 /**
@@ -108,7 +114,7 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
     private String tornaToken;
 
     public abstract void executeMojo(ApiConfig apiConfig, JavaProjectBuilder javaProjectBuilder)
-            throws MojoExecutionException, MojoFailureException;
+        throws MojoExecutionException, MojoFailureException;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
@@ -119,12 +125,13 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
         if (Objects.nonNull(configFile) && !configFile.exists()) {
             // Throwing an exception will cause an error in the multi-module maven project build.
             this.getLog().warn("Can't find config file: " + configFile.getName() + " from [" + project.getName()
-                    + "],If it is a non-web module, please ignore the error.");
+                + "],If it is a non-web module, please ignore the error.");
             return;
         }
         this.getLog().info("------------------------------------------------------------------------");
         this.getLog().info("Smart-doc Start preparing sources at: " + DateTimeUtil.nowStrTime());
-        projectArtifacts = project.getArtifacts().stream().map(moduleName -> moduleName.getGroupId() + ":" + moduleName.getArtifactId()).collect(Collectors.toList());
+        projectArtifacts = project.getArtifacts().stream().map(moduleName -> moduleName.getGroupId() + ":" + moduleName.getArtifactId())
+            .collect(Collectors.toList());
         ApiConfig apiConfig = MojoUtils.buildConfig(configFile, projectName, project, projectBuilder, session, projectArtifacts, getLog());
         if (Objects.isNull(apiConfig)) {
             this.getLog().info(GlobalConstants.ERROR_MSG);
@@ -161,9 +168,6 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
 
     /**
      * Classloading
-     *
-     * @return
-     * @throws MojoExecutionException
      */
     private JavaProjectBuilder buildJavaProjectBuilder(String codePath) throws MojoExecutionException {
         SortedClassLibraryBuilder classLibraryBuilder = new SortedClassLibraryBuilder();
@@ -181,8 +185,6 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
 
     /**
      * load sources
-     *
-     * @param javaDocBuilder
      */
     private void loadSourcesDependencies(JavaProjectBuilder javaDocBuilder) throws MojoExecutionException {
         try {
@@ -206,7 +208,7 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
                     return;
                 }
                 Artifact sourcesArtifact = repositorySystem.createArtifactWithClassifier(artifact.getGroupId(),
-                        artifact.getArtifactId(), artifact.getVersion(), artifact.getType(), "sources");
+                    artifact.getArtifactId(), artifact.getVersion(), artifact.getType(), "sources");
                 if (RegexUtil.isMatches(includes, artifactName)) {
                     this.projectArtifacts.add(artifactName);
                     this.loadSourcesDependency(javaDocBuilder, sourcesArtifact);
@@ -239,27 +241,34 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
         request.setRemoteRepositories(project.getRemoteArtifactRepositories());
         // resolve deps
         ArtifactResolutionResult result = repositorySystem.resolve(request);
-
         // load source file into javadoc builder
         result.getArtifacts().forEach(artifact -> {
-            try (JarFile jarFile = new JarFile(artifact.getFile())) {
+            JarFile jarFile;
+            String sourceURL;
+            try {
+                sourceURL = artifact.getFile().toURI().toURL().toString();
                 if (getLog().isDebugEnabled()) {
-                    getLog().debug("smart-doc loaded jar source:" + artifact.getFile().toURI().toURL().toString());
+                    getLog().debug("smart-doc loaded jar source:" + sourceURL);
                 }
-                for (Enumeration<?> entries = jarFile.entries(); entries.hasMoreElements(); ) {
-                    JarEntry entry = (JarEntry) entries.nextElement();
-                    String name = entry.getName();
+                jarFile = new JarFile(artifact.getFile());
+            } catch (IOException e) {
+                throw new RuntimeException("Unable to load jar source " + artifact + " : " + e.getMessage());
+            }
+            for (Enumeration<?> entries = jarFile.entries(); entries.hasMoreElements(); ) {
+                JarEntry entry = (JarEntry) entries.nextElement();
+                String name = entry.getName();
+                try {
                     if (name.endsWith(".java") && !name.endsWith("/package-info.java")) {
-                        String uri = "jar:" + artifact.getFile().toURI().toURL().toString() + "!/" + name;
+                        String uri = "jar:" + sourceURL + "!/" + name;
                         if (getLog().isDebugEnabled()) {
                             getLog().debug(uri);
                         }
-                        javaDocBuilder.addSource(
-                                new URL(uri));
+                        javaDocBuilder.addSource(new URL(uri));
                     }
+                } catch (Throwable e) {
+                    e.printStackTrace();
+                    getLog().error("syntax error in jar :" + sourceURL);
                 }
-            } catch (Exception e) {
-                getLog().warn("Unable to load jar source " + artifact + " : " + e.getMessage());
             }
         });
     }
