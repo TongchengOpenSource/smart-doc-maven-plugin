@@ -2,10 +2,10 @@
 
 ![maven](https://img.shields.io/maven-central/v/com.github.shalousun/smart-doc-maven-plugin)
 [![License](https://img.shields.io/badge/license-Apache%202-green.svg)](https://www.apache.org/licenses/LICENSE-2.0)
-![number of issues closed](https://img.shields.io/github/issues-closed-raw/shalousun/smart-doc-maven-plugin)
-![closed pull requests](https://img.shields.io/github/issues-pr-closed-raw/shalousun/smart-doc-maven-plugin)
+![number of issues closed](https://img.shields.io/github/issues-closed-raw/smart-doc-group/smart-doc-maven-plugin)
+![closed pull requests](https://img.shields.io/github/issues-pr-closed-raw/smart-doc-group/smart-doc-maven-plugin)
 ![java version](https://img.shields.io/badge/JAVA-1.8+-green.svg)
-[![chinese](https://img.shields.io/badge/chinese-中文文档-brightgreen)](https://github.com/shalousun/smart-doc-maven-plugin/blob/master/README_CN.md)
+[![chinese](https://img.shields.io/badge/chinese-中文文档-brightgreen)](https://github.com/smart-doc-group/smart-doc-maven-plugin/blob/master/README_CN.md)
 
 ## Introduce
 
@@ -26,7 +26,7 @@ smart-doc + [Torna](http://torna.cn) form an industry-leading document generatio
 smart-doc to complete Java source code analysis and extract annotations to generate API documents without intrusion, and
 automatically push the documents to the Torna enterprise-level interface document management platform.
 
-![smart-doc+torna](https://raw.githubusercontent.com/shalousun/smart-doc/master/images/smart-doc-torna-en.png)
+![smart-doc+torna](https://raw.githubusercontent.com/smart-doc-group/smart-doc/master/images/smart-doc-torna-en.png)
 
 ## Getting started
 
@@ -140,7 +140,7 @@ OS name: "windows 10", version: "10.0", arch: "amd64", family: "dos"
 On Use IntelliJ IDE, if you have added smart-doc-maven-plugin to the project,
 you can directly find the plugin smart-doc plugin and click to generate API documentation.
 
-![smart-doc-maven-plugin](https://raw.githubusercontent.com/shalousun/smart-doc-maven-plugin/master/images/idea.png)
+![smart-doc-maven-plugin](https://raw.githubusercontent.com/smart-doc-group/smart-doc-maven-plugin/master/images/idea.png)
 
 ### Generated document example
 
@@ -170,12 +170,17 @@ These are only part of the companies using smart-doc, for reference only. If you
 please [add your company here](https://github.com/smart-doc-group/smart-doc/issues/12) to tell us your scenario to make
 smart-doc better.
 
-![iFLYTEK](https://raw.githubusercontent.com/shalousun/smart-doc/dev/images/known-users/iflytek.png)
+![IFLYTEK](https://raw.githubusercontent.com/shalousun/smart-doc/dev/images/known-users/iflytek.png)
 &nbsp;&nbsp;<img src="https://raw.githubusercontent.com/shalousun/smart-doc/dev/images/known-users/oneplus.png" title="OnePlus" width="83px" height="83px"/>
 &nbsp;&nbsp;<img src="https://raw.githubusercontent.com/shalousun/smart-doc/dev/images/known-users/xiaomi.png" title="Xiaomi" width="170px" height="83px"/>
-<img src="https://raw.githubusercontent.com/shalousun/smart-doc/dev/images/known-users/yuanmengjiankang.png" title="yuanmengjiankang" width="260px" height="83px"/>
+&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/shalousun/smart-doc/dev/images/known-users/neusoft.png" title="东软集团" width="170px" height="83px"/>
+&nbsp;&nbsp;<img src="https://www.hand-china.com/static/img/hand-logo.svg" title="上海汉得信息技术股份有限公司" width="260px" height="83px"/>
+&nbsp;&nbsp;<img src="https://raw.githubusercontent.com/shalousun/smart-doc/dev/images/known-users/shunfeng.png" title="顺丰" width="83px" height="83px"/>
 <img src="https://raw.githubusercontent.com/shalousun/smart-doc/dev/images/known-users/zhongkezhilian.png" title="zhongkezhilian" width="272px" height="83px"/>
-<img src="https://raw.githubusercontent.com/shalousun/smart-doc/dev/images/known-users/puqie_gaitubao_100x100.jpg" title="puqie" width="83px" height="83px"/>
+&nbsp;&nbsp;<img src="https://gitee.com/smart-doc-team/smart-doc/raw/master/images/known-users/mafenwo.png" title="马蜂窝" width="150px" height="83px"/>
+<img src="https://raw.githubusercontent.com/shalousun/smart-doc/dev/images/known-users/yuanmengjiankang.png" title="yuanmengjiankang" width="260px" height="83px"/>
+&nbsp;&nbsp;
+<img src="https://raw.githubusercontent.com/shalousun/smart-doc/dev/images/known-users/tianbo-tech.png" title="tianbo tech" width="127px" height="70px"/>
 
 ## License
 
