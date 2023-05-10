@@ -40,12 +40,6 @@ public class CommonArtifactFilterChain implements FilterChain {
     public boolean ignoreArtifactById(Artifact artifact) {
         String artifactId = artifact.getArtifactId();
         switch (artifactId) {
-            case "aspectjweaver":
-            case "fastjson":
-            case "fastjson2":
-            case "bcprov-jdk15on":
-            case "bcpkix-jdk15on":
-            case "lombok":
             case "jsqlparser":
             case "disruptor":
             case "snakeyaml":
@@ -60,9 +54,15 @@ public class CommonArtifactFilterChain implements FilterChain {
             case "commons-text":
             case "commons-beanutils":
             case "commons-beanutils-core":
+            case "commons-compress":
+            case "commons-collections4":
             case "spring-web":
             case "spring-webmvc":
             case "spring-r2dbc":
+            case "spring-orm":
+            case "spring-data-jpa":
+            case "spring-context-support":
+            case "spring-aspects":
             case "hibernate-validator":
             case "xstream":
             case "spring-tx":
@@ -76,12 +76,26 @@ public class CommonArtifactFilterChain implements FilterChain {
             case "jetty":
             case "velocity":
             case "beetl":
+            case "freemarker":
             case "xml-apis":
             case "mchange-commons-java":
-            case "hadoop-common":
             case "druid":
             case "mssql-jdbc":
             case "easyexcel":
+            case "zookeeper":
+            case "okio":
+            case "okhttp":
+            case "joda-time":
+            case "protobuf-java":
+            case "jenkins-client":
+            case "jose4j":
+            case "gson-fire":
+            case "java-jwt":
+            case "joda-convert":
+            case "kafka-clients":
+            case "kubernetes-client":
+            case "client-java-proto":
+            case "commons-httpclient":
                 return true;
             default:
                 return this.ignore(filterChain, artifact);
