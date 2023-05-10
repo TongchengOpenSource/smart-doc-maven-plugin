@@ -40,6 +40,8 @@ public class ContainsFilterChain implements FilterChain {
         CONTAINS_SET.add("slf4j");
         CONTAINS_SET.add("swagger");
         CONTAINS_SET.add("dom4j");
+        CONTAINS_SET.add("jsr");
+        CONTAINS_SET.add("jtds");
     }
 
     private FilterChain filterChain;

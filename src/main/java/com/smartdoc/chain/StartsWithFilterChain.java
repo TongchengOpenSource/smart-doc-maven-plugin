@@ -68,8 +68,12 @@ public class StartsWithFilterChain implements FilterChain {
         PREFIX_SET.add("springfox");
         PREFIX_SET.add("elasticsearch");
         PREFIX_SET.add("guava");
-
-
+        PREFIX_SET.add("fastjson");
+        PREFIX_SET.add("bcprov");
+        PREFIX_SET.add("aws-java-sdk");
+        PREFIX_SET.add("hadoop");
+        PREFIX_SET.add("xml");
+        PREFIX_SET.add("sundr-codegen");
     }
 
     private FilterChain filterChain;

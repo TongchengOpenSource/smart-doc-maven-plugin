@@ -42,14 +42,17 @@ public class ArtifactFilterUtil {
         if ("test".equals(artifact.getScope())) {
             return true;
         }
+        FilterChain groupFilterChain = new GroupIdFilterChain();
         FilterChain startsWithFilterChain = new StartsWithFilterChain();
         FilterChain containsFilterChain = new ContainsFilterChain();
         FilterChain commonArtifactFilterChain = new CommonArtifactFilterChain();
         FilterChain springBootArtifactFilterChain = new SpringBootArtifactFilterChain();
+
+        groupFilterChain.setNext(startsWithFilterChain);
         startsWithFilterChain.setNext(containsFilterChain);
         containsFilterChain.setNext(commonArtifactFilterChain);
         commonArtifactFilterChain.setNext(springBootArtifactFilterChain);
-        return startsWithFilterChain.ignoreArtifactById(artifact);
+        return groupFilterChain.ignoreArtifactById(artifact);
     }
 
     public static boolean ignoreSpringBootArtifactById(Artifact artifact) {
