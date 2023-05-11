@@ -50,12 +50,8 @@ public class CommonArtifactFilterChain implements FilterChain {
             case "mysql-connector-j":
             case "classmate":
             case "commons-codec":
-            case "commons-lang3":
-            case "commons-text":
             case "commons-beanutils":
             case "commons-beanutils-core":
-            case "commons-compress":
-            case "commons-collections4":
             case "spring-web":
             case "spring-webmvc":
             case "spring-r2dbc":
@@ -70,13 +66,9 @@ public class CommonArtifactFilterChain implements FilterChain {
             case "javafaker":
             case "qdox":
             case "gson":
-            case "netty-all":
-            case "javacv-platform":
             case "antlr4-runtime":
-            case "jetty":
             case "velocity":
             case "beetl":
-            case "freemarker":
             case "xml-apis":
             case "mchange-commons-java":
             case "druid":
@@ -90,12 +82,11 @@ public class CommonArtifactFilterChain implements FilterChain {
             case "jenkins-client":
             case "jose4j":
             case "gson-fire":
-            case "java-jwt":
             case "joda-convert":
             case "kafka-clients":
             case "kubernetes-client":
             case "client-java-proto":
-            case "commons-httpclient":
+            case "dynamic-datasource-spring-boot-starter":
                 return true;
             default:
                 return this.ignore(filterChain, artifact);
