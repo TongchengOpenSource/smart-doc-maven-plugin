@@ -1,8 +1,3 @@
-package com.smartdoc.chain;
-
-import org.apache.maven.artifact.Artifact;
-
-import java.util.HashSet;
 /*
  * smart-doc https://github.com/smart-doc-group/smart-doc
  *
@@ -25,6 +20,12 @@ import java.util.HashSet;
  * specific language governing permissions and limitations
  * under the License.
  */
+
+package com.smartdoc.chain;
+
+import org.apache.maven.artifact.Artifact;
+
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -39,6 +40,7 @@ public class GroupIdFilterChain implements FilterChain{
         GROUPID_SET.add("io.fabric8");
         GROUPID_SET.add("io.kubernetes");
         GROUPID_SET.add("org.jooq");
+        GROUPID_SET.add("org.mortbay.jetty");
         GROUPID_SET.add("com.google.http-client");
         GROUPID_SET.add("jakarta.xml.bind");
         GROUPID_SET.add("org.mariadb.jdbc");
@@ -68,6 +70,25 @@ public class GroupIdFilterChain implements FilterChain{
         GROUPID_SET.add("com.microsoft.sqlserver");
         GROUPID_SET.add("io.etcd");
         GROUPID_SET.add("org.apache.flink");
+        GROUPID_SET.add("org.apache.rocketmq");
+        GROUPID_SET.add("org.apache.kafka");
+        GROUPID_SET.add("org.apache.hudi");
+        GROUPID_SET.add("com.rabbitmq");
+        GROUPID_SET.add("org.apache.dubbo");
+        GROUPID_SET.add("cn.hutool");
+        GROUPID_SET.add("com.alibaba.nacos");
+        GROUPID_SET.add("com.alibaba.csp");
+        GROUPID_SET.add("io.zipkin.zipkin2");
+        GROUPID_SET.add("org.apache.skywalking");
+        GROUPID_SET.add("com.ctrip.framework.apollo");
+        GROUPID_SET.add("org.apache.shardingsphere");
+        GROUPID_SET.add("ru.yandex.clickhouse");
+        GROUPID_SET.add("com.clickhouse");
+        GROUPID_SET.add("org.apache.activemq");
+        GROUPID_SET.add("org.bytedeco");
+        GROUPID_SET.add("ws.schild");
+        GROUPID_SET.add("io.netty");
+        GROUPID_SET.add("io.micrometer");
     }
     private FilterChain filterChain;
     @Override

@@ -66,10 +66,7 @@ public class CommonArtifactFilterChain implements FilterChain {
             case "javafaker":
             case "qdox":
             case "gson":
-            case "netty-all":
-            case "javacv-platform":
             case "antlr4-runtime":
-            case "jetty":
             case "velocity":
             case "beetl":
             case "xml-apis":
@@ -89,7 +86,7 @@ public class CommonArtifactFilterChain implements FilterChain {
             case "kafka-clients":
             case "kubernetes-client":
             case "client-java-proto":
-            case "commons-httpclient":
+            case "dynamic-datasource-spring-boot-starter":
                 return true;
             default:
                 return this.ignore(filterChain, artifact);
