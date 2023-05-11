@@ -49,15 +49,25 @@ public class GroupIdFilterChain implements FilterChain{
         GROUPID_SET.add("org.mapstruct");
         GROUPID_SET.add("io.sundr");
         GROUPID_SET.add("org.aspectj");
+        GROUPID_SET.add("org.slf4j");
         GROUPID_SET.add("com.esotericsoftware.yamlbeans");
         GROUPID_SET.add("jakarta.activation");
         GROUPID_SET.add("commons-httpclient");
         GROUPID_SET.add("org.apache.curator");
         GROUPID_SET.add("org.apache.hive");
+        GROUPID_SET.add("org.apache.hadoop");
         GROUPID_SET.add("org.hibernate");
         GROUPID_SET.add("org.bouncycastle");
         GROUPID_SET.add("io.vavr");
         GROUPID_SET.add("org.projectlombok");
+        GROUPID_SET.add("org.freemarker");
+        GROUPID_SET.add("com.auth0");
+        GROUPID_SET.add("org.apache.logging.log4j");
+        GROUPID_SET.add("com.google.protobuf");
+        GROUPID_SET.add("org.postgresql");
+        GROUPID_SET.add("com.microsoft.sqlserver");
+        GROUPID_SET.add("io.etcd");
+        GROUPID_SET.add("org.apache.flink");
     }
     private FilterChain filterChain;
     @Override
