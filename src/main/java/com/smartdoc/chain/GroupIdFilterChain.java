@@ -89,6 +89,7 @@ public class GroupIdFilterChain implements FilterChain{
         GROUPID_SET.add("ws.schild");
         GROUPID_SET.add("io.netty");
         GROUPID_SET.add("io.micrometer");
+        GROUPID_SET.add("org.apache.pulsar");
     }
     private FilterChain filterChain;
     @Override
