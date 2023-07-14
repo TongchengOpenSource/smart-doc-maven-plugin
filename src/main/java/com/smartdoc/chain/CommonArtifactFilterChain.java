@@ -87,6 +87,9 @@ public class CommonArtifactFilterChain implements FilterChain {
             case "kubernetes-client":
             case "client-java-proto":
             case "dynamic-datasource-spring-boot-starter":
+            case "java-driver-core":
+            case "java-driver-query-builder":
+            case "java-driver-mapper-runtime":
                 return true;
             default:
                 return this.ignore(filterChain, artifact);
