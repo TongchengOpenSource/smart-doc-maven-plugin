@@ -252,8 +252,10 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
                 }
                 jarFile = new JarFile(artifact.getFile());
             } catch (IOException e) {
-                throw new RuntimeException("Unable to load jar source " + artifact + " : " + e.getMessage());
+                getLog().warn("Unable to load jar source " + artifact + " : " + e.getMessage());
+                return;
             }
+
             for (Enumeration<?> entries = jarFile.entries(); entries.hasMoreElements(); ) {
                 JarEntry entry = (JarEntry) entries.nextElement();
                 String name = entry.getName();
@@ -266,8 +268,8 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
                         javaDocBuilder.addSource(new URL(uri));
                     }
                 } catch (Throwable e) {
-                    e.printStackTrace();
-                    getLog().error("syntax error in jar :" + sourceURL);
+                    getLog().warn("syntax error in jar :" + sourceURL);
+                    getLog().warn(e.getMessage());
                 }
             }
         });
