@@ -226,7 +226,6 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
     }
 
     /**
-     * reference https://github.com/sfauvel/livingdocumentation
      *
      * @param javaDocBuilder  JavaProjectBuilder
      * @param sourcesArtifact Artifact
@@ -276,7 +275,7 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
     }
 
     /**
-     * reference maven-dependency-plugin tree
+     * copy from maven-dependency-plugin tree TreeMojo.java
      *
      * @return ArtifactFilter
      */
