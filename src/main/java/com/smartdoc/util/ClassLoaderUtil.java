@@ -31,6 +31,7 @@ import java.net.URLClassLoader;
 import java.util.List;
 
 /**
+ * https://github.com/jboz/living-documentation
  * @author Julien Boz
  */
 public class ClassLoaderUtil {
