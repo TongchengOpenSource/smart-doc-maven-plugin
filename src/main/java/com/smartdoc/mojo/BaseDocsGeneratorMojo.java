@@ -74,6 +74,7 @@ import org.apache.maven.shared.dependency.graph.DependencyNode;
 
 
 /**
+ * reference https://github.com/jboz/living-documentation
  * @author yu 2020/1/8.
  */
 public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
@@ -177,7 +178,6 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
         javaDocBuilder.setErrorHandler(e -> getLog().warn(e.getMessage()));
         //addSourceTree
         javaDocBuilder.addSourceTree(new File(codePath));
-        //sources.stream().map(File::new).forEach(javaDocBuilder::addSourceTree);
         javaDocBuilder.addClassLoader(ClassLoaderUtil.getRuntimeClassLoader(project));
         loadSourcesDependencies(javaDocBuilder);
         return javaDocBuilder;
@@ -226,6 +226,7 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
     }
 
     /**
+     * reference https://github.com/jboz/living-documentation
      *
      * @param javaDocBuilder  JavaProjectBuilder
      * @param sourcesArtifact Artifact
@@ -238,9 +239,9 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
         request.setArtifact(sourcesArtifact);
         //request.setResolveTransitively(true);
         request.setRemoteRepositories(project.getRemoteArtifactRepositories());
-        // resolve deps
+        // resolve dependencies
         ArtifactResolutionResult result = repositorySystem.resolve(request);
-        // load source file into javadoc builder
+        // load java source file into javadoc builder
         result.getArtifacts().forEach(artifact -> {
             JarFile jarFile;
             String sourceURL;
