@@ -20,43 +20,26 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.smartdoc.chain;
+package com.ly.doc.plugin.chain;
 
 import org.apache.maven.artifact.Artifact;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Objects;
 
 /**
  * @author yu 2020/1/13.
  */
-public class ContainsFilterChain implements FilterChain {
+public interface FilterChain {
 
-    private final static Set<String> CONTAINS_SET = new HashSet<>();
+    void setNext(FilterChain nextInChain);
 
-    static {
-        CONTAINS_SET.add("log4j");
-        CONTAINS_SET.add("logback");
-        CONTAINS_SET.add("slf4j");
-        CONTAINS_SET.add("swagger");
-        CONTAINS_SET.add("dom4j");
-        CONTAINS_SET.add("jsr");
-        CONTAINS_SET.add("jtds");
-    }
+    boolean ignoreArtifactById(Artifact artifact);
 
-    private FilterChain filterChain;
-
-    @Override
-    public void setNext(FilterChain nextInChain) {
-        this.filterChain = nextInChain;
-    }
-
-    @Override
-    public boolean ignoreArtifactById(Artifact artifact) {
-        String artifactId = artifact.getArtifactId();
-        if (CONTAINS_SET.stream().anyMatch(artifactId::contains)) {
-            return true;
+    default boolean ignore(FilterChain nextInChain, Artifact artifact) {
+        if (Objects.nonNull(nextInChain)) {
+            return nextInChain.ignoreArtifactById(artifact);
+        } else {
+            return false;
         }
-        return this.ignore(filterChain, artifact);
     }
 }

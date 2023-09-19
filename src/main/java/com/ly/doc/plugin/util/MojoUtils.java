@@ -1,5 +1,5 @@
 /*
- * smart-doc https://github.com/smart-doc-group/smart-doc
+ * smart-doc
  *
  * Copyright (C) 2018-2023 smart-doc
  *
@@ -20,7 +20,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.smartdoc.util;
+package com.ly.doc.plugin.util;
 
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
@@ -29,7 +29,7 @@ import com.google.gson.GsonBuilder;
 import com.power.common.util.FileUtil;
 import com.power.common.util.StringUtil;
 import com.power.doc.model.*;
-import com.smartdoc.constant.GlobalConstants;
+import com.ly.doc.plugin.constant.GlobalConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -41,7 +41,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.*;
 
-import static com.smartdoc.constant.GlobalConstants.FILE_SEPARATOR;
+import static com.ly.doc.plugin.constant.GlobalConstants.FILE_SEPARATOR;
 
 /**
  * @author xingzi 2019/12/07 21:19

@@ -1,5 +1,5 @@
 /*
- * smart-doc https://github.com/smart-doc-group/smart-doc
+ * smart-doc
  *
  * Copyright (C) 2018-2023 smart-doc
  *
@@ -20,26 +20,43 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.smartdoc.chain;
+package com.ly.doc.plugin.chain;
 
 import org.apache.maven.artifact.Artifact;
 
-import java.util.Objects;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author yu 2020/1/13.
  */
-public interface FilterChain {
+public class ContainsFilterChain implements FilterChain {
 
-    void setNext(FilterChain nextInChain);
+    private final static Set<String> CONTAINS_SET = new HashSet<>();
 
-    boolean ignoreArtifactById(Artifact artifact);
+    static {
+        CONTAINS_SET.add("log4j");
+        CONTAINS_SET.add("logback");
+        CONTAINS_SET.add("slf4j");
+        CONTAINS_SET.add("swagger");
+        CONTAINS_SET.add("dom4j");
+        CONTAINS_SET.add("jsr");
+        CONTAINS_SET.add("jtds");
+    }
 
-    default boolean ignore(FilterChain nextInChain, Artifact artifact) {
-        if (Objects.nonNull(nextInChain)) {
-            return nextInChain.ignoreArtifactById(artifact);
-        } else {
-            return false;
+    private FilterChain filterChain;
+
+    @Override
+    public void setNext(FilterChain nextInChain) {
+        this.filterChain = nextInChain;
+    }
+
+    @Override
+    public boolean ignoreArtifactById(Artifact artifact) {
+        String artifactId = artifact.getArtifactId();
+        if (CONTAINS_SET.stream().anyMatch(artifactId::contains)) {
+            return true;
         }
+        return this.ignore(filterChain, artifact);
     }
 }

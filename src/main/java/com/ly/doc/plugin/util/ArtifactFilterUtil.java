@@ -1,5 +1,5 @@
 /*
- * smart-doc https://github.com/smart-doc-group/smart-doc
+ * smart-doc
  *
  * Copyright (C) 2018-2023 smart-doc
  *
@@ -20,8 +20,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.smartdoc.util;
+package com.ly.doc.plugin.util;
 
+import com.ly.doc.plugin.chain.*;
 import com.smartdoc.chain.*;
 import org.apache.maven.artifact.Artifact;
 

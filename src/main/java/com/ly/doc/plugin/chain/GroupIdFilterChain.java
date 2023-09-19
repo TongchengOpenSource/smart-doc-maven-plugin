@@ -1,5 +1,5 @@
 /*
- * smart-doc https://github.com/smart-doc-group/smart-doc
+ * smart-doc
  *
  * Copyright (C) 2018-2023 smart-doc
  *
@@ -21,7 +21,7 @@
  * under the License.
  */
 
-package com.smartdoc.chain;
+package com.ly.doc.plugin.chain;
 
 import org.apache.maven.artifact.Artifact;
 

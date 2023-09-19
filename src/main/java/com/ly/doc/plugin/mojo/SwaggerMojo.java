@@ -1,5 +1,5 @@
 /*
- * smart-doc https://github.com/smart-doc-group/smart-doc
+ * smart-doc
  *
  * Copyright (C) 2018-2023 smart-doc
  *
@@ -20,11 +20,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.smartdoc.mojo;
+package com.ly.doc.plugin.mojo;
 
-import com.power.doc.builder.rpc.RpcHtmlBuilder;
+import com.ly.doc.plugin.constant.MojoConstants;
+import com.power.doc.builder.openapi.SwaggerBuilder;
 import com.power.doc.model.ApiConfig;
-import com.smartdoc.constant.MojoConstants;
 import com.thoughtworks.qdox.JavaProjectBuilder;
 import org.apache.maven.plugins.annotations.Execute;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -32,16 +32,18 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.ResolutionScope;
 
 /**
- * @author yu 2020/5/26.
+ * Support swagger2.0
+ *
+ * @author xingzi
+ * Date 2022/10/13 21:31
  */
 @Execute(phase = LifecyclePhase.COMPILE)
-@Mojo(name = MojoConstants.RPC_HTML_MOJO, requiresDependencyResolution = ResolutionScope.COMPILE)
-public class RpcHtmlMojo extends BaseDocsGeneratorMojo {
-
+@Mojo(name = MojoConstants.SWAGGER_MOJO, requiresDependencyResolution = ResolutionScope.COMPILE)
+public class SwaggerMojo extends BaseDocsGeneratorMojo {
     @Override
     public void executeMojo(ApiConfig apiConfig, JavaProjectBuilder javaProjectBuilder) {
         try {
-            RpcHtmlBuilder.buildApiDoc(apiConfig, javaProjectBuilder);
+            SwaggerBuilder.buildOpenApi(apiConfig, javaProjectBuilder);
         } catch (Throwable e) {
             getLog().error(e);
             if (apiConfig.isStrict()) {

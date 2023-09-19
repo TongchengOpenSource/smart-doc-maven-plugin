@@ -20,11 +20,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.smartdoc.mojo;
+package com.ly.doc.plugin.mojo;
 
-import com.power.doc.builder.openapi.SwaggerBuilder;
+import com.power.doc.builder.AdocDocBuilder;
 import com.power.doc.model.ApiConfig;
-import com.smartdoc.constant.MojoConstants;
+import com.ly.doc.plugin.constant.MojoConstants;
 import com.thoughtworks.qdox.JavaProjectBuilder;
 import org.apache.maven.plugins.annotations.Execute;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -32,18 +32,16 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.ResolutionScope;
 
 /**
- * Support swagger2.0
- *
- * @author xingzi
- * Date 2022/10/13 21:31
+ * @author xingzi  2019/12/13  16:23
  */
 @Execute(phase = LifecyclePhase.COMPILE)
-@Mojo(name = MojoConstants.SWAGGER_MOJO, requiresDependencyResolution = ResolutionScope.COMPILE)
-public class SwaggerMojo extends BaseDocsGeneratorMojo {
+@Mojo(name = MojoConstants.ADOC_MOJO, requiresDependencyResolution = ResolutionScope.COMPILE)
+public class ADocMojo extends BaseDocsGeneratorMojo {
+
     @Override
     public void executeMojo(ApiConfig apiConfig, JavaProjectBuilder javaProjectBuilder) {
         try {
-            SwaggerBuilder.buildOpenApi(apiConfig, javaProjectBuilder);
+            AdocDocBuilder.buildApiDoc(apiConfig, javaProjectBuilder);
         } catch (Throwable e) {
             getLog().error(e);
             if (apiConfig.isStrict()) {
