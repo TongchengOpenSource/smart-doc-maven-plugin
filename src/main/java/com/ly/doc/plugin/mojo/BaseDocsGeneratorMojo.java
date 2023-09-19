@@ -1,5 +1,5 @@
 /*
- * smart-doc https://github.com/smart-doc-group/smart-doc
+ * smart-doc
  *
  * Copyright (C) 2018-2023 smart-doc
  *
@@ -20,7 +20,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.smartdoc.mojo;
+package com.ly.doc.plugin.mojo;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,6 +34,10 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.stream.Collectors;
 
+import com.ly.doc.plugin.util.ArtifactFilterUtil;
+import com.ly.doc.plugin.util.ClassLoaderUtil;
+import com.ly.doc.plugin.util.FileUtil;
+import com.ly.doc.plugin.util.MojoUtils;
 import com.power.common.constants.Charset;
 import com.power.common.util.CollectionUtil;
 import com.power.common.util.DateTimeUtil;
@@ -41,12 +45,8 @@ import com.power.common.util.RegexUtil;
 import com.power.common.util.StringUtil;
 import com.power.doc.helper.JavaProjectBuilderHelper;
 import com.power.doc.model.ApiConfig;
-import com.smartdoc.constant.GlobalConstants;
-import com.smartdoc.constant.MojoConstants;
-import com.smartdoc.util.ArtifactFilterUtil;
-import com.smartdoc.util.ClassLoaderUtil;
-import com.smartdoc.util.FileUtil;
-import com.smartdoc.util.MojoUtils;
+import com.ly.doc.plugin.constant.GlobalConstants;
+import com.ly.doc.plugin.constant.MojoConstants;
 import com.thoughtworks.qdox.JavaProjectBuilder;
 import com.thoughtworks.qdox.library.SortedClassLibraryBuilder;
 

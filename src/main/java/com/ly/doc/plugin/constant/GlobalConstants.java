@@ -1,5 +1,5 @@
 /*
- * smart-doc https://github.com/smart-doc-group/smart-doc
+ * smart-doc
  *
  * Copyright (C) 2018-2023 smart-doc
  *
@@ -20,29 +20,24 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.smartdoc.util;
-
-import com.power.common.util.StringUtil;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+package com.ly.doc.plugin.constant;
 
 /**
- * @author xingzi  2020/01/09  21:18
+ * @author yu 2019/12/13.
  */
-public class FileUtil {
-    private static String regex = "^[a-zA-Z]:";
-    private static Pattern pattern = Pattern.compile(regex);
+public interface GlobalConstants {
 
-    public static boolean isAbsPath(String path) {
-        if (StringUtil.isEmpty(path)) {
-            return false;
-        }
-        Matcher matcher = pattern.matcher(path);
-        if (matcher.find() || path.startsWith("/")) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+    String ERROR_MSG = "Failed to build ApiConfig, check if the configuration file is correct.";
+
+    String DEFAULT_CONFIG = "./src/main/resources/default.json";
+
+    String SOURCE_CODE_PATH = "src/main/java";
+
+    String TARGET_OUT_PATH = "target/doc";
+
+    String POM_XML = "pom.xml";
+
+    String SOURCE_CODE_PATH_REVERSE = "\\src\\main\\java";
+
+    String FILE_SEPARATOR = System.getProperty("file.separator");
 }

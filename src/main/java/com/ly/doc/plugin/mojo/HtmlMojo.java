@@ -1,5 +1,5 @@
 /*
- * smart-doc https://github.com/smart-doc-group/smart-doc
+ * smart-doc
  *
  * Copyright (C) 2018-2023 smart-doc
  *
@@ -20,30 +20,32 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.smartdoc.mojo;
+package com.ly.doc.plugin.mojo;
 
-import com.power.doc.builder.openapi.OpenApiBuilder;
+
+import com.power.doc.builder.HtmlApiDocBuilder;
 import com.power.doc.model.ApiConfig;
-import com.smartdoc.constant.MojoConstants;
+import com.ly.doc.plugin.constant.MojoConstants;
 import com.thoughtworks.qdox.JavaProjectBuilder;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Execute;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.ResolutionScope;
 
+
 /**
- * Support Open Api 3.0+
- *
- * @author yu 2020/8/19.
+ * @author xingzi 2019/12/06 14:50
  */
 @Execute(phase = LifecyclePhase.COMPILE)
-@Mojo(name = MojoConstants.OPENAPI_MOJO, requiresDependencyResolution = ResolutionScope.COMPILE)
-public class OpenApiMojo extends BaseDocsGeneratorMojo {
+@Mojo(name = MojoConstants.HTML_MOJO, requiresDependencyResolution = ResolutionScope.COMPILE)
+public class HtmlMojo extends BaseDocsGeneratorMojo {
 
     @Override
-    public void executeMojo(ApiConfig apiConfig, JavaProjectBuilder javaProjectBuilder) {
+    public void executeMojo(ApiConfig apiConfig, JavaProjectBuilder javaProjectBuilder) throws MojoExecutionException, MojoFailureException {
         try {
-            OpenApiBuilder.buildOpenApi(apiConfig, javaProjectBuilder);
+            HtmlApiDocBuilder.buildApiDoc(apiConfig, javaProjectBuilder);
         } catch (Throwable e) {
             getLog().error(e);
             if (apiConfig.isStrict()) {
