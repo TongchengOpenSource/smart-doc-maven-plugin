@@ -23,7 +23,6 @@
 package com.ly.doc.plugin.util;
 
 import com.ly.doc.plugin.chain.*;
-import com.smartdoc.chain.*;
 import org.apache.maven.artifact.Artifact;
 
 /**
