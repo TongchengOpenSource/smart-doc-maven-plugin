@@ -189,4 +189,4 @@ the [LICENSE](https://raw.githubusercontent.com/smart-doc-group/smart-doc-maven-
 
 ## Contact
 
-Email： 836575280@qq.com
+Email： opensource@ly.com
