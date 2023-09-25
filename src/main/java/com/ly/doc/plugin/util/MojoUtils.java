@@ -28,7 +28,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.power.common.util.FileUtil;
 import com.power.common.util.StringUtil;
-import com.power.doc.model.*;
+import com.ly.doc.model.*;
 import com.ly.doc.plugin.constant.GlobalConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.execution.MavenSession;
@@ -73,7 +73,7 @@ public class MojoUtils {
      * @param mavenSession     maven session
      * @param projectArtifacts project artifacts
      * @param log              maven plugin log
-     * @return com.power.doc.model.ApiConfig
+     * @return com.ly.doc.model.ApiConfig
      * @throws MojoExecutionException MojoExecutionException
      */
     public static ApiConfig buildConfig(File configFile, String projectName, MavenProject project, ProjectBuilder projectBuilder

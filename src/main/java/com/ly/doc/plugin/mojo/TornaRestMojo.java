@@ -23,8 +23,8 @@
 package com.ly.doc.plugin.mojo;
 
 import com.ly.doc.plugin.constant.MojoConstants;
-import com.power.doc.builder.TornaBuilder;
-import com.power.doc.model.ApiConfig;
+import com.ly.doc.builder.TornaBuilder;
+import com.ly.doc.model.ApiConfig;
 import com.thoughtworks.qdox.JavaProjectBuilder;
 import org.apache.maven.plugins.annotations.Execute;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
