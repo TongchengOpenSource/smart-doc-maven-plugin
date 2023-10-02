@@ -72,12 +72,13 @@ public class MojoUtils {
      * @param projectBuilder   ProjectBuilder
      * @param mavenSession     maven session
      * @param projectArtifacts project artifacts
+     * @param increment        whether incrementally build the doc
      * @param log              maven plugin log
      * @return com.ly.doc.model.ApiConfig
      * @throws MojoExecutionException MojoExecutionException
      */
     public static ApiConfig buildConfig(File configFile, String projectName, MavenProject project, ProjectBuilder projectBuilder
-            , MavenSession mavenSession, List<String> projectArtifacts, Log log) throws MojoExecutionException {
+            , MavenSession mavenSession, List<String> projectArtifacts, boolean increment, Log log) throws MojoExecutionException {
         try {
             ClassLoader classLoader = ClassLoaderUtil.getRuntimeClassLoader(project);
             String data = FileUtil.getFileContent(new FileInputStream(configFile));
@@ -121,6 +122,9 @@ public class MojoUtils {
             if (Objects.nonNull(requestBodyAdvice) && StringUtil.isNotEmpty(requestBodyAdvice.getClassName())) {
                 requestBodyAdvice.setWrapperClass(getClassByClassName(requestBodyAdvice.getClassName(), classLoader));
             }
+
+            apiConfig.setIncrement(increment);
+            apiConfig.setBaseDir(project.getBasedir().getAbsolutePath());
 
             if (StringUtil.isEmpty(apiConfig.getProjectName()) && StringUtil.isEmpty(projectName)) {
                 apiConfig.setProjectName(project.getName());
