@@ -28,7 +28,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.power.common.util.FileUtil;
 import com.power.common.util.StringUtil;
-import com.power.doc.model.*;
+import com.ly.doc.model.*;
 import com.ly.doc.plugin.constant.GlobalConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.execution.MavenSession;
@@ -287,7 +287,7 @@ public class MojoUtils {
             if (log.isDebugEnabled()) {
                 log.debug(project.getName() + " parent is: " + mavenProject.getName());
             }
-            if (null != mavenProject) {
+            if (Objects.nonNull(mavenProject)) {
                 if (mavenProject.getBasedir() == null) {
                     return project.getBasedir();
                 } else {
