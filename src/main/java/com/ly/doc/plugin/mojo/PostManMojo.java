@@ -22,8 +22,8 @@
  */
 package com.ly.doc.plugin.mojo;
 
-import com.power.doc.builder.PostmanJsonBuilder;
-import com.power.doc.model.ApiConfig;
+import com.ly.doc.builder.PostmanJsonBuilder;
+import com.ly.doc.model.ApiConfig;
 import com.ly.doc.plugin.constant.MojoConstants;
 import com.thoughtworks.qdox.JavaProjectBuilder;
 import org.apache.maven.plugins.annotations.Execute;
