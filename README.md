@@ -1,6 +1,6 @@
 <h1 align="center">Smart-Doc Maven Plugin</h1>
 
-![maven](https://img.shields.io/maven-central/v/com.github.shalousun/smart-doc-maven-plugin)
+![maven](https://img.shields.io/maven-central/v/com.ly.smart-doc/smart-doc-maven-plugin)
 [![License](https://img.shields.io/badge/license-Apache%202-green.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 ![number of issues closed](https://img.shields.io/github/issues-closed-raw/smart-doc-group/smart-doc-maven-plugin)
 ![closed pull requests](https://img.shields.io/github/issues-pr-closed-raw/smart-doc-group/smart-doc-maven-plugin)
@@ -34,7 +34,7 @@ automatically push the documents to the Torna enterprise-level interface documen
 
 ```
 <plugin>
-    <groupId>com.github.shalousun</groupId>
+    <groupId>com.ly.smart-doc</groupId>
     <artifactId>smart-doc-maven-plugin</artifactId>
     <version>[latest version]</version>
     <configuration>
