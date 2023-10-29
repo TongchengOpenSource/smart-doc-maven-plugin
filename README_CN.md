@@ -180,4 +180,4 @@ the [LICENSE](https://gitee.com/smart-doc-team/smart-doc/blob/master/license.txt
 
 愿意参与构建`smart-doc`或者是需要交流问题可以加入qq群：
 
-<img src="https://gitee.com/smart-doc-team/smart-doc/raw/master/images/smart-doc-qq.png" title="qq群" width="200px" height="200px"/>
+<img src="https://gitee.com/smart-doc-team/smart-doc/raw/master/images/wechat.png" title="qq群" width="200px" height="200px"/>
