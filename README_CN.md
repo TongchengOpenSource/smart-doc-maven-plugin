@@ -1,8 +1,9 @@
-<h1 align="center"><a href="https://github.com/shalousun/smart-doc-maven-plugin" target="_blank">Smart-Doc Maven Plugin</a></h1>
+<h1 align="center"><a href="https://github.com/TongchengOpenSource/smart-doc-maven-plugin" target="_blank">Smart-Doc Maven Plugin</a></h1>
 
-![maven](https://img.shields.io/maven-central/v/com.github.shalousun/smart-doc-maven-plugin)
+![maven](https://img.shields.io/maven-central/v/com.ly.smart-doc/smart-doc-maven-plugin)
 [![License](https://img.shields.io/badge/license-Apache%202-green.svg)](https://www.apache.org/licenses/LICENSE-2.0)
-![closed pull requests](https://img.shields.io/github/issues-pr-closed-raw/shalousun/smart-doc-maven-plugin)
+![number of issues closed](https://img.shields.io/github/issues-closed-raw/smart-doc-group/smart-doc-maven-plugin)
+![closed pull requests](https://img.shields.io/github/issues-pr-closed-raw/smart-doc-group/smart-doc-maven-plugin)
 ![java version](https://img.shields.io/badge/JAVA-1.8+-green.svg)
 
 ## Introduce
@@ -30,7 +31,7 @@ smart-doc + [Torna](http://torna.cn) 组成行业领先的文档生成和管理�
 
 ```
 <plugin>
-    <groupId>com.github.shalousun</groupId>
+    <groupId>com.ly.smart-doc</groupId>
     <artifactId>smart-doc-maven-plugin</artifactId>
     <version>【最新版】</version>
     <configuration>
@@ -179,4 +180,4 @@ the [LICENSE](https://gitee.com/smart-doc-team/smart-doc/blob/master/license.txt
 
 愿意参与构建`smart-doc`或者是需要交流问题可以加入qq群：
 
-<img src="https://gitee.com/smart-doc-team/smart-doc/raw/master/images/smart-doc-qq.png" title="qq群" width="200px" height="200px"/>
+<img src="https://gitee.com/smart-doc-team/smart-doc/raw/master/images/wechat.png" title="qq群" width="200px" height="200px"/>
