@@ -107,6 +107,8 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
     private Set includes;
     @Parameter(property = "skip")
     private String skip;
+    @Parameter(property = "increment", defaultValue = "false")
+    private boolean increment;
     @Parameter(defaultValue = "${mojoExecution}")
     private MojoExecution mojoEx;
     private DependencyNode rootNode;
@@ -133,7 +135,7 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
         this.getLog().info("Smart-doc Start preparing sources at: " + DateTimeUtil.nowStrTime());
         projectArtifacts = project.getArtifacts().stream().map(moduleName -> moduleName.getGroupId() + ":" + moduleName.getArtifactId())
             .collect(Collectors.toList());
-        ApiConfig apiConfig = MojoUtils.buildConfig(configFile, projectName, project, projectBuilder, session, projectArtifacts, getLog());
+        ApiConfig apiConfig = MojoUtils.buildConfig(configFile, projectName, project, projectBuilder, session, projectArtifacts, increment, getLog());
         if (Objects.isNull(apiConfig)) {
             this.getLog().info(GlobalConstants.ERROR_MSG);
             return;
