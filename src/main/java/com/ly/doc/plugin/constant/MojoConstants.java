@@ -33,6 +33,8 @@ public interface MojoConstants {
 
     String MARKDOWN_MOJO = "markdown";
 
+    String JMETER_MOJO = "jmeter";
+
     String OPENAPI_MOJO = "openapi";
 
     String SWAGGER_MOJO = "swagger";
