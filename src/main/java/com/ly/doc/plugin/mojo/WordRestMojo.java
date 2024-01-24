@@ -37,7 +37,7 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
  * @author cqmike
  */
 @Execute(phase = LifecyclePhase.COMPILE)
-@Mojo(name = MojoConstants.WORD_REST_MOJO, requiresDependencyResolution = ResolutionScope.COMPILE)
+@Mojo(name = MojoConstants.WORD_MOJO, requiresDependencyResolution = ResolutionScope.COMPILE)
 public class WordRestMojo extends BaseDocsGeneratorMojo {
 
     @Override

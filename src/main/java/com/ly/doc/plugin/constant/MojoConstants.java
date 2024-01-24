@@ -51,5 +51,5 @@ public interface MojoConstants {
 
     String TORNA_RPC_MOJO = "torna-rpc";
 
-    String WORD_REST_MOJO = "word-rest";
+    String WORD_MOJO = "word";
 }
