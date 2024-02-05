@@ -90,6 +90,7 @@ public class CommonArtifactFilterChain implements FilterChain {
             case "java-driver-core":
             case "java-driver-query-builder":
             case "java-driver-mapper-runtime":
+            case "resteasy-core":
                 return true;
             default:
                 return this.ignore(filterChain, artifact);

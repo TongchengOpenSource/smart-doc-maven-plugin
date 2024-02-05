@@ -107,8 +107,8 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
     private Set includes;
     @Parameter(property = "skip")
     private String skip;
-    @Parameter(property = "increment", defaultValue = "false")
-    private boolean increment;
+    @Parameter(property = "increment")
+    private Boolean increment;
     @Parameter(defaultValue = "${mojoExecution}")
     private MojoExecution mojoEx;
     private DependencyNode rootNode;
