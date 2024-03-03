@@ -26,30 +26,73 @@ package com.ly.doc.plugin.constant;
  * @author yu 2021/10/30.
  */
 public interface MojoConstants {
-
+    /**
+     * api-adoc
+     */
     String ADOC_MOJO = "adoc";
 
+    /**
+     * api-html
+     */
     String HTML_MOJO = "html";
 
+    /**
+     * api-markdown
+     */
     String MARKDOWN_MOJO = "markdown";
 
+    /**
+     * api-jmeter
+     */
     String JMETER_MOJO = "jmeter";
 
+    /**
+     * api-openapi
+     */
     String OPENAPI_MOJO = "openapi";
 
+    /**
+     * api-swagger
+     */
     String SWAGGER_MOJO = "swagger";
 
+    /**
+     * api-postman
+     */
     String POSTMAN_MOJO = "postman";
 
+    /**
+     * api-word
+     */
+    String WORD_MOJO = "word";
+
+    /**
+     * rpc-adoc
+     */
     String RPC_ADOC_MOJO = "rpc-adoc";
 
+    /**
+     * rpc-html
+     */
     String RPC_HTML_MOJO = "rpc-html";
 
+    /**
+     * rpc-markdown
+     */
     String RPC_MARKDOWN_MOJO = "rpc-markdown";
 
+    /**
+     * torna-rest
+     */
     String TORNA_REST_MOJO = "torna-rest";
-
+    /**
+     * torna-rpc
+     */
     String TORNA_RPC_MOJO = "torna-rpc";
 
-    String WORD_MOJO = "word";
+
+    /**
+     * websocket markdown
+     */
+    String WEBSOCKET_MARKDOWN_MOJO = "websocket-markdown";
 }
