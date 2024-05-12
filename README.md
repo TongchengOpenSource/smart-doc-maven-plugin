@@ -98,20 +98,24 @@ please refer to the [official documentation](https://smart-doc-group.github.io/#
 #### Run plugin with maven command
 
 ```
-// Generate html
 mvn -Dfile.encoding=UTF-8 smart-doc:html
-// Generate markdown
+//  Generate document output to Markdown
 mvn -Dfile.encoding=UTF-8 smart-doc:markdown
-// Generate adoc
+// Generate document output to Adoc
 mvn -Dfile.encoding=UTF-8 smart-doc:adoc
-// Generate postman collection
+// Generate Postman.
 mvn -Dfile.encoding=UTF-8 smart-doc:postman
-// Generate Open Api 3.0+,Since 1.1.5
+// build Open Api 3.0+,Since smart-doc-maven-plugin 1.1.5
 mvn -Dfile.encoding=UTF-8 smart-doc:openapi
-// Generate document and send to Torna
+// Generate document and push to torna
 mvn -Dfile.encoding=UTF-8 smart-doc:torna-rest
+// Generate document output to Word.
+mvn -Dfile.encoding=UTF-8 smart-doc:word
+// Generate Jmeter performance pressure test scripts.
+mvn -Dfile.encoding=UTF-8 smart-doc:
 
-// For Apache Dubbo Rpc
+
+// Apache Dubbo RPC
 // Generate html
 mvn -Dfile.encoding=UTF-8 smart-doc:rpc-html
 // Generate markdown
@@ -157,8 +161,10 @@ you can directly find the plugin smart-doc plugin and click to generate API docu
 ![response-fields](https://images.gitee.com/uploads/images/2019/1231/223817_32bea6dc_144669.png "response.png")
 
 ## Building
+- `Maven` 3.8+
+- `JDK` 1.8+
 
-you can build with the following commands. (Java 1.8 is required to build the master branch)
+you can build with the following commands.
 
 ```
 mvn clean install -Dmaven.test.skip=true
