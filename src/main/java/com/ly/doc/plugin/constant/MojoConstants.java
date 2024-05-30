@@ -67,6 +67,21 @@ public interface MojoConstants {
     String WORD_MOJO = "word";
 
     /**
+     * javadoc-adoc
+     */
+    String JAVADOC_ADOC_MOJO = "javadoc-adoc";
+
+    /**
+     * javadoc-html
+     */
+    String JAVADOC_HTML_MOJO = "javadoc-html";
+
+    /**
+     * javadoc-markdown
+     */
+    String JAVADOC_MARKDOWN_MOJO = "javadoc-markdown";
+
+    /**
      * rpc-adoc
      */
     String RPC_ADOC_MOJO = "rpc-adoc";
