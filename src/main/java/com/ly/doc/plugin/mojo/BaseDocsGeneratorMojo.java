@@ -105,7 +105,7 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
     private Set excludes;
     @Parameter(required = false)
     private Set includes;
-    @Parameter(property = "skip")
+    @Parameter(property = "smartdoc.skip")
     private String skip;
     @Parameter(property = "increment")
     private Boolean increment;
