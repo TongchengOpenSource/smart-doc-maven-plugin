@@ -6,7 +6,7 @@
 
     <groupId>com.ly.smart-doc</groupId>
     <artifactId>smart-doc-maven-plugin</artifactId>
-    <version>3.0.4</version>
+    <version>3.0.5</version>
     <packaging>maven-plugin</packaging>
 
     <name>smart-doc-maven-plugin</name>
@@ -72,7 +72,7 @@
         <dependency>
             <groupId>com.ly.smart-doc</groupId>
             <artifactId>smart-doc</artifactId>
-            <version>3.0.4</version>
+            <version>3.0.5</version>
         </dependency>
     </dependencies>
     <build>
@@ -129,6 +129,17 @@
             <id>release</id>
             <build>
                 <plugins>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.6.13</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>oss01</serverId>
+                            <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
