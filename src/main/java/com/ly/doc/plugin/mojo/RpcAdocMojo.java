@@ -22,9 +22,9 @@
  */
 package com.ly.doc.plugin.mojo;
 
-import com.ly.doc.plugin.constant.MojoConstants;
 import com.ly.doc.builder.rpc.RpcAdocBuilder;
 import com.ly.doc.model.ApiConfig;
+import com.ly.doc.plugin.constant.MojoConstants;
 import com.thoughtworks.qdox.JavaProjectBuilder;
 import org.apache.maven.plugins.annotations.Execute;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -40,13 +40,6 @@ public class RpcAdocMojo extends BaseDocsGeneratorMojo {
 
     @Override
     public void executeMojo(ApiConfig apiConfig, JavaProjectBuilder javaProjectBuilder) {
-        try {
-            RpcAdocBuilder.buildApiDoc(apiConfig, javaProjectBuilder);
-        } catch (Throwable e) {
-            getLog().error(e);
-            if (apiConfig.isStrict()) {
-                throw new RuntimeException(e.getMessage());
-            }
-        }
+        RpcAdocBuilder.buildApiDoc(apiConfig, javaProjectBuilder);
     }
 }

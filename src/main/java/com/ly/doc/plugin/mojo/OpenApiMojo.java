@@ -37,18 +37,11 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
  * @author yu 2020/8/19.
  */
 @Execute(phase = LifecyclePhase.COMPILE)
-@Mojo(name = MojoConstants.OPENAPI_MOJO, requiresDependencyResolution = ResolutionScope.COMPILE)
+@Mojo(name = MojoConstants.HTML_MOJO, requiresDependencyResolution = ResolutionScope.COMPILE)
 public class OpenApiMojo extends BaseDocsGeneratorMojo {
 
     @Override
     public void executeMojo(ApiConfig apiConfig, JavaProjectBuilder javaProjectBuilder) {
-        try {
-            OpenApiBuilder.buildOpenApi(apiConfig, javaProjectBuilder);
-        } catch (Throwable e) {
-            getLog().error(e);
-            if (apiConfig.isStrict()) {
-                throw new RuntimeException(e.getMessage());
-            }
-        }
+        OpenApiBuilder.buildOpenApi(apiConfig, javaProjectBuilder);
     }
 }

@@ -22,9 +22,9 @@
  */
 package com.ly.doc.plugin.mojo;
 
-import com.ly.doc.plugin.constant.MojoConstants;
 import com.ly.doc.builder.openapi.SwaggerBuilder;
 import com.ly.doc.model.ApiConfig;
+import com.ly.doc.plugin.constant.MojoConstants;
 import com.thoughtworks.qdox.JavaProjectBuilder;
 import org.apache.maven.plugins.annotations.Execute;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -40,15 +40,9 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
 @Execute(phase = LifecyclePhase.COMPILE)
 @Mojo(name = MojoConstants.SWAGGER_MOJO, requiresDependencyResolution = ResolutionScope.COMPILE)
 public class SwaggerMojo extends BaseDocsGeneratorMojo {
+
     @Override
     public void executeMojo(ApiConfig apiConfig, JavaProjectBuilder javaProjectBuilder) {
-        try {
-            SwaggerBuilder.buildOpenApi(apiConfig, javaProjectBuilder);
-        } catch (Throwable e) {
-            getLog().error(e);
-            if (apiConfig.isStrict()) {
-                throw new RuntimeException(e.getMessage());
-            }
-        }
+        SwaggerBuilder.buildOpenApi(apiConfig, javaProjectBuilder);
     }
 }

@@ -27,8 +27,6 @@ import com.ly.doc.builder.HtmlApiDocBuilder;
 import com.ly.doc.model.ApiConfig;
 import com.ly.doc.plugin.constant.MojoConstants;
 import com.thoughtworks.qdox.JavaProjectBuilder;
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Execute;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
@@ -43,14 +41,7 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
 public class HtmlMojo extends BaseDocsGeneratorMojo {
 
     @Override
-    public void executeMojo(ApiConfig apiConfig, JavaProjectBuilder javaProjectBuilder) throws MojoExecutionException, MojoFailureException {
-        try {
-            HtmlApiDocBuilder.buildApiDoc(apiConfig, javaProjectBuilder);
-        } catch (Throwable e) {
-            getLog().error(e);
-            if (apiConfig.isStrict()) {
-                throw new RuntimeException(e.getMessage());
-            }
-        }
+    public void executeMojo(ApiConfig apiConfig, JavaProjectBuilder javaProjectBuilder) {
+        HtmlApiDocBuilder.buildApiDoc(apiConfig, javaProjectBuilder);
     }
 }

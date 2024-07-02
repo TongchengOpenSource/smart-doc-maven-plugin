@@ -228,7 +228,7 @@ public class MojoUtils {
      * @param referenceMavenProject target reference map
      * @param sourceProject         source reference map
      */
-    public static void addByProjectReference(Map<String, MavenProject> referenceMavenProject, Map<String, MavenProject> sourceProject) {
+    private static void addByProjectReference(Map<String, MavenProject> referenceMavenProject, Map<String, MavenProject> sourceProject) {
         if (sourceProject.isEmpty()) {
             return;
         }
@@ -247,7 +247,7 @@ public class MojoUtils {
      * @param log            log
      * @return Map
      */
-    public static Map<String, MavenProject> collectProject(MavenProject project, ProjectBuilder projectBuilder, MavenSession session, Log log) {
+    private static Map<String, MavenProject> collectProject(MavenProject project, ProjectBuilder projectBuilder, MavenSession session, Log log) {
         Map<String, MavenProject> mavenProjects = new HashMap<>(40);
         List<String> pomPath = new ArrayList<>();
         getPomFilePath(getRootPath(project, log), pomPath);

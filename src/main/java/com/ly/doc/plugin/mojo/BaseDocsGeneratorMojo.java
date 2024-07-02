@@ -165,7 +165,14 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
         if (!MojoConstants.TORNA_RPC_MOJO.equals(goal) && !MojoConstants.TORNA_REST_MOJO.equals(goal)) {
             getLog().info("API documentation is output to => " + apiConfig.getOutPath().replace("\\", "/"));
         }
-        this.executeMojo(apiConfig, javaProjectBuilder);
+        try {
+            this.executeMojo(apiConfig, javaProjectBuilder);
+        } catch (Exception e) {
+            getLog().error(e);
+            if (apiConfig.isStrict()) {
+                throw new MojoExecutionException(e.getMessage(), e);
+            }
+        }
     }
 
 

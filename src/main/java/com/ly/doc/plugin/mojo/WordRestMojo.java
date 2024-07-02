@@ -44,11 +44,8 @@ public class WordRestMojo extends BaseDocsGeneratorMojo {
     public void executeMojo(ApiConfig apiConfig, JavaProjectBuilder javaProjectBuilder) {
         try {
             WordDocBuilder.buildApiDoc(apiConfig, javaProjectBuilder);
-        } catch (Throwable e) {
-            getLog().error(e);
-            if (apiConfig.isStrict()) {
-                throw new RuntimeException(e.getMessage());
-            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 }

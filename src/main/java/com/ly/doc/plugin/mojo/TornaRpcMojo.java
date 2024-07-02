@@ -22,9 +22,9 @@
  */
 package com.ly.doc.plugin.mojo;
 
-import com.ly.doc.plugin.constant.MojoConstants;
 import com.ly.doc.builder.rpc.RpcTornaBuilder;
 import com.ly.doc.model.ApiConfig;
+import com.ly.doc.plugin.constant.MojoConstants;
 import com.thoughtworks.qdox.JavaProjectBuilder;
 import org.apache.maven.plugins.annotations.Execute;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -42,13 +42,6 @@ public class TornaRpcMojo extends BaseDocsGeneratorMojo {
 
     @Override
     public void executeMojo(ApiConfig apiConfig, JavaProjectBuilder javaProjectBuilder) {
-        try {
-            RpcTornaBuilder.buildApiDoc(apiConfig, javaProjectBuilder);
-        } catch (Throwable e) {
-            getLog().error(e);
-            if (apiConfig.isStrict()) {
-                throw new RuntimeException(e.getMessage());
-            }
-        }
+        RpcTornaBuilder.buildApiDoc(apiConfig, javaProjectBuilder);
     }
 }

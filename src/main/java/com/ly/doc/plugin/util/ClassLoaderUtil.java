@@ -22,13 +22,11 @@
  */
 package com.ly.doc.plugin.util;
 
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.project.MavenProject;
-
 import java.io.File;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.List;
+import org.apache.maven.project.MavenProject;
 
 /**
  * https://github.com/jboz/living-documentation
@@ -41,9 +39,8 @@ public class ClassLoaderUtil {
      *
      * @param project MavenProject
      * @return ClassLoader
-     * @throws MojoExecutionException dd
      */
-    public static ClassLoader getRuntimeClassLoader(MavenProject project) throws MojoExecutionException {
+    public static ClassLoader getRuntimeClassLoader(MavenProject project) {
         try {
             List<String> runtimeClasspathElements = project.getRuntimeClasspathElements();
             List<String> compileClasspathElements = project.getCompileClasspathElements();
@@ -59,7 +56,7 @@ public class ClassLoaderUtil {
             }
             return new URLClassLoader(runtimeUrls, Thread.currentThread().getContextClassLoader());
         } catch (Exception e) {
-            throw new MojoExecutionException("Unable to load project runtime !", e);
+            throw new RuntimeException("Unable to load project runtime !", e);
         }
     }
 }

@@ -37,13 +37,6 @@ public class JavadocMarkdownMojo extends BaseDocsGeneratorMojo {
 
     @Override
     public void executeMojo(ApiConfig apiConfig, JavaProjectBuilder javaProjectBuilder) {
-        try {
-            JavadocMarkdownBuilder.buildApiDoc(apiConfig, javaProjectBuilder);
-        } catch (Throwable e) {
-            getLog().error(e);
-            if (apiConfig.isStrict()) {
-                throw new RuntimeException(e.getMessage());
-            }
-        }
+        JavadocMarkdownBuilder.buildApiDoc(apiConfig, javaProjectBuilder);
     }
 }
