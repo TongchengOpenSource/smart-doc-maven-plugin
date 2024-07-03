@@ -38,7 +38,11 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
  * Date 2022/10/13 21:31
  */
 @Execute(phase = LifecyclePhase.COMPILE)
-@Mojo(name = MojoConstants.SWAGGER_MOJO, requiresDependencyResolution = ResolutionScope.COMPILE)
+@Mojo(
+    name = MojoConstants.SWAGGER_MOJO,
+    defaultPhase = LifecyclePhase.COMPILE,
+    requiresDependencyResolution = ResolutionScope.COMPILE
+)
 public class SwaggerMojo extends BaseDocsGeneratorMojo {
 
     @Override

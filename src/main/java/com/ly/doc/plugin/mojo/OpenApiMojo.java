@@ -37,7 +37,11 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
  * @author yu 2020/8/19.
  */
 @Execute(phase = LifecyclePhase.COMPILE)
-@Mojo(name = MojoConstants.HTML_MOJO, requiresDependencyResolution = ResolutionScope.COMPILE)
+@Mojo(
+    name = MojoConstants.OPENAPI_MOJO,
+    defaultPhase = LifecyclePhase.COMPILE,
+    requiresDependencyResolution = ResolutionScope.COMPILE
+)
 public class OpenApiMojo extends BaseDocsGeneratorMojo {
 
     @Override
