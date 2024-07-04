@@ -4,13 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.ly.smart-doc</groupId>
+    <groupId>io.github.xezzon</groupId>
     <artifactId>smart-doc-maven-plugin</artifactId>
     <version>3.0.5</version>
     <packaging>maven-plugin</packaging>
 
     <name>smart-doc-maven-plugin</name>
-    <url>https://github.com/TongchengOpenSource/smart-doc-maven-plugin.git</url>
+    <url>https://github.com/xezzon/smart-doc-maven-plugin.git</url>
     <description>smart-doc maven plugin</description>
 
     <licenses>
@@ -21,15 +21,20 @@
         </license>
     </licenses>
     <scm>
-        <url>https://github.com/TongchengOpenSource/smart-doc-maven-plugin.git</url>
-        <connection>scm:https://github.com/TongchengOpenSource/smart-doc-maven-plugin.git</connection>
-        <developerConnection>scm:https://github.com/TongchengOpenSource/smart-doc-maven-plugin.git</developerConnection>
+        <url>https://github.com/xezzon/smart-doc-maven-plugin.git</url>
+        <connection>scm:https://github.com/xezzon/smart-doc-maven-plugin.git</connection>
+        <developerConnection>scm:https://github.com/xezzon/smart-doc-maven-plugin.git</developerConnection>
     </scm>
     <developers>
         <developer>
             <name>shalousun</name>
             <email>836575280@qq.com</email>
             <url>https://github.com/shalousun</url>
+        </developer>
+        <developer>
+            <name>xezzon</name>
+            <email>xezzon@outlook.com</email>
+            <url>https://github.com/xezzon</url>
         </developer>
     </developers>
 
