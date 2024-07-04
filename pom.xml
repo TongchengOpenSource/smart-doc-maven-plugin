@@ -43,6 +43,7 @@
         <maven.pluging.version>3.8.6</maven.pluging.version>
         <maven.pluging.annotations.version>3.8.2</maven.pluging.annotations.version>
         <maven.reporting.version>3.1.1</maven.reporting.version>
+        <maven-site-plugin.version>3.12.1</maven-site-plugin.version>
     </properties>
     <dependencies>
         <dependency>
@@ -87,6 +88,15 @@
         </dependency>
     </dependencies>
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>${maven-site-plugin.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -176,6 +186,16 @@
                     <id>oss01</id>
                     <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
                 </repository>
+            </distributionManagement>
+        </profile>
+        <profile>
+            <id>report</id>
+            <distributionManagement>
+                <site>
+                    <id>github</id>
+                    <name>Github Pages</name>
+                    <url>https://xezzon.github.io/smart-doc-maven-plugin</url>
+                </site>
             </distributionManagement>
         </profile>
     </profiles>
