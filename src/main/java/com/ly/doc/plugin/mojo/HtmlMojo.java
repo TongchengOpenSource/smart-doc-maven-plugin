@@ -27,21 +27,53 @@ import com.ly.doc.builder.HtmlApiDocBuilder;
 import com.ly.doc.model.ApiConfig;
 import com.ly.doc.plugin.constant.MojoConstants;
 import com.thoughtworks.qdox.JavaProjectBuilder;
+
+import java.util.Locale;
+
+import org.apache.maven.doxia.sink.Sink;
+import org.apache.maven.doxia.sink.SinkFactory;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Execute;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.ResolutionScope;
-
+import org.apache.maven.reporting.MavenMultiPageReport;
+import org.apache.maven.reporting.MavenReportException;
 
 /**
  * @author xingzi 2019/12/06 14:50
  */
 @Execute(phase = LifecyclePhase.COMPILE)
 @Mojo(name = MojoConstants.HTML_MOJO, requiresDependencyResolution = ResolutionScope.COMPILE)
-public class HtmlMojo extends BaseDocsGeneratorMojo {
+public class HtmlMojo extends BaseDocsGeneratorMojo implements MavenMultiPageReport {
 
     @Override
     public void executeMojo(ApiConfig apiConfig, JavaProjectBuilder javaProjectBuilder) {
         HtmlApiDocBuilder.buildApiDoc(apiConfig, javaProjectBuilder);
+    }
+
+    @Override
+    public void generate(Sink sink, SinkFactory sinkFactory, Locale locale)
+        throws MavenReportException {
+        try {
+            super.execute();
+        } catch (MojoExecutionException | MojoFailureException e) {
+            throw new MavenReportException(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public void generate(org.codehaus.doxia.sink.Sink sink, Locale locale) throws MavenReportException {
+        generate(sink, null, locale);
+    }
+
+    public void generate(Sink sink, Locale locale) throws MavenReportException {
+        generate(sink, null, locale);
+    }
+
+    @Override
+    public String getName(Locale locale) {
+        return "Smart Doc HTTP API";
     }
 }

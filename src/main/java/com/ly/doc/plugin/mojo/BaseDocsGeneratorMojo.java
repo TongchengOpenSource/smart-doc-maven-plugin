@@ -72,6 +72,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.DefaultProjectBuildingRequest;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.ProjectBuildingRequest;
+import org.apache.maven.reporting.MavenReport;
 import org.apache.maven.repository.RepositorySystem;
 import org.apache.maven.shared.dependency.graph.DependencyGraphBuilder;
 import org.apache.maven.shared.dependency.graph.DependencyGraphBuilderException;
@@ -81,6 +82,8 @@ import org.apache.maven.shared.dependency.graph.DependencyNode;
  * @author xezzon
  */
 public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
+
+    private static final String DESTINATION_DIR = "smart-doc";
 
     @Parameter(defaultValue = "${project}", readonly = true, required = true)
     protected MavenProject project;
@@ -499,6 +502,7 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
     private Boolean addDefaultHttpStatuses;
 
     protected final ApiConfig apiConfig = new ApiConfig();
+    private File reportOutputDirectory;
 
     protected abstract void executeMojo(ApiConfig apiConfig, JavaProjectBuilder javaProjectBuilder);
 
@@ -528,7 +532,7 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
     }
 
     private void buildApiConfig() {
-        apiConfig.setOutPath(this.outputDirectory.getAbsolutePath());
+        apiConfig.setOutPath(getOutPath());
         apiConfig.setBaseDir(project.getBasedir().getAbsolutePath());
         apiConfig.setCodePath(project.getBuild().getSourceDirectory());
         apiConfig.setClassLoader(ClassLoaderUtil.getRuntimeClassLoader(project));
@@ -588,6 +592,47 @@ public abstract class BaseDocsGeneratorMojo extends AbstractMojo {
         apiConfig.setShowValidation(showValidation);
         apiConfig.setJmeter(jmeter);
         apiConfig.setAddDefaultHttpStatuses(addDefaultHttpStatuses);
+    }
+
+    public String getOutputDirectory() {
+        return outputDirectory.getAbsolutePath();
+    }
+
+    public String getOutputName() {
+        return DESTINATION_DIR + "/api";
+    }
+
+    public String getCategoryName() {
+        return MavenReport.CATEGORY_PROJECT_REPORTS;
+    }
+
+    public String getDescription(Locale locale) {
+        return project.getDescription();
+    }
+
+    public void setReportOutputDirectory(File reportOutputDirectory) {
+        if (this.reportOutputDirectory == null) {
+            this.reportOutputDirectory = new File(reportOutputDirectory, DESTINATION_DIR);
+        }
+    }
+
+    public File getReportOutputDirectory() {
+        if (reportOutputDirectory == null) {
+            return new File(this.getOutputDirectory());
+        }
+        return reportOutputDirectory;
+    }
+
+    public boolean isExternalReport() {
+        return true;
+    }
+
+    public boolean canGenerateReport() {
+        return !skip;
+    }
+
+    protected String getOutPath() {
+        return getReportOutputDirectory().getAbsolutePath();
     }
 
     /**
