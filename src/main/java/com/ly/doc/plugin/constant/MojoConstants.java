@@ -110,4 +110,19 @@ public interface MojoConstants {
      * websocket markdown
      */
     String WEBSOCKET_MARKDOWN_MOJO = "websocket-markdown";
+
+    /**
+     * grpc markdown.
+     */
+    String GRPC_MARKDOWN_MOJO = "grpc-markdown";
+
+    /**
+     * grpc html.
+     */
+    String GRPC_HTML_MOJO = "grpc-html";
+
+    /**
+     * grpc adoc.
+     */
+    String GRPC_ADOC_MOJO = "grpc-adoc";
 }
