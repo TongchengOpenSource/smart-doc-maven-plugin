@@ -1,7 +1,7 @@
 /*
  * smart-doc
  *
- * Copyright (C) 2018-2023 smart-doc
+ * Copyright (C) 2018-2024 smart-doc
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -22,18 +22,10 @@
  */
 package com.ly.doc.plugin.mojo;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
-import java.util.stream.Collectors;
-
+import com.ly.doc.helper.JavaProjectBuilderHelper;
+import com.ly.doc.model.ApiConfig;
+import com.ly.doc.plugin.constant.GlobalConstants;
+import com.ly.doc.plugin.constant.MojoConstants;
 import com.ly.doc.plugin.util.ArtifactFilterUtil;
 import com.ly.doc.plugin.util.ClassLoaderUtil;
 import com.ly.doc.plugin.util.FileUtil;
@@ -43,13 +35,8 @@ import com.power.common.util.CollectionUtil;
 import com.power.common.util.DateTimeUtil;
 import com.power.common.util.RegexUtil;
 import com.power.common.util.StringUtil;
-import com.ly.doc.helper.JavaProjectBuilderHelper;
-import com.ly.doc.model.ApiConfig;
-import com.ly.doc.plugin.constant.GlobalConstants;
-import com.ly.doc.plugin.constant.MojoConstants;
 import com.thoughtworks.qdox.JavaProjectBuilder;
 import com.thoughtworks.qdox.library.SortedClassLibraryBuilder;
-
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.artifact.resolver.ArtifactResolutionRequest;
@@ -71,6 +58,14 @@ import org.apache.maven.repository.RepositorySystem;
 import org.apache.maven.shared.dependency.graph.DependencyGraphBuilder;
 import org.apache.maven.shared.dependency.graph.DependencyGraphBuilderException;
 import org.apache.maven.shared.dependency.graph.DependencyNode;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.*;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
+import java.util.stream.Collectors;
 
 
 /**
