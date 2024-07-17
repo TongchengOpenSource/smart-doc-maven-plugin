@@ -1,7 +1,7 @@
 /*
  * smart-doc
  *
- * Copyright (C) 2018-2023 smart-doc
+ * Copyright (C) 2018-2024 smart-doc
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -110,4 +110,19 @@ public interface MojoConstants {
      * websocket markdown
      */
     String WEBSOCKET_MARKDOWN_MOJO = "websocket-markdown";
+
+    /**
+     * grpc markdown.
+     */
+    String GRPC_MARKDOWN_MOJO = "grpc-markdown";
+
+    /**
+     * grpc html.
+     */
+    String GRPC_HTML_MOJO = "grpc-html";
+
+    /**
+     * grpc adoc.
+     */
+    String GRPC_ADOC_MOJO = "grpc-adoc";
 }

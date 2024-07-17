@@ -22,7 +22,7 @@
  */
 package com.ly.doc.plugin.mojo;
 
-import com.ly.doc.builder.javadoc.JavadocMarkdownBuilder;
+import com.ly.doc.builder.grpc.GrpcHtmlBuilder;
 import com.ly.doc.model.ApiConfig;
 import com.ly.doc.plugin.constant.MojoConstants;
 import com.thoughtworks.qdox.JavaProjectBuilder;
@@ -31,14 +31,20 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.ResolutionScope;
 
+/**
+ * grpc-markdown
+ *
+ * @author linwumingshi
+ * @since 3.0.7
+ */
 @Execute(phase = LifecyclePhase.COMPILE)
-@Mojo(name = MojoConstants.JAVADOC_MARKDOWN_MOJO, requiresDependencyResolution = ResolutionScope.COMPILE)
-public class JavadocMarkdownMojo extends BaseDocsGeneratorMojo {
+@Mojo(name = MojoConstants.GRPC_HTML_MOJO, requiresDependencyResolution = ResolutionScope.COMPILE)
+public class GrpcMarkdownMojo extends BaseDocsGeneratorMojo {
 
     @Override
     public void executeMojo(ApiConfig apiConfig, JavaProjectBuilder javaProjectBuilder) {
         try {
-            JavadocMarkdownBuilder.buildApiDoc(apiConfig, javaProjectBuilder);
+            GrpcHtmlBuilder.buildApiDoc(apiConfig, javaProjectBuilder);
         } catch (Throwable e) {
             getLog().error(e);
             if (apiConfig.isStrict()) {
