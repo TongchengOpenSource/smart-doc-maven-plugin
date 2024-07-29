@@ -22,7 +22,7 @@
  */
 package com.ly.doc.plugin.mojo;
 
-import com.ly.doc.builder.websocket.WebSocketMarkdownBuilder;
+import com.ly.doc.builder.websocket.WebSocketHtmlBuilder;
 import com.ly.doc.model.ApiConfig;
 import com.ly.doc.plugin.constant.MojoConstants;
 import com.thoughtworks.qdox.JavaProjectBuilder;
@@ -34,19 +34,19 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.ResolutionScope;
 
 /**
- * websocket Markdown
+ * websocket Html
  *
  * @author linwumingshi
- * @since 3.0.3
+ * @since 3.0.7
  */
 @Execute(phase = LifecyclePhase.COMPILE)
-@Mojo(name = MojoConstants.WEBSOCKET_MARKDOWN_MOJO, requiresDependencyResolution = ResolutionScope.COMPILE)
-public class WebSocketMarkdownMojo extends BaseDocsGeneratorMojo {
+@Mojo(name = MojoConstants.WEBSOCKET_HTML_MOJO, requiresDependencyResolution = ResolutionScope.COMPILE)
+public class WebSocketHtmlMojo extends BaseDocsGeneratorMojo {
 
     @Override
     public void executeMojo(ApiConfig apiConfig, JavaProjectBuilder javaProjectBuilder) throws MojoExecutionException, MojoFailureException {
         try {
-            WebSocketMarkdownBuilder.buildApiDoc(apiConfig, javaProjectBuilder);
+            WebSocketHtmlBuilder.buildApiDoc(apiConfig, javaProjectBuilder);
         } catch (Exception e) {
             getLog().error(e);
             if (apiConfig.isStrict()) {
