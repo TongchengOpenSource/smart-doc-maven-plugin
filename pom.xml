@@ -34,7 +34,7 @@
     </developers>
 
     <properties>
-        <smart-doc.version>3.0.7</smart-doc.version>
+        <smart-doc.version>3.0.8</smart-doc.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.pluging.version>3.8.6</maven.pluging.version>
         <maven.pluging.annotations.version>3.8.2</maven.pluging.annotations.version>
