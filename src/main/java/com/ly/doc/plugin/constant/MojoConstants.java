@@ -87,6 +87,11 @@ public interface MojoConstants {
     String RPC_ADOC_MOJO = "rpc-adoc";
 
     /**
+     * rpc-word
+     */
+    String RPC_WORD_MOJO = "rpc-word";
+
+    /**
      * rpc-html
      */
     String RPC_HTML_MOJO = "rpc-html";
