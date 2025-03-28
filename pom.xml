@@ -34,7 +34,7 @@
     </developers>
 
     <properties>
-        <smart-doc.version>3.0.9</smart-doc.version>
+        <smart-doc.version>3.1.0</smart-doc.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.pluging.version>3.8.6</maven.pluging.version>
         <maven.pluging.annotations.version>3.8.2</maven.pluging.annotations.version>
@@ -133,7 +133,7 @@
                     <plugin>
                         <groupId>org.sonatype.central</groupId>
                         <artifactId>central-publishing-maven-plugin</artifactId>
-                        <version>0.5.0</version>
+                        <version>0.7.0</version>
                         <extensions>true</extensions>
                         <configuration>
                             <publishingServerId>central-ly</publishingServerId>
